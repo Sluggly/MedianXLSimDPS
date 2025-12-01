@@ -1,0 +1,15 @@
+Hello, I am a PHD Student working on a HTML/JS/CSS project.
+I want to make a DPS Simulator for the latest version of Diablo 2 Median XL 2.12.6 version.
+The wiki of the mod can be found here : https://docs.median-xl.com/
+Since this is a big project and there are a lot of different abilities in the game which damage are calculated very differently, I want to target some specific spells first.
+This project will need to take EVERYTHING into account and will grow after each iteration.
+Character data will be loaded from json files (skills, equipped items, charms ect...). We will gather the different stats from each item from the json and calculate the final result for each stats as it is done in game.
+For this project I have some already established code and my own data structure.
+We will need to change it as the project evolves to be more maintainable and modulable.
+Here is the actual code for the DPS Simulator :
+
+I would like for you to assist me in developping this project.
+For now character data is hardcoded into the data.js file. I would like for it to be stored into a json file.
+Please help me setup the code for reading the json file for a character. The website needs a button load character data.
+When adding code or modifying code, please do not rewrite the content of the whole file, just tell me where to add/modify the lines.
+For anything I suggest if you think there are better methods (as in more efficient or provides better results) then please suggest them to me.

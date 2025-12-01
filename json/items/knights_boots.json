@@ -1,0 +1,10 @@
+{
+  "name": "Knight Boots",
+  "slot": "Boots",
+  "type": "Boots",
+  "stats": {
+    "Strength": 10,
+    "SpellDamage": 5
+  },
+  "socketed": null
+}

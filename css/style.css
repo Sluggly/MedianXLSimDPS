@@ -1,0 +1,151 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card Styling */
+.card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #2c2c2c;
+    border-bottom: 1px solid #444;
+    color: #d4af37; /* Gold color */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Selection Items (Char, Skill, Enemy) */
+.selectable-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.2s;
+    background-color: #252525;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.selectable-item:hover {
+    background-color: #333;
+}
+
+.selectable-item.active {
+    border-color: #b30000; /* Diablo Red */
+    background-color: #2a1a1a;
+    box-shadow: 0 0 10px rgba(179, 0, 0, 0.5);
+}
+
+.selectable-item img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 0 auto 5px auto;
+    object-fit: cover;
+}
+
+.item-name {
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* Button Styling */
+.btn-diablo {
+    background-color: #800000;
+    color: white;
+    border: 1px solid #a00000;
+}
+
+.btn-diablo:hover {
+    background-color: #a00000;
+    color: #fff;
+}
+
+/* Results Section */
+.stat-line {
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+}
+.stat-value {
+    color: #4cd137; /* Green for stats */
+    float: right;
+}
+.dps-result {
+    font-size: 1.5rem;
+    color: #e1b12c;
+    text-align: center;
+    margin-top: 15px;
+}
+.nav-link {
+    color: #a0a0a0;
+    font-weight: bold;
+    cursor: pointer;
+}
+.nav-link.active {
+    color: #fff !important;
+    background-color: #343a40 !important;
+    border-color: #800000 !important;
+    border-bottom-color: #343a40 !important;
+}
+.jumbotron {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/bg_pattern.jpg'); 
+    background-size: cover;
+}
+/* Tooltip Container */
+.item-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+/* Tooltip Text */
+.item-icon-container .custom-tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: #000;
+    color: #4cd137; /* Magic Item Green */
+    text-align: left;
+    border: 1px solid #d4af37;
+    padding: 10px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1050;
+    bottom: 125%; /* Position above */
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.85rem;
+    white-space: pre-wrap; /* Handle newlines */
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.8);
+}
+
+.item-icon-container:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Character Tab Input styles */
+.stat-input {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    color: white;
+    width: 80px;
+    text-align: center;
+}
+
+/* Equipment Grid */
+.equip-slot {
+    border: 1px solid #444;
+    background-color: #1e1e1e;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,267 @@
+<!doctype html>
+<html style="height:100%" lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Median XL Sim Dps</title>
+</head>
+    
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary mb-4">
+    <a class="navbar-brand" href="#">MXL DPS Sim <small class="text-muted">v0.2</small></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="switchTab('home')">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="switchTab('sim')">DPS Simulator</a>
+            </li>  
+			<li class="nav-item">
+				<a class="nav-link" href="#" onclick="switchTab('character')">Character</a>
+			</li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="switchTab('upgrade')">Stats Upgrade</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="switchTab('about')">About Me</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <!-- TAB: HOME -->
+    <div id="tab-home" class="tab-content">
+        <div class="jumbotron bg-dark text-white border border-secondary">
+            <h1 class="display-4 text-danger">Welcome, Hero</h1>
+            <p class="lead">This tool allows you to simulate damage for Diablo 2 Median XL characters.</p>
+            <hr class="my-4" style="background-color: #555;">
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>Load Character data from JSON.</li>
+                <li>Simulate Spell Damage vs Specific Enemies.</li>
+                <li>Calculate specific Stat Upgrades efficiency.</li>
+            </ul>
+            <p class="lead">
+                <a class="btn btn-diablo btn-lg" href="#" role="button" onclick="switchTab('sim')">Start Simulator</a>
+                <a class="btn btn-secondary btn-lg" href="https://github.com/YourGitUsername/YourRepo" target="_blank" role="button">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- TAB: DPS SIMULATOR -->
+    <div id="tab-sim" class="tab-content" style="display:none;">
+        <div class="row">
+            <!-- LEFT: Character -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">1. Character</div>
+                    <div class="card-body">
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="jsonFileInput" accept=".json">
+                            <label class="custom-file-label" for="jsonFileInput">Load JSON...</label>
+                        </div>
+                        <div id="character-list" class="row no-gutters"></div>
+                        <div id="character-stats-preview" class="mt-3 border-top pt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MIDDLE: Configuration -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">2. Select Skill</div>
+                    <div class="card-body">
+                        <div id="skill-list" class="row"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">3. Select Enemy</div>
+                    <div class="card-body">
+                        <div id="enemy-list" class="row"></div>
+                        <div id="enemy-stats-preview" class="mt-3 pt-3 border-top" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Results -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">4. Simulation</div>
+                    <div class="card-body text-center">
+                        <button id="btn-simulate" class="btn btn-diablo btn-lg btn-block">CALCULATE DPS</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Results</div>
+                    <div class="card-body" id="simulation-results">
+                        <div class="text-muted text-center">Select inputs to simulate.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- TAB: CHARACTER EDIT -->
+    <div id="tab-character" class="tab-content" style="display:none;">
+        <div class="row">
+            
+            <!-- LEFT: Character Stats -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Stats</span>
+                        <button class="btn btn-sm btn-diablo" onclick="downloadCharacterJSON()">Export JSON</button>
+                    </div>
+                    <div class="card-body">
+                        <!-- Basic Info -->
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Name</label>
+                            <div class="col-sm-8"><input type="text" class="form-control bg-dark text-white" id="edit-char-name" readonly></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Level</label>
+                            <div class="col-sm-8"><input type="number" class="form-control stat-input" id="edit-char-level" onchange="updateCharStat('level', this.value)"></div>
+                        </div>
+
+                        <hr style="background-color:#444">
+
+                        <!-- Attributes -->
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label text-danger">Strength</label>
+                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-str" onchange="updateCharStat('str', this.value)"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label text-success">Dexterity</label>
+                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-dex" onchange="updateCharStat('dex', this.value)"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label text-primary">Vitality</label>
+                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-vit" onchange="updateCharStat('vit', this.value)"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label text-info">Energy</label>
+                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-ene" onchange="updateCharStat('ene', this.value)"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label text-warning">Spell Focus</label>
+                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-focus" onchange="updateCharStat('focus', this.value)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipped Gear -->
+                <div class="card mt-3">
+                    <div class="card-header">Equipped Gear</div>
+                    <div class="card-body p-2" id="equipped-gear-list">
+                        <!-- JS renders slots here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Item Library -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Item Library</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label>Load Items (Select JSON files from items folder):</label>
+                            <div class="custom-file">
+                                <!-- 'multiple' allows selecting all jsons in a folder -->
+                                <input type="file" class="custom-file-input" id="libraryFileInput" accept=".json" multiple>
+                                <label class="custom-file-label">Choose Item JSONs...</label>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                            <table class="table table-dark table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">Icon</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="item-library-body">
+                                    <tr><td colspan="4" class="text-center text-muted">Load items to see list</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TAB: STATS UPGRADE -->
+    <div id="tab-upgrade" class="tab-content" style="display:none;">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="alert alert-dark border-secondary">
+                    <strong>Note:</strong> This tool uses the Character/Skill/Enemy currently selected in the <strong>DPS Simulator</strong> tab.
+                </div>
+            </div>
+            
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">Efficiency Calculation</div>
+                    <div class="card-body">
+                        <p>This calculates how much <strong>Average DPS</strong> you gain by adding specific stats.</p>
+                        <button id="btn-upgrade-calc" class="btn btn-diablo btn-block">CALCULATE UPGRADES</button>
+                    </div>
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-header">Upgrade Gains</div>
+                    <div class="card-body">
+                        <table class="table table-dark table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Stat Added</th>
+                                    <th class="text-right">DPS Gain</th>
+                                    <th class="text-right">% Increase</th>
+                                </tr>
+                            </thead>
+                            <tbody id="upgrade-results-body">
+                                <tr><td colspan="3" class="text-center text-muted">Click Calculate to see results</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: ABOUT -->
+    <div id="tab-about" class="tab-content" style="display:none;">
+        <div class="card bg-dark text-white border-secondary">
+            <div class="card-body">
+                <h3>About Me</h3>
+                <p>I am a PhD Student working on HTML/JS/CSS projects.</p>
+                <p>This project aims to provide accurate DPS calculations for Diablo 2 Median XL mod.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="js/script.js"></script>
+<script src="js/skillsData.js"></script>
+<script src="js/enemyData.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>

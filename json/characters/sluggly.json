@@ -1,0 +1,27 @@
+{
+  "charName": "Sluggly",
+  "charClass": "Paladin",
+  "level": 120,
+  "attributes": {
+    "strength": 0,
+    "dexterity": 0,
+    "vitality": 100,
+    "energy": 0
+  },
+  "quests": [
+    "Den of Evil Normal",
+    "Den of Evil Nightmare",
+    "Den of Evil Hell"
+  ],
+  "items": [
+    {
+      "name": "Umbaru Treasure",
+      "slot": "Charm",
+      "type": "Charm",
+      "stats": {
+        "SpellDamage": 10
+      },
+      "socketed": null
+    }
+  ]
+}
