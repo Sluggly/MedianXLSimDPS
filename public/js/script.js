@@ -585,3 +585,20 @@ function loadCharacterFromJSON(data) {
 
     return newChar;
 }
+
+function loadSkillFromJSON(data) {
+    // Note: data.baseSkillLevel maps to the 'base' argument in createSkill
+    return createSkill(
+        data.name, 
+        data.charClass, 
+        data.tree, 
+        data.requirement, 
+        data.scaling, 
+        data.baseSkillLevel, 
+        data.isSpell
+    );
+}
+
+function loadEnemyFromJSON(data) {
+    return createEnemy(data.name, data.life, data.resists);
+}

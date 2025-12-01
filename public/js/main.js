@@ -1,3 +1,74 @@
+const socket = io();
+
+// Listen for initial data (Local JSON files)
+socket.on('initData', (data) => {
+    console.log("Received server data", data);
+    
+    // 1. Load Global Items
+    globalItemLibrary = data.items;
+    
+    // 2. Load Characters
+    characterList = [];
+    if (data.characters) {
+        data.characters.forEach(charData => {
+            loadCharacterFromJSON(charData); // This function creates and pushes to characterList
+        });
+    }
+
+    // 3. Load Skills
+    skillList = [];
+    if (data.skills) {
+        data.skills.forEach(skillData => {
+            loadSkillFromJSON(skillData); // This pushes to skillList via createSkill
+        });
+    }
+
+    // 4. NEW: Load Enemies
+    enemyList = []; // Clear hardcoded defaults if any
+    if (data.enemies) {
+        data.enemies.forEach(enemyData => {
+            loadEnemyFromJSON(enemyData); // This pushes to enemyList via createEnemy
+        });
+    }
+
+    // 5. Refresh UIs
+    refreshCharacterList();
+    refreshSkillList();
+    refreshEnemyList();
+    renderItemLibrary()
+
+    // If on Top Gear tab, refresh that too
+    if(document.getElementById('tab-topgear').style.display === 'block') { renderTopGearSelection(); }
+});
+
+// Listen for Scrape Success
+socket.on('scrapeSuccess', (charData) => {
+    document.getElementById('scrape-status').innerText = "Import Successful!";
+    document.getElementById('scrape-status').className = "text-success small";
+
+    loadCharacterFromJSON(charData);
+    
+    // Also add the new items to the global library so we can use them on other chars
+    if (charData.items) {
+        charData.items.forEach(item => {
+             // Add only if not exists
+             if (!globalItemLibrary.some(i => i.name === item.name)) {
+                 globalItemLibrary.push(item);
+             }
+        });
+    }
+
+    refreshCharacterList();
+    renderItemLibrary();
+    switchTab('character'); // Go to character tab
+});
+
+// Listen for Scrape Error
+socket.on('scrapeError', (msg) => {
+    document.getElementById('scrape-status').innerText = msg;
+    document.getElementById('scrape-status').className = "text-danger small";
+});
+
 // State Management
 let selectedChar = null;
 let selectedSkill = null;
@@ -221,7 +292,7 @@ function renderItemLibrary() {
         }
 
         // Determine if currently equipped
-        let isEquipped = selectedChar.equippedItems.some(i => i.name === item.name); // Simple name check
+        let isEquipped = selectedChar != null && selectedChar.equippedItems.some(i => i.name === item.name); // Simple name check
         
         // Buttons Logic
         let actionButtons = "";
@@ -512,34 +583,6 @@ function downloadCharacterJSON() {
     downloadAnchorNode.remove();
 }
 
-// --- Event Listeners for Library Loading ---
-
-document.getElementById('libraryFileInput').addEventListener('change', function(event) {
-    const files = event.target.files;
-    if (!files.length) return;
-
-    // Process all selected files
-    for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const itemData = JSON.parse(e.target.result);
-                // Avoid duplicates in library
-                if (!globalItemLibrary.some(it => it.name === itemData.name)) {
-                    globalItemLibrary.push(itemData);
-                }
-            } catch (err) {
-                console.error("Error reading item json", err);
-            }
-            // If this is the last file, render
-            if (i === files.length - 1) {
-                renderItemLibrary();
-            }
-        };
-        reader.readAsText(files[i]);
-    }
-});
-
 // --- Selection Logic ---
 
 function selectCharacter(index) {
@@ -572,29 +615,6 @@ function selectEnemy(index) {
     refreshEnemyList();
     renderEnemyStats();
 }
-
-// --- File Loading Logic ---
-
-document.getElementById('jsonFileInput').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            // This function is defined in script.js (from previous step)
-            let newChar = loadCharacterFromJSON(data); 
-            
-            // Auto-select the newly loaded character
-            selectCharacter(characterList.length - 1);
-        } catch (error) {
-            console.error(error);
-            alert("Error loading character JSON");
-        }
-    };
-    reader.readAsText(file);
-});
 
 // --- Simulation Logic ---
 
@@ -731,4 +751,15 @@ document.getElementById('btn-upgrade-calc').addEventListener('click', function()
     });
 
     tableBody.innerHTML = rowsHTML;
+});
+
+// Scrape Button
+document.getElementById('btn-scrape').addEventListener('click', function() {
+    const url = document.getElementById('scraper-url').value;
+    if(!url) return;
+    
+    document.getElementById('scrape-status').innerText = "Scraping... (This takes a few seconds)";
+    document.getElementById('scrape-status').className = "text-warning small";
+    
+    socket.emit('scrapeCharacter', url);
 });

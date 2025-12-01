@@ -1,0 +1,16 @@
+{
+  "name": "Mind Flay",
+  "charClass": "Paladin",
+  "tree": "Warlock",
+  "requirement": null,
+  "scaling": {
+    "Base": {
+      "YLB": 25, "YLS": 3.5416,
+      "YHB": 32, "YHS": 3.75,
+      "LLB": 51, "LLS": 6.583,
+      "LHB": 65, "LHS": 7.9583
+    }
+  },
+  "baseSkillLevel": 25,
+  "isSpell": true
+}
