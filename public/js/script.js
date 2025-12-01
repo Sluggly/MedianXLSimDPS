@@ -568,6 +568,7 @@ function loadCharacterFromJSON(data) {
 
     // 4. Create and Equip Items
     if (data.items && Array.isArray(data.items)) {
+        let ringCount = 0;
         data.items.forEach(itemData => {
             // Re-create the Item instance
             let newItem = createItem(
@@ -578,8 +579,12 @@ function loadCharacterFromJSON(data) {
                 itemData.socketed
             );
             
-            // Equip it (This handles slot assignment and pushing to equippedItems array)
-            newChar.equipItem(newItem);
+            if (newItem.slot === "Ring") {
+                ringCount++;
+                newChar.equipItem(newItem, ringCount); // Pass 1 or 2
+            } else {
+                newChar.equipItem(newItem);
+            }
         });
     }
 

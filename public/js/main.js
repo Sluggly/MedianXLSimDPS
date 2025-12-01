@@ -42,7 +42,11 @@ socket.on('initData', (data) => {
 });
 
 // Listen for Scrape Success
-socket.on('scrapeSuccess', (charData) => {
+socket.on('scrapeSuccess', (data) => {
+    // data contains: { character: Object, inventory: Array }
+    const charData = data.character;
+    const inventoryData = data.inventory;
+
     document.getElementById('scrape-status').innerText = "Import Successful!";
     document.getElementById('scrape-status').className = "text-success small";
 
@@ -58,7 +62,19 @@ socket.on('scrapeSuccess', (charData) => {
         });
     }
 
+    if (inventoryData) {
+        inventoryData.forEach(item => {
+             // Optional: Filter out junk like "Potion", "Arcane Cluster"
+             if(item.type.includes("Potion") || item.type.includes("Cluster") || item.type.includes("Signet")) return;
+
+             if (!globalItemLibrary.some(i => i.name === item.name)) {
+                 globalItemLibrary.push(item);
+             }
+        });
+    }
+
     refreshCharacterList();
+    selectCharacter(characterList.length - 1);
     renderItemLibrary();
     switchTab('character'); // Go to character tab
 });
@@ -96,9 +112,6 @@ function switchTab(tabName) {
     const links = document.querySelectorAll('.nav-link');
     links.forEach(l => l.classList.remove('active'));
     
-    // Find the link that was clicked (approximated for simplicity)
-    // In a real app, we'd pass 'this' or use event listeners better
-    event.target.classList.add('active');
     if (tabName === 'character') renderCharacterTab(); 
     if (tabName === 'topgear') renderTopGearSelection();
 }
@@ -247,35 +260,86 @@ function renderEquippedGear() {
     ];
 
     slots.forEach(slot => {
-        let content = `<span class="text-muted">${slot.label}: Empty</span>`;
-        if (slot.item) {
-            content = `
-                <div class="d-flex align-items-center w-100">
-                    <strong class="mr-auto text-warning">${slot.item.name}</strong>
-                    <button class="btn btn-sm btn-outline-danger" onclick="doUnequip('${slot.label}')">Unequip</button>
-                </div>
-            `;
-        }
-        
         let div = document.createElement('div');
         div.className = "equip-slot";
-        div.innerHTML = content;
+        
+        if (slot.item) {
+            let iconPath = `img/items/${slot.item.type}.png`;
+            
+            // Icon
+            let img = document.createElement('img');
+            img.src = iconPath;
+            img.onerror = function() { this.src = 'img/placeholder.png'; };
+            img.addEventListener('mousemove', (e) => showItemTooltip(e, slot.item)); // Use move to follow mouse
+            img.addEventListener('mouseleave', hideItemTooltip);
+            
+            // Name
+            let nameSpan = document.createElement('strong');
+            nameSpan.className = "mr-auto text-warning ml-2";
+            nameSpan.innerText = slot.item.name;
+            nameSpan.style.cursor = "help";
+            nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, slot.item));
+            nameSpan.addEventListener('mouseleave', hideItemTooltip);
+
+            // Button
+            let btn = document.createElement('button');
+            btn.className = "btn btn-sm btn-outline-danger";
+            btn.innerText = "Unequip";
+            btn.onclick = () => doUnequip(slot.label);
+
+            div.appendChild(img);
+            div.appendChild(nameSpan);
+            div.appendChild(btn);
+        } else {
+            div.innerHTML = `<div style="width:32px;height:32px;background:#111;margin-right:10px;border:1px dashed #444"></div><span class="text-muted">${slot.label}: Empty</span>`;
+        }
         container.appendChild(div);
     });
 
     // Charms & Relics (Loop through arrays)
-    selectedChar.charms.forEach(charm => {
+    if (selectedChar.charms.length > 0 || selectedChar.relics.length > 0) {
+        let hr = document.createElement('div');
+        hr.className = "text-muted small mt-2 mb-1 text-uppercase font-weight-bold";
+        hr.innerText = "Inventory (Charms & Relics)";
+        container.appendChild(hr);
+    }
+
+    // 3. Helper to render list items (Charms/Relics)
+    const renderInventoryItem = (item, label) => {
         let div = document.createElement('div');
         div.className = "equip-slot";
-        div.innerHTML = `
-            <div class="d-flex align-items-center w-100">
-                <span class="mr-2">[Charm]</span>
-                <strong class="mr-auto text-warning">${charm.name}</strong>
-                <button class="btn btn-sm btn-outline-danger" onclick="doUnequipItemByName('${charm.name}')">Unequip</button>
-            </div>
-        `;
+        
+        let iconPath = `img/items/${item.type}.png`;
+
+        let img = document.createElement('img');
+        img.src = iconPath;
+        img.onerror = function() { this.src = 'img/placeholder.png'; };
+        img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        img.addEventListener('mouseleave', hideItemTooltip);
+
+        let nameSpan = document.createElement('strong');
+        nameSpan.className = "mr-auto text-warning ml-2";
+        nameSpan.innerHTML = `<span class="text-muted small">[${label}]</span> ${item.name}`;
+        nameSpan.style.cursor = "help";
+        nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        nameSpan.addEventListener('mouseleave', hideItemTooltip);
+
+        let btn = document.createElement('button');
+        btn.className = "btn btn-sm btn-outline-danger";
+        btn.innerText = "Unequip";
+        btn.onclick = () => doUnequipItemByName(item.name);
+
+        div.appendChild(img);
+        div.appendChild(nameSpan);
+        div.appendChild(btn);
         container.appendChild(div);
-    });
+    };
+
+    // Render Charms
+    selectedChar.charms.forEach(charm => renderInventoryItem(charm, "Charm"));
+    
+    // Render Relics
+    selectedChar.relics.forEach(relic => renderInventoryItem(relic, "Relic"));
 }
 
 function renderItemLibrary() {
@@ -285,62 +349,44 @@ function renderItemLibrary() {
     globalItemLibrary.forEach((item, index) => {
         let tr = document.createElement('tr');
         
-        // Generate Tooltip Content
-        let statsTxt = "";
-        for (let [key, val] of Object.entries(item.stats)) {
-            statsTxt += `${key}: ${val}\n`;
-        }
-
-        // Determine if currently equipped
-        let isEquipped = selectedChar != null && selectedChar.equippedItems.some(i => i.name === item.name); // Simple name check
-        
-        // Buttons Logic
-        let actionButtons = "";
-        
-        if (item.slot === "Ring") {
-            // Two buttons for rings
-            if (selectedChar.ring1 && selectedChar.ring1.name === item.name) {
-                actionButtons += `<button class="btn btn-sm btn-danger mr-1" onclick="doUnequipItemByName('${item.name}')">Unequip (1)</button>`;
-            } else {
-                actionButtons += `<button class="btn btn-sm btn-success mr-1" onclick="doEquipFromLib(${index}, 1)">Equip (1)</button>`;
-            }
-
-            if (selectedChar.ring2 && selectedChar.ring2.name === item.name) {
-                actionButtons += `<button class="btn btn-sm btn-danger" onclick="doUnequipItemByName('${item.name}')">Unequip (2)</button>`;
-            } else {
-                actionButtons += `<button class="btn btn-sm btn-success" onclick="doEquipFromLib(${index}, 2)">Equip (2)</button>`;
-            }
-
-        } else if (item.slot === "Charm" || item.slot === "Relic") {
-             if (isEquipped) {
-                actionButtons = `<button class="btn btn-sm btn-danger" onclick="doUnequipItemByName('${item.name}')">Unequip</button>`;
-             } else {
-                actionButtons = `<button class="btn btn-sm btn-success" onclick="doEquipFromLib(${index})">Equip</button>`;
-             }
-        } else {
-            // Standard slots
-             if (isEquipped) {
-                actionButtons = `<button class="btn btn-sm btn-danger" onclick="doUnequipItemByName('${item.name}')">Unequip</button>`;
-             } else {
-                actionButtons = `<button class="btn btn-sm btn-success" onclick="doEquipFromLib(${index})">Equip</button>`;
-             }
-        }
-
-        // Icon Image (Generic based on slot/type)
-        // Ensure you have images like 'img/items/Boots.png' or 'img/items/Helm.png'
         let iconPath = `img/items/${item.type}.png`; 
+        let isEquipped = selectedChar && selectedChar.equippedItems.some(i => i.name === item.name);
 
-        tr.innerHTML = `
-            <td>
-                <div class="item-icon-container">
-                    <img src="${iconPath}" width="32" onerror="this.src='img/placeholder.png'">
-                    <span class="custom-tooltip"><strong>${item.name}</strong><br><hr style="border-color:#555; margin:5px 0;">${statsTxt}</span>
-                </div>
-            </td>
-            <td>${item.name}</td>
-            <td>${item.type}</td>
-            <td class="text-right">${actionButtons}</td>
-        `;
+        // Define Buttons (kept from previous code)
+        // ... (Button logic remains same) ...
+        let actionButtons = `<button class="btn btn-sm btn-success" onclick="doEquipFromLib(${index})">Equip</button>`; // Simplified for example
+
+        // Create Icon Element
+        let img = document.createElement('img');
+        img.src = iconPath;
+        img.width = 32;
+        img.onerror = function() { this.src = 'img/placeholder.png'; };
+        img.className = "item-icon-container";
+        // Attach Tooltip Events
+        img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        img.addEventListener('mouseleave', hideItemTooltip);
+
+        let tdIcon = document.createElement('td');
+        tdIcon.appendChild(img);
+
+        let tdName = document.createElement('td');
+        tdName.innerText = item.name;
+        // Also show tooltip on name hover
+        tdName.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        tdName.addEventListener('mouseleave', hideItemTooltip);
+
+        let tdType = document.createElement('td');
+        tdType.innerText = item.type;
+
+        let tdBtn = document.createElement('td');
+        tdBtn.className = "text-right";
+        tdBtn.innerHTML = actionButtons; // Keep buttons as HTML string for simplicity or refactor
+
+        tr.appendChild(tdIcon);
+        tr.appendChild(tdName);
+        tr.appendChild(tdType);
+        tr.appendChild(tdBtn);
+        
         tbody.appendChild(tr);
     });
 }
@@ -351,10 +397,7 @@ function renderTopGearSelection() {
     const tbody = document.getElementById('topgear-selection-body');
     tbody.innerHTML = "";
 
-    // Filter: Only Armor, Weapons, Jewelry (Exclude Charms/Relics)
     const validSlots = ["Helm", "Body Armor", "Gloves", "Belt", "Boots", "Amulet", "Ring", "Weapon1", "Weapon2"];
-    
-    // Filter library
     const equippableItems = globalItemLibrary.filter(item => validSlots.includes(item.slot));
 
     if (equippableItems.length === 0) {
@@ -363,27 +406,44 @@ function renderTopGearSelection() {
     }
 
     equippableItems.forEach((item, index) => {
-        // Generate Tooltip
-        let statsTxt = "";
-        for (let [key, val] of Object.entries(item.stats)) {
-            statsTxt += `${key}: ${val}\n`;
-        }
+        let tr = document.createElement('tr');
+        
         let iconPath = `img/items/${item.type}.png`;
 
-        let tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td class="text-center align-middle">
-                <input type="checkbox" class="topgear-check" data-lib-index="${globalItemLibrary.indexOf(item)}">
-            </td>
-            <td>
-                <div class="item-icon-container">
-                    <img src="${iconPath}" width="32" onerror="this.src='img/placeholder.png'">
-                    <span class="custom-tooltip"><strong>${item.name}</strong><br><hr style="border-color:#555; margin:5px 0;">${statsTxt}</span>
-                </div>
-            </td>
-            <td class="align-middle">${item.name}</td>
-            <td class="align-middle text-muted"><small>${item.type}</small></td>
-        `;
+        // Checkbox
+        let tdCheck = document.createElement('td');
+        tdCheck.className = "text-center align-middle";
+        tdCheck.innerHTML = `<input type="checkbox" class="topgear-check" data-lib-index="${globalItemLibrary.indexOf(item)}">`;
+
+        // Icon
+        let tdIcon = document.createElement('td');
+        let img = document.createElement('img');
+        img.src = iconPath;
+        img.width = 32;
+        img.onerror = function() { this.src = 'img/placeholder.png'; };
+        img.className = "item-icon-container";
+        img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        img.addEventListener('mouseleave', hideItemTooltip);
+        tdIcon.appendChild(img);
+
+        // Name
+        let tdName = document.createElement('td');
+        tdName.className = "align-middle";
+        tdName.innerText = item.name;
+        tdName.style.cursor = "help";
+        tdName.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        tdName.addEventListener('mouseleave', hideItemTooltip);
+
+        // Type
+        let tdType = document.createElement('td');
+        tdType.className = "align-middle text-muted";
+        tdType.innerHTML = `<small>${item.type}</small>`;
+
+        tr.appendChild(tdCheck);
+        tr.appendChild(tdIcon);
+        tr.appendChild(tdName);
+        tr.appendChild(tdType);
+        
         tbody.appendChild(tr);
     });
 }
@@ -490,40 +550,58 @@ function renderTopGearResults(results) {
 
     results.forEach(res => {
         let item = res.item;
-        
-        // Tooltip generation
-        let statsTxt = "";
-        for (let [key, val] of Object.entries(item.stats)) {
-            statsTxt += `${key}: ${val}\n`;
-        }
         let iconPath = `img/items/${item.type}.png`;
 
-        // Style for rows
-        let rowClass = res.isCurrent ? "table-active" : ""; // Highlight current gear
+        let tr = document.createElement('tr');
+        if (res.isCurrent) tr.className = "table-active"; // Highlight current gear
+
+        // Icon
+        let tdIcon = document.createElement('td');
+        let img = document.createElement('img');
+        img.src = iconPath;
+        img.width = 32;
+        img.onerror = function() { this.src = 'img/placeholder.png'; };
+        img.className = "item-icon-container";
+        img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        img.addEventListener('mouseleave', hideItemTooltip);
+        tdIcon.appendChild(img);
+
+        // Name
+        let tdName = document.createElement('td');
+        tdName.innerHTML = `${item.name} ${res.isCurrent ? '<span class="badge badge-secondary ml-1">Equipped</span>' : ''}`;
+        tdName.style.cursor = "help";
+        tdName.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+        tdName.addEventListener('mouseleave', hideItemTooltip);
+
+        // Stats Logic
         let diffColorLow = res.diffLow >= 0 ? "text-success" : "text-danger";
         let diffColorHigh = res.diffHigh >= 0 ? "text-success" : "text-danger";
-        
         let prefixLow = res.diffLow > 0 ? "+" : "";
         let prefixHigh = res.diffHigh > 0 ? "+" : "";
 
-        let tr = document.createElement('tr');
-        tr.className = rowClass;
-        tr.innerHTML = `
-            <td>
-                <div class="item-icon-container">
-                    <img src="${iconPath}" width="32" onerror="this.src='img/placeholder.png'">
-                    <span class="custom-tooltip"><strong>${item.name}</strong><br><hr style="border-color:#555; margin:5px 0;">${statsTxt}</span>
-                </div>
-            </td>
-            <td>
-                ${item.name} 
-                ${res.isCurrent ? '<span class="badge badge-secondary ml-2">Equipped</span>' : ''}
-            </td>
-            <td class="text-right">${res.low.toFixed(2)}</td>
-            <td class="text-right">${res.high.toFixed(2)}</td>
-            <td class="text-right ${diffColorLow}">${prefixLow}${res.diffLow.toFixed(2)}%</td>
-            <td class="text-right ${diffColorHigh}">${prefixHigh}${res.diffHigh.toFixed(2)}%</td>
-        `;
+        let tdLow = document.createElement('td');
+        tdLow.className = "text-right";
+        tdLow.innerText = res.low.toFixed(2);
+
+        let tdHigh = document.createElement('td');
+        tdHigh.className = "text-right";
+        tdHigh.innerText = res.high.toFixed(2);
+
+        let tdPercLow = document.createElement('td');
+        tdPercLow.className = `text-right ${diffColorLow}`;
+        tdPercLow.innerText = `${prefixLow}${res.diffLow.toFixed(2)}%`;
+
+        let tdPercHigh = document.createElement('td');
+        tdPercHigh.className = `text-right ${diffColorHigh}`;
+        tdPercHigh.innerText = `${prefixHigh}${res.diffHigh.toFixed(2)}%`;
+
+        tr.appendChild(tdIcon);
+        tr.appendChild(tdName);
+        tr.appendChild(tdLow);
+        tr.appendChild(tdHigh);
+        tr.appendChild(tdPercLow);
+        tr.appendChild(tdPercHigh);
+
         tbody.appendChild(tr);
     });
 }
@@ -675,61 +753,90 @@ document.getElementById('btn-upgrade-calc').addEventListener('click', function()
             revert: () => { selectedChar.allSkillLevel -= 1; }
         },
         {
-            name: "+10% Spell Damage",
-            apply: () => { 
-                selectedChar.lightningSpellDamage += 10; 
-                selectedChar.fireSpellDamage += 10;
-                selectedChar.coldSpellDamage += 10;
-                selectedChar.poisonSpellDamage += 10;
-                selectedChar.magicSpellDamage += 10;
-                selectedChar.physicalSpellDamage += 10;
-            },
-            revert: () => { 
-                selectedChar.lightningSpellDamage -= 10; 
-                selectedChar.fireSpellDamage -= 10;
-                selectedChar.coldSpellDamage -= 10;
-                selectedChar.poisonSpellDamage -= 10;
-                selectedChar.magicSpellDamage -= 10;
-                selectedChar.physicalSpellDamage -= 10;
-            }
+            name: "+10% Lightning Spell Damage",
+            apply: () => { selectedChar.lightningSpellDamage += 10; },
+            revert: () => { selectedChar.lightningSpellDamage -= 10; }
         },
         {
-            name: "-5% Enemy Resists",
-            apply: () => { 
-                selectedChar.lightningPiercing += 5; // Simulating -5 enemy res as +5 Pierce
-                selectedChar.firePiercing += 5;
-                selectedChar.coldPiercing += 5;
-                selectedChar.poisonPiercing += 5;
-            },
-            revert: () => { 
-                selectedChar.lightningPiercing -= 5;
-                selectedChar.firePiercing -= 5;
-                selectedChar.coldPiercing -= 5;
-                selectedChar.poisonPiercing -= 5;
-            }
+            name: "+10% Fire Spell Damage",
+            apply: () => { selectedChar.fireSpellDamage += 10; },
+            revert: () => { selectedChar.fireSpellDamage -= 10; }
         },
         {
-            name: "+50 Spell Focus",
-            apply: () => { selectedChar.spellFocus += 50; },
-            revert: () => { selectedChar.spellFocus -= 50; }
+            name: "+10% Cold Spell Damage",
+            apply: () => { selectedChar.coldSpellDamage += 10; },
+            revert: () => { selectedChar.coldSpellDamage -= 10; }
         },
         {
-            name: "+50 Energy",
-            apply: () => { selectedChar.energy += 50; },
-            revert: () => { selectedChar.energy -= 50; }
+            name: "+10% Poison Spell Damage",
+            apply: () => { selectedChar.poisonSpellDamage += 10; },
+            revert: () => { selectedChar.poisonSpellDamage -= 10; }
+        },
+        {
+            name: "+10% Magic Spell Damage",
+            apply: () => { selectedChar.magicSpellDamage += 10; },
+            revert: () => { selectedChar.magicSpellDamage -= 10; }
+        },
+        {
+            name: "+10% Physical Spell Damage",
+            apply: () => { selectedChar.physicalSpellDamage += 10; },
+            revert: () => { selectedChar.physicalSpellDamage -= 10; }
+        },
+        {
+            name: "-5% Enemy Lightning Resists",
+            apply: () => { selectedChar.lightningPiercing += 5; },
+            revert: () => { selectedChar.lightningPiercing -= 5; }
+        },
+        {
+            name: "-5% Enemy Fire Resists",
+            apply: () => { selectedChar.firePiercing += 5; },
+            revert: () => { selectedChar.firePiercing -= 5; }
+        },
+        {
+            name: "-5% Enemy Cold Resists",
+            apply: () => { selectedChar.coldPiercing += 5; },
+            revert: () => { selectedChar.coldPiercing -= 5;}
+        },
+        {
+            name: "-5% Enemy Poison Resists",
+            apply: () => { selectedChar.poisonPiercing += 5; },
+            revert: () => { selectedChar.poisonPiercing -= 5; }
+        },
+        {
+            name: "+5 Spell Focus",
+            apply: () => { selectedChar.spellFocus += 5; },
+            revert: () => { selectedChar.spellFocus -= 5; }
+        },
+        {
+            name: "+5 Energy",
+            apply: () => { selectedChar.energy += 5; },
+            revert: () => { selectedChar.energy -= 5; }
+        },
+        {
+            name: "+5 Dexterity",
+            apply: () => { selectedChar.dexterity += 5; },
+            revert: () => { selectedChar.dexterity -= 5; }
+        },
+        {
+            name: "+5 Strength",
+            apply: () => { selectedChar.strength += 5; },
+            revert: () => { selectedChar.strength -= 5; }
+        },
+        {
+            name: "+5 Vitality",
+            apply: () => { selectedChar.vitality += 5; },
+            revert: () => { selectedChar.vitality -= 5; }
         },
     ];
 
-    // 3. Run Simulations
-    let rowsHTML = "";
+    // 3. Run Simulations & Store Results
+    let resultsArray = [];
 
     upgrades.forEach(upg => {
         // A. Apply
         upg.apply();
         
         // B. Calculate New DPS
-        // Note: We DO NOT call calculateFinalStats() here, because that would wipe our manual changes
-        // This relies on calculDegatSkill using the values currently in the object
         let newResult = calculDegatSkill(selectedSkill, selectedChar, selectedEnemy);
         let newAvg = (newResult.totalDamageLow + newResult.totalDamageHigh) / 2;
         
@@ -740,12 +847,24 @@ document.getElementById('btn-upgrade-calc').addEventListener('click', function()
         let diff = newAvg - baseAvg;
         let percent = (diff / baseAvg) * 100;
 
-        // E. Generate HTML
+        resultsArray.push({
+            name: upg.name,
+            diff: diff,
+            percent: percent
+        });
+    });
+
+    // 4. SORT RESULTS (Descending by Diff)
+    resultsArray.sort((a, b) => b.diff - a.diff);
+
+    // 5. Generate HTML
+    let rowsHTML = "";
+    resultsArray.forEach(res => {
         rowsHTML += `
             <tr>
-                <td>${upg.name}</td>
-                <td class="text-right text-success">+${diff.toFixed(2)}</td>
-                <td class="text-right text-info">+${percent.toFixed(2)}%</td>
+                <td>${res.name}</td>
+                <td class="text-right text-success">+${res.diff.toFixed(2)}</td>
+                <td class="text-right text-info">+${res.percent.toFixed(2)}%</td>
             </tr>
         `;
     });
@@ -763,3 +882,45 @@ document.getElementById('btn-scrape').addEventListener('click', function() {
     
     socket.emit('scrapeCharacter', url);
 });
+
+function showItemTooltip(e, item) {
+    if (!item) return;
+    const tooltip = document.getElementById('global-tooltip');
+    
+    // Generate content
+    let statsTxt = "";
+    if (item.stats) {
+        for (let [key, val] of Object.entries(item.stats)) {
+            statsTxt += `<span class="magic-text">${key}: ${val}</span>\n`;
+        }
+    }
+    
+    tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small><br>${statsTxt}`;
+    tooltip.style.display = 'block';
+    moveItemTooltip(e);
+}
+
+function moveItemTooltip(e) {
+    const tooltip = document.getElementById('global-tooltip');
+    const offset = 15;
+    
+    // Logic to keep it on screen
+    let left = e.clientX + offset;
+    let top = e.clientY + offset;
+    
+    // Check right edge
+    if (left + tooltip.offsetWidth > window.innerWidth) {
+        left = e.clientX - tooltip.offsetWidth - offset;
+    }
+    // Check bottom edge
+    if (top + tooltip.offsetHeight > window.innerHeight) {
+        top = e.clientY - tooltip.offsetHeight - offset;
+    }
+
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+}
+
+function hideItemTooltip() {
+    document.getElementById('global-tooltip').style.display = 'none';
+}

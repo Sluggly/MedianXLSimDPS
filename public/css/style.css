@@ -103,26 +103,53 @@ body {
     cursor: help;
 }
 
-/* Tooltip Text */
-.item-icon-container .custom-tooltip {
-    visibility: hidden;
-    width: 250px;
-    background-color: #000;
-    color: #4cd137; /* Magic Item Green */
-    text-align: left;
-    border: 1px solid #d4af37;
+/* --- Global Tooltip (JS Controlled) --- */
+#global-tooltip {
+    position: fixed;
+    z-index: 9999; /* Always on top */
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 1px solid #d4af37; /* Gold */
+    color: #a0a0a0;
     padding: 10px;
     border-radius: 4px;
-    position: absolute;
-    z-index: 1050;
-    bottom: 125%; /* Position above */
-    left: 50%;
-    margin-left: -125px;
-    opacity: 0;
-    transition: opacity 0.3s;
     font-size: 0.85rem;
-    white-space: pre-wrap; /* Handle newlines */
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.8);
+    pointer-events: none; /* Let mouse pass through */
+    white-space: pre-wrap;
+    max-width: 300px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    display: none; /* Hidden by default */
+}
+
+/* Highlight item name in tooltip */
+#global-tooltip strong {
+    color: #d4af37;
+    font-size: 1rem;
+    display: block;
+    border-bottom: 1px solid #555;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
+}
+
+/* Stats color */
+#global-tooltip .magic-text { color: #4cd137; }
+
+/* Equipped Slot Styles */
+.equip-slot {
+    border: 1px solid #444;
+    background-color: #1e1e1e;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+}
+
+.equip-slot img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    border: 1px solid #333;
+    background: #000;
 }
 
 .item-icon-container:hover .custom-tooltip {
