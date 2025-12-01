@@ -28,7 +28,8 @@ function switchTab(tabName) {
     // Find the link that was clicked (approximated for simplicity)
     // In a real app, we'd pass 'this' or use event listeners better
     event.target.classList.add('active');
-    if (tabName === 'character') { renderCharacterTab(); }
+    if (tabName === 'character') renderCharacterTab(); 
+    if (tabName === 'topgear') renderTopGearSelection();
 }
 
 // --- UI Rendering Functions ---
@@ -268,6 +269,189 @@ function renderItemLibrary() {
             <td>${item.name}</td>
             <td>${item.type}</td>
             <td class="text-right">${actionButtons}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// --- Top Gear Logic ---
+
+function renderTopGearSelection() {
+    const tbody = document.getElementById('topgear-selection-body');
+    tbody.innerHTML = "";
+
+    // Filter: Only Armor, Weapons, Jewelry (Exclude Charms/Relics)
+    const validSlots = ["Helm", "Body Armor", "Gloves", "Belt", "Boots", "Amulet", "Ring", "Weapon1", "Weapon2"];
+    
+    // Filter library
+    const equippableItems = globalItemLibrary.filter(item => validSlots.includes(item.slot));
+
+    if (equippableItems.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted p-3">No equippable items found in library.</td></tr>';
+        return;
+    }
+
+    equippableItems.forEach((item, index) => {
+        // Generate Tooltip
+        let statsTxt = "";
+        for (let [key, val] of Object.entries(item.stats)) {
+            statsTxt += `${key}: ${val}\n`;
+        }
+        let iconPath = `img/items/${item.type}.png`;
+
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="text-center align-middle">
+                <input type="checkbox" class="topgear-check" data-lib-index="${globalItemLibrary.indexOf(item)}">
+            </td>
+            <td>
+                <div class="item-icon-container">
+                    <img src="${iconPath}" width="32" onerror="this.src='img/placeholder.png'">
+                    <span class="custom-tooltip"><strong>${item.name}</strong><br><hr style="border-color:#555; margin:5px 0;">${statsTxt}</span>
+                </div>
+            </td>
+            <td class="align-middle">${item.name}</td>
+            <td class="align-middle text-muted"><small>${item.type}</small></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Toggle All Checkboxes
+document.getElementById('chk-toggle-all').addEventListener('change', function(e) {
+    const checkboxes = document.querySelectorAll('.topgear-check');
+    checkboxes.forEach(cb => cb.checked = e.target.checked);
+});
+
+// Run Simulation
+document.getElementById('btn-topgear-sim').addEventListener('click', function() {
+    if (!selectedChar || !selectedSkill || !selectedEnemy) {
+        alert("Please select Character, Skill and Enemy in the DPS Simulator tab first.");
+        return;
+    }
+
+    const checkboxes = document.querySelectorAll('.topgear-check:checked');
+    if (checkboxes.length === 0) {
+        alert("Please select at least one item to test.");
+        return;
+    }
+
+    // 1. Calculate Baseline (Current Gear)
+    selectedChar.calculateFinalStats();
+    const baseDmg = calculDegatSkill(selectedSkill, selectedChar, selectedEnemy);
+    
+    let results = [];
+
+    // Add currently equipped items to results for comparison
+    selectedChar.equippedItems.forEach(item => {
+        // Filter out charms/relics from display if desired, or keep them
+        if(["Charm", "Relic"].includes(item.slot)) return;
+
+        results.push({
+            item: item,
+            isCurrent: true,
+            low: baseDmg.totalDamageLow,
+            high: baseDmg.totalDamageHigh,
+            diffLow: 0,
+            diffHigh: 0
+        });
+    });
+
+    // 2. Loop through checked library items
+    checkboxes.forEach(cb => {
+        let libIndex = cb.getAttribute('data-lib-index');
+        let itemData = globalItemLibrary[libIndex];
+        
+        // Convert to Item Object
+        let testItem = createItem(itemData.name, itemData.slot, itemData.type, itemData.stats, itemData.socketed);
+
+        // SAVE current item in that slot
+        // Note: For Rings, we default to testing against Slot 1 for simplicity in this iteration
+        let originalItem = null;
+        let slotToTest = testItem.slot;
+        
+        if (slotToTest === "Ring") {
+            originalItem = selectedChar.ring1; // Test vs Ring 1
+        } else {
+            originalItem = selectedChar.getItemFromSlot(slotToTest);
+        }
+
+        // EQUIP Test Item
+        // This overwrites the slot in the character object
+        selectedChar.equipItem(testItem, 1); // 1 = Ring Slot 1 default
+        
+        // RE-CALCULATE
+        selectedChar.calculateFinalStats();
+        let newDmg = calculDegatSkill(selectedSkill, selectedChar, selectedEnemy);
+
+        // Store Result
+        results.push({
+            item: testItem,
+            isCurrent: false,
+            low: newDmg.totalDamageLow,
+            high: newDmg.totalDamageHigh,
+            diffLow: ((newDmg.totalDamageLow - baseDmg.totalDamageLow) / baseDmg.totalDamageLow) * 100,
+            diffHigh: ((newDmg.totalDamageHigh - baseDmg.totalDamageHigh) / baseDmg.totalDamageHigh) * 100
+        });
+
+        // RESTORE Original Item
+        if (originalItem) {
+            selectedChar.equipItem(originalItem, 1);
+        } else {
+            // If there was no item, we must Unequip the test item
+            selectedChar.unequipItem(testItem);
+        }
+    });
+
+    // Reset stats to baseline after simulation loop
+    selectedChar.calculateFinalStats();
+
+    // 3. Sort Results (Best High Damage Gain first)
+    results.sort((a, b) => b.high - a.high);
+
+    // 4. Render Results
+    renderTopGearResults(results);
+});
+
+function renderTopGearResults(results) {
+    const tbody = document.getElementById('topgear-results-body');
+    tbody.innerHTML = "";
+
+    results.forEach(res => {
+        let item = res.item;
+        
+        // Tooltip generation
+        let statsTxt = "";
+        for (let [key, val] of Object.entries(item.stats)) {
+            statsTxt += `${key}: ${val}\n`;
+        }
+        let iconPath = `img/items/${item.type}.png`;
+
+        // Style for rows
+        let rowClass = res.isCurrent ? "table-active" : ""; // Highlight current gear
+        let diffColorLow = res.diffLow >= 0 ? "text-success" : "text-danger";
+        let diffColorHigh = res.diffHigh >= 0 ? "text-success" : "text-danger";
+        
+        let prefixLow = res.diffLow > 0 ? "+" : "";
+        let prefixHigh = res.diffHigh > 0 ? "+" : "";
+
+        let tr = document.createElement('tr');
+        tr.className = rowClass;
+        tr.innerHTML = `
+            <td>
+                <div class="item-icon-container">
+                    <img src="${iconPath}" width="32" onerror="this.src='img/placeholder.png'">
+                    <span class="custom-tooltip"><strong>${item.name}</strong><br><hr style="border-color:#555; margin:5px 0;">${statsTxt}</span>
+                </div>
+            </td>
+            <td>
+                ${item.name} 
+                ${res.isCurrent ? '<span class="badge badge-secondary ml-2">Equipped</span>' : ''}
+            </td>
+            <td class="text-right">${res.low.toFixed(2)}</td>
+            <td class="text-right">${res.high.toFixed(2)}</td>
+            <td class="text-right ${diffColorLow}">${prefixLow}${res.diffLow.toFixed(2)}%</td>
+            <td class="text-right ${diffColorHigh}">${prefixHigh}${res.diffHigh.toFixed(2)}%</td>
         `;
         tbody.appendChild(tr);
     });

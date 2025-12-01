@@ -316,10 +316,12 @@ class Character {
         else if (slot == "Gloves") { return this.gloves; }
         else if (slot == "Belt") { return this.belt; }
         else if (slot == "Boots") { return this.boots; }
+        else if (slot == "Ring") { return this.ring1; }
         else if (slot == "Ring1") { return this.ring1; }
         else if (slot == "Ring2") { return this.ring2; }
         else if (slot == "Charms") { return this.charms; }
         else if (slot == "Relics") { return this.relics; }
+        else { return null };
     }
 
     addAttributePoints(strength,dexterity,vitality,energy) {
