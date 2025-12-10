@@ -5,8 +5,8 @@
   "attributes": {
     "strength": 0,
     "dexterity": 0,
-    "vitality": 100,
-    "energy": 0
+    "vitality": 0,
+    "energy": 400
   },
   "quests": [
     "Den of Evil Normal",
@@ -23,5 +23,8 @@
       },
       "socketed": null
     }
+  ],
+  "learnedSkills": [
+    {"Mind Flay": 25}
   ]
 }

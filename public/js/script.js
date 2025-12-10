@@ -1,60 +1,113 @@
 var characterList = []; // Array containing all user created characters
 var itemList = []; // Array containing all user created items
-var skillList = []; // Array containing all created skills
 var enemyList = []; // Array containing all created enemies
 
 class Character {
     constructor(charName, charClass, level) {
         this.charName = charName; // String unique
         this.charClass = charClass; // String equal to: "Amazon","Assassin","Barbarian","Druid","Necromancer","Paladin","Sorceress"
-        this.level = level; // Value between 1 and 150
-        this.strength = 0;
-        this.dexterity = 0;
-        this.vitality = 0;
-        this.energy = 0;
-        this.life = 0;
-        this.mana = 0;
-        this.startingStrength = 0;
-        this.startingDexterity = 0;
-        this.startingVitality = 0;
-        this.startingEnergy = 0;
-        this.startingLife = 0;
-        this.startingMana = 0;
-        this.lifePerLevel = 0;
-        this.manaPerLevel = 0;
-        this.lifePerVitality = 0;
-        this.manaPerEnergy = 0;
-        this.attributedStrength = 0;
-        this.attributedDexterity = 0;
-        this.attributedVitality = 0;
-        this.attributedEnergy = 0;
-        this.spellFocus = 0; // Max 1000
-        this.allSkillLevel = 0;
-        this.classSkillLevel = 0;
-        this.defense = 0;
-        this.blockChance = 0;
-        this.fireSpellDamage = 0;
-        this.coldSpellDamage = 0;
-        this.lightningSpellDamage = 0;
-        this.poisonSpellDamage = 0;
-        this.magicSpellDamage = 0;
-        this.physicalSpellDamage = 0;
-        this.firePiercing = 0;
-        this.coldPiercing = 0;
-        this.lightningPiercing = 0;
-        this.poisonPiercing = 0;
-        this.fireResistance = -70;
-        this.coldResistance = -70;
-        this.lightningResistance = -70;
-        this.poisonResistance = -70;
-        this.magicResistance = 0;
-        this.physicalResistance = 0;
-        this.maximumFireResistance = 75; // Max 90
-        this.maximumColdResistance = 75; // Max 90
-        this.maximumLightningResistance = 75; // Max 90
-        this.maximumPoisonResistance = 75; // Max 90
-        this.maximumMagicResistance = 50; // Max 50
-        this.maximumPhysicalResistance = 50; // Max 50
+        this.level = level; // Value between 1 and 151
+        this.learnedSkills = []; // Map "Name" -> Level
+        this.resetStats();
+        this.resetGear();
+        this.setBaseStats();
+    }
+
+    setBaseStats(charClass) {
+        if (charClass == "Amazon") {
+            this.startingStrength = 25;
+            this.startingDexterity = 25;
+            this.startingVitality = 20;
+            this.startingEnergy = 15;
+            this.lifePerLevel = 25;
+            this.manaPerLevel = 7.5;
+            this.lifePerVitality = 2.25;
+            this.manaPerEnergy = 2.25;
+            this.startingLife = 70;
+            this.startingMana = 15;
+            this.startingBlockChance = 3;
+        }
+        else if (charClass == "Assassin") {
+            this.startingStrength = 20;
+            this.startingDexterity = 30;
+            this.startingVitality = 15;
+            this.startingEnergy = 15;
+            this.lifePerLevel = 30;
+            this.manaPerLevel = 7.5;
+            this.lifePerVitality = 2.25;
+            this.manaPerEnergy = 2.25;
+            this.startingLife = 65;
+            this.startingMana = 15;
+            this.startingBlockChance = 3;
+        }
+        else if (charClass == "Barbarian") {
+            this.startingStrength = 30;
+            this.startingDexterity = 20;
+            this.startingVitality = 30;
+            this.startingEnergy = 5;
+            this.lifePerLevel = 30;
+            this.manaPerLevel = 5;
+            this.lifePerVitality = 2.75;
+            this.manaPerEnergy = 1.5;
+            this.startingLife = 80;
+            this.startingMana = 5;
+            this.startingBlockChance = 0;
+        }
+        else if (charClass == "Druid") {
+            this.startingStrength = 25;
+            this.startingDexterity = 20;
+            this.startingVitality = 15;
+            this.startingEnergy = 25;
+            this.lifePerLevel = 25;
+            this.manaPerLevel = 10;
+            this.lifePerVitality = 2.25;
+            this.manaPerEnergy = 3;
+            this.startingLife = 65;
+            this.startingMana = 25;
+            this.startingBlockChance = 3;
+        }
+        else if (charClass == "Necromancer") {
+            this.startingStrength = 15;
+            this.startingDexterity = 25;
+            this.startingVitality = 20;
+            this.startingEnergy = 25;
+            this.lifePerLevel = 25;
+            this.manaPerLevel = 10;
+            this.lifePerVitality = 1.5;
+            this.manaPerEnergy = 3;
+            this.startingLife = 70;
+            this.startingMana = 25;
+            this.startingBlockChance = 1;
+        }
+        else if (charClass == "Paladin") {
+            this.startingStrength = 25;
+            this.startingDexterity = 20;
+            this.startingVitality = 25;
+            this.startingEnergy = 15;
+            this.lifePerLevel = 32.5;
+            this.manaPerLevel = 5;
+            this.lifePerVitality = 2.75;
+            this.manaPerEnergy = 1.5;
+            this.startingLife = 75;
+            this.startingMana = 15;
+            this.startingBlockChance = 1;
+        }
+        else if (charClass == "Sorceress") {
+            this.startingStrength = 10;
+            this.startingDexterity = 25;
+            this.startingVitality = 15;
+            this.startingEnergy = 35;
+            this.lifePerLevel = 35;
+            this.manaPerLevel = 10;
+            this.lifePerVitality = 2.25;
+            this.manaPerEnergy = 2.5;
+            this.startingLife = 65;
+            this.startingMana = 35;
+            this.startingBlockChance = 3;
+        }
+    }
+
+    resetGear() {
         this.equippedItems = [];
         this.helm = null; // Item slot = "Helm"
         this.weapon1 = null; // Item slot = "Weapon1"
@@ -71,183 +124,121 @@ class Character {
         this.quests = []; // Array of Strings in Quest Names
     }
 
-    setBaseStats(charClass) {
-        if (charClass == "Amazon") {
-            this.startingStrength = 25;
-            this.startingDexterity = 25;
-            this.startingVitality = 20;
-            this.startingEnergy = 15;
-            this.lifePerLevel = 25;
-            this.manaPerLevel = 7.5;
-            this.lifePerVitality = 2.25;
-            this.manaPerEnergy = 2.25;
-            this.startingLife = 70;
-            this.startingMana = 15;
-        }
-        else if (charClass == "Assassin") {
-            this.startingStrength = 20;
-            this.startingDexterity = 30;
-            this.startingVitality = 15;
-            this.startingEnergy = 15;
-            this.lifePerLevel = 30;
-            this.manaPerLevel = 7.5;
-            this.lifePerVitality = 2.25;
-            this.manaPerEnergy = 2.25;
-            this.startingLife = 65;
-            this.startingMana = 15;
-        }
-        else if (charClass == "Barbarian") {
-            this.startingStrength = 30;
-            this.startingDexterity = 20;
-            this.startingVitality = 30;
-            this.startingEnergy = 5;
-            this.lifePerLevel = 30;
-            this.manaPerLevel = 5;
-            this.lifePerVitality = 2.75;
-            this.manaPerEnergy = 1.5;
-            this.startingLife = 80;
-            this.startingMana = 5;
-        }
-        else if (charClass == "Druid") {
-            this.startingStrength = 25;
-            this.startingDexterity = 20;
-            this.startingVitality = 15;
-            this.startingEnergy = 25;
-            this.lifePerLevel = 25;
-            this.manaPerLevel = 10;
-            this.lifePerVitality = 2.25;
-            this.manaPerEnergy = 3;
-            this.startingLife = 65;
-            this.startingMana = 25;
-        }
-        else if (charClass == "Necromancer") {
-            this.startingStrength = 15;
-            this.startingDexterity = 25;
-            this.startingVitality = 20;
-            this.startingEnergy = 25;
-            this.lifePerLevel = 25;
-            this.manaPerLevel = 10;
-            this.lifePerVitality = 1.5;
-            this.manaPerEnergy = 3;
-            this.startingLife = 70;
-            this.startingMana = 25;
-        }
-        else if (charClass == "Paladin") {
-            this.startingStrength = 25;
-            this.startingDexterity = 20;
-            this.startingVitality = 25;
-            this.startingEnergy = 15;
-            this.lifePerLevel = 32.5; // Exact Sigma 2.5.1
-            this.manaPerLevel = 5;
-            this.lifePerVitality = 2.75; // Exact Sigma 2.5.1
-            this.manaPerEnergy = 1.5;
-            this.startingLife = 75;
-            this.startingMana = 15;
-        }
-        else if (charClass == "Sorceress") {
-            this.startingStrength = 10;
-            this.startingDexterity = 25;
-            this.startingVitality = 15;
-            this.startingEnergy = 35;
-            this.lifePerLevel = 35;
-            this.manaPerLevel = 10;
-            this.lifePerVitality = 2.25;
-            this.manaPerEnergy = 2.5;
-            this.startingLife = 65;
-            this.startingMana = 35;
-        }
-    }
-
     resetStats() {
+        // Base Stats
         this.strength = 0;
         this.dexterity = 0;
         this.vitality = 0;
         this.energy = 0;
-        this.life = 0;
-        this.mana = 0;
-        this.startingStrength = 0;
-        this.startingDexterity = 0;
-        this.startingVitality = 0;
-        this.startingEnergy = 0;
-        this.startingLife = 0;
-        this.startingMana = 0;
-        this.lifePerLevel = 0;
-        this.manaPerLevel = 0;
-        this.lifePerVitality = 0;
-        this.manaPerEnergy = 0;
         this.attributedStrength = 0;
         this.attributedDexterity = 0;
         this.attributedVitality = 0;
         this.attributedEnergy = 0;
-        this.spellFocus = 0;
+        this.life = 0;
+        this.mana = 0;
+        this.spellFocus = 0; // Max 1000
+        // Skills
         this.allSkillLevel = 0;
-        this.classSkillLevel = 0;
+        this.barbarianSkillLevel = 0;
+        this.sorceressSkillLevel = 0;
+        this.amazonSkillLevel = 0;
+        this.necromancerSkillLevel = 0;
+        this.paladinSkillLevel = 0;
+        this.druidSkillLevel = 0;
+        this.assassinSkillLevel = 0;
+        // Defense Block
         this.defense = 0;
         this.blockChance = 0;
+        // Spell Damage
         this.fireSpellDamage = 0;
         this.coldSpellDamage = 0;
         this.lightningSpellDamage = 0;
         this.poisonSpellDamage = 0;
-        this.magicSpellDamage = 0;
-        this.physicalSpellDamage = 0;
+        this.physicalMagicalSpellDamage = 0;
+        // Piercing
         this.firePiercing = 0;
         this.coldPiercing = 0;
         this.lightningPiercing = 0;
         this.poisonPiercing = 0;
-        this.fireResistance = -70;
-        this.coldResistance = -70;
-        this.lightningResistance = -70;
-        this.poisonResistance = -70;
+        // Resists
+        this.fireResistance = 0;
+        this.coldResistance = 0;
+        this.lightningResistance = 0;
+        this.poisonResistance = 0;
         this.magicResistance = 0;
         this.physicalResistance = 0;
-        this.maximumFireResistance = 75;
-        this.maximumColdResistance = 75;
-        this.maximumLightningResistance = 75;
-        this.maximumPoisonResistance = 75;
-        this.maximumMagicResistance = 50;
+        // Max Resists
+        this.maximumFireResistance = 0; // Max 90
+        this.maximumColdResistance = 0; // Max 90
+        this.maximumLightningResistance = 0; // Max 90
+        this.maximumPoisonResistance = 0; // Max 90
+        this.maximumMagicResistance = 0; // Max 50
+        this.maximumPhysicalResistance = 0; // Max 50
+        // Absorb
+        this.fireAbsorb = 0; // Max 40
+        this.coldAbsorb = 0; // Max 40
+        this.lightningAbsorb = 0; // Max 40
     }
 
     calculateFinalStats() {
+        // Reset stats to base
         this.resetStats();
+        // Set Base Character Stats First
         this.setBaseStats(this.charClass);
-        this.strength = this.startingStrength + this.attributedStrength;
-        this.dexterity = this.startingDexterity + this.attributedDexterity;
-        this.vitality = this.startingVitality + this.attributedVitality;
-        this.energy = this.startingEnergy + this.attributedEnergy;
-        this.calculateFinalLife();
-        this.mana = this.startingMana + (this.level-1) * this.manaPerLevel + (this.energy - this.startingEnergy) * this.manaPerEnergy;
-        this.calculateTotalItemStats();
-    }
 
-    calculateFinalLife() {
-        this.life = this.startingLife + (this.level-1) * this.lifePerLevel + (this.vitality - this.startingVitality) * this.lifePerVitality;
-        if (this.quests.includes("Golden Bird Normal")) { this.life += 50; }
-        if (this.quests.includes("Golden Bird Nightmare")) { this.life += 50; }
-        if (this.quests.includes("Golden Bird Hell")) { this.life += 50; }
-    }
+        // Skill Levels
+        this.allSkillLevel = computeTotalAllSkillLevel(this);
+        this.barbarianSkillLevel = computeTotalBarbarianSkillLevel(this);
+        this.sorceressSkillLevel = computeTotalSorceressSkillLevel(this);
+        this.amazonSkillLevel = computeTotalAmazonSkillLevel(this);
+        this.necromancerSkillLevel = computeTotalNecromancerSkillLevel(this);
+        this.paladinSkillLevel = computeTotalPaladinSkillLevel(this);
+        this.druidSkillLevel = computeTotalDruidSkillLevel(this);
+        this.assassinSkillLevel = computeTotalAssassinSkillLevel(this);
 
-    calculateTotalItemStats() {
-        for (const item of this.equippedItems) {
-            if ((item != null)&&(item != [])) {
-                if (item.stats["LightningSpellDamage"] != null) {
-                    this.lightningSpellDamage += item.stats["LightningSpellDamage"];
-                }
-                if (item.stats["LightningPierce"] != null) {
-                    this.lightningPiercing += item.stats["LightningPierce"];
-                }
-                if (item.stats["PhysicalSpellDamage"] != null) {
-                    this.physicalSpellDamage += item.stats["PhysicalSpellDamage"];
-                }
-                if (item.stats["SpellDamage"] != null) {
-                    this.fireSpellDamage += item.stats["SpellDamage"];
-                    this.coldSpellDamage += item.stats["SpellDamage"];
-                    this.lightningSpellDamage += item.stats["SpellDamage"];
-                    this.poisonSpellDamage += item.stats["SpellDamage"];
-                    this.magicSpellDamage += item.stats["SpellDamage"];
-                    this.physicalSpellDamage += item.stats["SpellDamage"];
-                }
-            }
-        }
+        // Compute Total Base Stats
+        this.strength = computeTotalStrength(this);
+        this.dexterity = computeTotalDexterity(this);
+        this.vitality = computeTotalVitality(this);
+        this.energy = computeTotalEnergy(this);
+
+        this.life = computeTotalLife(this);
+        this.mana = computeTotalMana(this);
+
+        // Compute Spell Damage and Piercing
+        this.lightningSpellDamage = computeTotalLightningSpellDamage(this);
+        this.lightningPiercing = computeTotalLightningPierce(this);
+        this.fireSpellDamage = computeTotalFireSpellDamage(this);
+        this.firePiercing = computeTotalFirePierce(this);
+        this.poisonSpellDamage = computeTotalPoisonSpellDamage(this);
+        this.poisonPiercing = computeTotalPoisonPierce(this);
+        this.coldSpellDamage = computeTotalColdSpellDamage(this);
+        this.coldPiercing = computeTotalColdPierce(this);
+        this.physicalMagicalSpellDamage = computeTotalPhysicalMagicalSpellDamage(this);
+
+        // Resists
+        this.fireResistance = computeTotalFireResistance(this);
+        this.lightningResistance = computeTotalLightningResistance(this);
+        this.coldResistance = computeTotalColdResistance(this);
+        this.poisonResistance = computeTotalPoisonResistance(this);
+        this.physicalResistance = computeTotalPhysicalResistance(this);
+        this.magicResistance = computeTotalMagicalResistance(this);
+
+        // Max Resists
+        this.maximumFireResistance = computeTotalMaximumFireResistance(this);
+        this.maximumColdResistance = computeTotalMaximumColdResistance(this);
+        this.maximumPoisonResistance = computeTotalMaximumPoisonResistance(this);
+        this.maximumLightningResistance = computeTotalMaximumLightningResistance(this);
+        this.maximumPhysicalResistance = computeTotalMaximumPhysicalResistance(this);
+        this.maximumMagicResistance = computeTotalMaximumMagicalResistance(this);
+
+        // Absorbs
+        this.fireAbsorb = computeTotalAbsorbFire(this);
+        this.coldAbsorb = computeTotalAbsorbCold(this);
+        this.lightningAbsorb = computeTotalAbsorbLightning(this);
+
+        // Spell Focus
+        this.spellFocus = computeTotalSpellFocus(this);
     }
 
     equipItem(item, slotIndex = 1) {
@@ -296,11 +287,14 @@ class Character {
         if (this.helm != null) { this.equippedItems.push(this.helm); }
         if (this.weapon1 != null) { this.equippedItems.push(this.weapon1); }
         if (this.weapon2 != null) { this.equippedItems.push(this.weapon2); }
-        if (this.amulet != null) { this.equippedItems.push(this.amulet); }
         if (this.bodyArmor != null) { this.equippedItems.push(this.bodyArmor); }
         if (this.gloves != null) { this.equippedItems.push(this.gloves); }
         if (this.belt != null) { this.equippedItems.push(this.belt); }
         if (this.boots != null) { this.equippedItems.push(this.boots); }
+        for (const item in this.equippedItems) {
+            if (item.socketed != null) { this.equippedItems.concat(item.socketed); }
+        }
+        if (this.amulet != null) { this.equippedItems.push(this.amulet); }
         if (this.ring1 != null) { this.equippedItems.push(this.ring1); }
         if (this.ring2 != null) { this.equippedItems.push(this.ring2); }
         this.equippedItems = this.equippedItems.concat(this.charms);
@@ -398,18 +392,6 @@ class Item {
     }
 }
 
-class Skill {
-    constructor(name, charClass, tree, requirement, scaling, skillLevel, isSpell) {
-        this.name = name; // String unique
-        this.charClass = charClass; // String
-        this.scaling = scaling;
-        this.tree = tree;
-        this.skillLevel = skillLevel;
-        this.requirement = requirement;
-        this.isSpell = isSpell;
-    }
-}
-
 function createCharacter(charName, charClass, level) {
     let character = new Character(charName,charClass,level);
     characterList.push(character);
@@ -420,12 +402,6 @@ function createItem(name, slot, type, stats, socketed) {
     let item = new Item(name, slot, type, stats, socketed);
     itemList.push(item);
     return item;
-}
-
-function createSkill(name,charClass,tree,requirement,scaling,base,isSpell) {
-    let skill = new Skill(name,charClass,tree,requirement,scaling,base,isSpell);
-    skillList.push(skill);
-    return skill;
 }
 
 function createEnemy(name,life,resists) {
@@ -474,67 +450,6 @@ function displayCharacterStats(character) {
     characterDiv.appendChild(lightningPiercingSpan);
 }
 
-function calculDegatSkill(skill, character, enemy) {
-    let totalDamageLow = 0.0;
-    let totalDamageHigh = 0.0;
-
-    let totalLightningDamageLow = 0.0;
-    let totalLightningDamageHigh = 0.0;
-    let totalPhysicalDamageLow = 0.0;
-    let totalPhysicalDamageHigh = 0.0;
-
-    // Skill Level Scaling
-    let totalSkillLevel = skill.skillLevel + character.allSkillLevel + character.classSkillLevel;
-
-    if (skill.scaling["Base"] != null) {
-        if (skill.scaling["Base"]["PLB"] != null) {
-            totalPhysicalDamageLow = totalPhysicalDamageLow + skill.scaling["Base"]["PLB"] + ((totalSkillLevel-1) * skill.scaling["Base"]["PLS"]);
-            totalPhysicalDamageHigh = totalPhysicalDamageHigh + skill.scaling["Base"]["PHB"] + ((totalSkillLevel-1) * skill.scaling["Base"]["PHS"]);
-        }
-        if (skill.scaling["Base"]["LLB"] != null) {
-            totalLightningDamageLow = totalLightningDamageLow + skill.scaling["Base"]["LLB"] + ((totalSkillLevel-1) * skill.scaling["Base"]["LLS"]);
-            totalLightningDamageHigh = totalLightningDamageHigh + skill.scaling["Base"]["LHB"] + ((totalSkillLevel-1) * skill.scaling["Base"]["LHS"]);
-        }
-    }
-
-    // Spell Factor
-    if (skill.isSpell) {
-        let energy = character.energy;
-        let focus = character.spellFocus;
-        let energyBonus = (130 * (energy + 20)) / (500 + energy);
-        let focusBonus = Math.min(focus / 10.0, 100.0);
-        let totalFactor = energyBonus + focusBonus;
-        let multiplier = 1 + (totalFactor / 100.0);
-        totalLightningDamageLow *= multiplier;
-        totalLightningDamageHigh *= multiplier;
-        totalPhysicalDamageLow *= multiplier;
-        totalPhysicalDamageHigh *= multiplier;
-    }
-
-    totalLightningDamageLow = totalLightningDamageLow * (1 + (character.lightningSpellDamage/100.0));
-    totalLightningDamageHigh = totalLightningDamageHigh * (1 + (character.lightningSpellDamage/100.0));
-    totalPhysicalDamageLow = totalPhysicalDamageLow * (1 + (character.physicalSpellDamage/100.0));
-    totalPhysicalDamageHigh = totalPhysicalDamageHigh * (1 + (character.physicalSpellDamage/100.0));
-
-    // Resist Calculation
-    let enemyLightRes = enemy.resists[2] - character.lightningPiercing;
-    let enemyPhysRes = enemy.resists[5]; // No Physical Spell Piercing
-    let effectiveLightRes = Math.max(enemyLightRes, -100);
-    let effectivePhysRes = Math.max(enemyPhysRes, -100);
-
-    totalLightningDamageLow = totalLightningDamageLow * (1 - (effectiveLightRes/100.0));
-    totalLightningDamageHigh = totalLightningDamageHigh * (1 - (effectiveLightRes/100.0));
-
-    totalPhysicalDamageLow = totalPhysicalDamageLow * (1 - (effectivePhysRes/100.0));
-    totalPhysicalDamageHigh = totalPhysicalDamageHigh * (1 - (effectivePhysRes/100.0));
-
-    // Final Damage
-    totalDamageLow = totalPhysicalDamageLow + totalLightningDamageLow;
-    totalDamageHigh = totalPhysicalDamageHigh + totalLightningDamageHigh;
-
-    return {totalDamageLow,totalDamageHigh};
-}
-
 function simDPS(skill, character, enemy) {
     let characterDiv = document.getElementById("pageCharacter");
     characterDiv.appendChild(document.createElement("br"));
@@ -548,10 +463,10 @@ function simDPS(skill, character, enemy) {
  * Converts a JSON object into a Character class instance with equipped items.
  */
 function loadCharacterFromJSON(data) {
-    // 1. Create the Character Instance
+    // Create the Character Instance
     let newChar = createCharacter(data.charName, data.charClass, data.level);
 
-    // 2. Load Attributes
+    // Load Attributes
     if (data.attributes) {
         newChar.addAttributePoints(
             data.attributes.strength || 0,
@@ -561,12 +476,15 @@ function loadCharacterFromJSON(data) {
         );
     }
 
-    // 3. Load Quests
+    // Load Skills
+    if (data.learnedSkills) { newChar.learnedSkills = data.learnedSkills; }
+
+    // Load Quests
     if (data.quests && Array.isArray(data.quests)) {
         data.quests.forEach(quest => newChar.setQuestDone(quest));
     }
 
-    // 4. Create and Equip Items
+    // Create and Equip Items
     if (data.items && Array.isArray(data.items)) {
         let ringCount = 0;
         data.items.forEach(itemData => {
@@ -598,8 +516,7 @@ function loadSkillFromJSON(data) {
         data.charClass, 
         data.tree, 
         data.requirement, 
-        data.scaling, 
-        data.baseSkillLevel, 
+        data.scaling,
         data.isSpell
     );
 }

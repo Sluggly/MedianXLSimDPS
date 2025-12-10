@@ -1,2 +1,4 @@
 /script/*
 /node_modules/*
+/wiki/*
+/resources/*

@@ -294,8 +294,9 @@ io.on('connection', (socket) => {
                 charClass: charInfo.charClass,
                 level: charInfo.level,
                 attributes: charInfo.attributes,
-                items: equippedItems,
-                quests: []
+                items: equippedItems, // Only equipped goes here
+                quests: [],
+                spellFocus: equippedItems.reduce((acc, i) => acc + (i.stats.SpellFocus || 0), 0) // Basic calc
             };
 
             // Send Character AND the massive inventory list
