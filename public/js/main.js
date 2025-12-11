@@ -5,7 +5,13 @@ socket.on('initData', (data) => {
     console.log("Received server data", data);
     
     // 1. Load Global Items
-    globalItemLibrary = data.items;
+    globalItemLibrary = [];
+    if (data.items) {
+        data.items.forEach(item => {
+            item.owner = "None"; // Default owner
+            globalItemLibrary.push(item);
+        });
+    }
     
     // 2. Load Characters
     characterList = [];
@@ -56,21 +62,17 @@ socket.on('scrapeSuccess', (data) => {
     // Also add the new items to the global library so we can use them on other chars
     if (charData.items) {
         charData.items.forEach(item => {
-             // Add only if not exists
-             if (!globalItemLibrary.some(i => i.name === item.name)) {
-                 globalItemLibrary.push(item);
-             }
+            let libItem = JSON.parse(JSON.stringify(item));
+            libItem.owner = charData.charName;
+            globalItemLibrary.push(libItem);
         });
     }
 
     if (inventoryData) {
         inventoryData.forEach(item => {
-             // Optional: Filter out junk like "Potion", "Arcane Cluster"
-             if(item.type.includes("Potion") || item.type.includes("Cluster") || item.type.includes("Signet")) return;
-
-             if (!globalItemLibrary.some(i => i.name === item.name)) {
-                 globalItemLibrary.push(item);
-             }
+            let libItem = JSON.parse(JSON.stringify(item));
+            libItem.owner = charData.charName;
+            globalItemLibrary.push(libItem);
         });
     }
 
@@ -242,6 +244,32 @@ function updateCharStat(statName, value) {
     selectedChar.calculateFinalStats();
 }
 
+// --- HELPER: Image Fallback Logic ---
+function setItemImage(imgElement, item) {
+    // Define the fallback chain
+    const candidates = [
+        `img/items/${item.name}.png`, // 1. Specific Name (e.g. "Umbaru Treasure.png")
+        `img/items/${item.type}.png`, // 2. Item Type (e.g. "Charm.png")
+        `img/items/${item.slot}.png`, // 3. Item Slot (e.g. "Helm.png")
+        'img/placeholder.png'         // 4. Final Fallback
+    ];
+
+    let attemptIndex = 0;
+    
+    // Set initial source
+    imgElement.src = candidates[0];
+
+    // On error, try the next one in the list
+    imgElement.onerror = function() {
+        attemptIndex++;
+        if (attemptIndex < candidates.length) {
+            this.src = candidates[attemptIndex];
+        } else {
+            this.onerror = null; // Stop infinite loops if placeholder is missing
+        }
+    };
+}
+
 function renderEquippedGear() {
     const container = document.getElementById('equipped-gear-list');
     container.innerHTML = "";
@@ -269,8 +297,7 @@ function renderEquippedGear() {
             
             // Icon
             let img = document.createElement('img');
-            img.src = iconPath;
-            img.onerror = function() { this.src = 'img/placeholder.png'; };
+            setItemImage(img, slot.item);
             img.addEventListener('mousemove', (e) => showItemTooltip(e, slot.item)); // Use move to follow mouse
             img.addEventListener('mouseleave', hideItemTooltip);
             
@@ -313,8 +340,7 @@ function renderEquippedGear() {
         let iconPath = `img/items/${item.type}.png`;
 
         let img = document.createElement('img');
-        img.src = iconPath;
-        img.onerror = function() { this.src = 'img/placeholder.png'; };
+        setItemImage(img, item);
         img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         img.addEventListener('mouseleave', hideItemTooltip);
 
@@ -344,48 +370,65 @@ function renderEquippedGear() {
 }
 
 function renderItemLibrary() {
+    const thead = document.querySelector('#item-library-body').closest('table').querySelector('thead tr');
+    // Ensure we have the Owner column header
+    if (thead.children.length === 4) { // Currently: Icon, Name, Type, Action
+        let th = document.createElement('th');
+        th.innerText = "Owner";
+        // Insert after Type (index 2)
+        thead.insertBefore(th, thead.children[3]);
+    }
+
     const tbody = document.getElementById('item-library-body');
     tbody.innerHTML = "";
 
     globalItemLibrary.forEach((item, index) => {
         let tr = document.createElement('tr');
         
-        let iconPath = `img/items/${item.type}.png`; 
-        let isEquipped = selectedChar && selectedChar.equippedItems.some(i => i.name === item.name);
-
-        // Define Buttons (kept from previous code)
-        // ... (Button logic remains same) ...
-        let actionButtons = `<button class="btn btn-sm btn-success" onclick="doEquipFromLib(${index})">Equip</button>`; // Simplified for example
-
-        // Create Icon Element
+        // Icon
         let img = document.createElement('img');
-        img.src = iconPath;
+        setItemImage(img, item);
         img.width = 32;
-        img.onerror = function() { this.src = 'img/placeholder.png'; };
         img.className = "item-icon-container";
-        // Attach Tooltip Events
         img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         img.addEventListener('mouseleave', hideItemTooltip);
 
         let tdIcon = document.createElement('td');
         tdIcon.appendChild(img);
 
+        // Name
         let tdName = document.createElement('td');
         tdName.innerText = item.name;
-        // Also show tooltip on name hover
+        tdName.className = "align-middle";
         tdName.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         tdName.addEventListener('mouseleave', hideItemTooltip);
 
+        // Type
         let tdType = document.createElement('td');
         tdType.innerText = item.type;
+        tdType.className = "align-middle text-muted";
 
+        // --- NEW: Owner ---
+        let tdOwner = document.createElement('td');
+        let ownerName = item.owner || "None";
+        tdOwner.innerText = ownerName;
+        tdOwner.className = "align-middle";
+        if (ownerName !== "None") tdOwner.style.color = "#d4af37"; // Gold color for characters
+
+        // Action
         let tdBtn = document.createElement('td');
         tdBtn.className = "text-right";
-        tdBtn.innerHTML = actionButtons; // Keep buttons as HTML string for simplicity or refactor
+        // Using a closure to capture index safely
+        let btn = document.createElement('button');
+        btn.className = "btn btn-sm btn-success";
+        btn.innerText = "Equip";
+        btn.onclick = () => doEquipFromLib(index);
+        tdBtn.appendChild(btn);
 
         tr.appendChild(tdIcon);
         tr.appendChild(tdName);
         tr.appendChild(tdType);
+        tr.appendChild(tdOwner); // Add Owner
         tr.appendChild(tdBtn);
         
         tbody.appendChild(tr);
@@ -393,8 +436,16 @@ function renderItemLibrary() {
 }
 
 // --- Top Gear Logic ---
-
 function renderTopGearSelection() {
+    // 1. Update Table Header
+    const thead = document.querySelector('#topgear-selection-body').closest('table').querySelector('thead tr');
+    // Ensure we have the Owner column header. Currently: Select, Icon, Name, Type
+    if (thead.children.length === 4) { 
+        let th = document.createElement('th');
+        th.innerText = "Owner";
+        thead.appendChild(th); // Append to end
+    }
+
     const tbody = document.getElementById('topgear-selection-body');
     tbody.innerHTML = "";
 
@@ -402,26 +453,25 @@ function renderTopGearSelection() {
     const equippableItems = globalItemLibrary.filter(item => validSlots.includes(item.slot));
 
     if (equippableItems.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted p-3">No equippable items found in library.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted p-3">No equippable items found in library.</td></tr>';
         return;
     }
 
     equippableItems.forEach((item, index) => {
         let tr = document.createElement('tr');
         
-        let iconPath = `img/items/${item.type}.png`;
-
         // Checkbox
         let tdCheck = document.createElement('td');
         tdCheck.className = "text-center align-middle";
-        tdCheck.innerHTML = `<input type="checkbox" class="topgear-check" data-lib-index="${globalItemLibrary.indexOf(item)}">`;
+        // Important: Store the GLOBAL index, not the filtered index
+        let globalIndex = globalItemLibrary.indexOf(item);
+        tdCheck.innerHTML = `<input type="checkbox" class="topgear-check" data-lib-index="${globalIndex}">`;
 
         // Icon
         let tdIcon = document.createElement('td');
         let img = document.createElement('img');
-        img.src = iconPath;
+        setItemImage(img, item);
         img.width = 32;
-        img.onerror = function() { this.src = 'img/placeholder.png'; };
         img.className = "item-icon-container";
         img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         img.addEventListener('mouseleave', hideItemTooltip);
@@ -440,10 +490,18 @@ function renderTopGearSelection() {
         tdType.className = "align-middle text-muted";
         tdType.innerHTML = `<small>${item.type}</small>`;
 
+        // --- NEW: Owner ---
+        let tdOwner = document.createElement('td');
+        let ownerName = item.owner || "None";
+        tdOwner.innerText = ownerName;
+        tdOwner.className = "align-middle small";
+        if (ownerName !== "None") tdOwner.style.color = "#d4af37";
+
         tr.appendChild(tdCheck);
         tr.appendChild(tdIcon);
         tr.appendChild(tdName);
         tr.appendChild(tdType);
+        tr.appendChild(tdOwner);
         
         tbody.appendChild(tr);
     });
@@ -559,9 +617,8 @@ function renderTopGearResults(results) {
         // Icon
         let tdIcon = document.createElement('td');
         let img = document.createElement('img');
-        img.src = iconPath;
+        setItemImage(img, item);
         img.width = 32;
-        img.onerror = function() { this.src = 'img/placeholder.png'; };
         img.className = "item-icon-container";
         img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         img.addEventListener('mouseleave', hideItemTooltip);
@@ -875,13 +932,15 @@ document.getElementById('btn-upgrade-calc').addEventListener('click', function()
 
 // Scrape Button
 document.getElementById('btn-scrape').addEventListener('click', function() {
-    const url = document.getElementById('scraper-url').value;
-    if(!url) return;
+    let inputVal = document.getElementById('scraper-url').value.trim();
+    if(!inputVal) return;
+    
+    if (!inputVal.startsWith('http')) { inputVal = `https://tsw.vn.cz/char/${inputVal}`; }
     
     document.getElementById('scrape-status').innerText = "Scraping... (This takes a few seconds)";
     document.getElementById('scrape-status').className = "text-warning small";
     
-    socket.emit('scrapeCharacter', url);
+    socket.emit('scrapeCharacter', inputVal);
 });
 
 function showItemTooltip(e, item) {
