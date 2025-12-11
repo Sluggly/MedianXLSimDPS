@@ -43,6 +43,7 @@ socket.on('initData', (data) => {
 
 // Listen for Scrape Success
 socket.on('scrapeSuccess', (data) => {
+    console.log("Received scrapping data from server", data);
     // data contains: { character: Object, inventory: Array }
     const charData = data.character;
     const inventoryData = data.inventory;

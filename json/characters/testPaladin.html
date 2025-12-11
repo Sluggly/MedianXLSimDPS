@@ -1,0 +1,525 @@
+<div class="center">
+<img width="443" height="199" src="/acc/notarmory_logo.gif" class="center">
+<!-- <h3 class="color-yellow"><i>NotArmory doesn't work for MXL v2.0 yet (will be fixed soon)</i></h3> -->
+<script>
+  document.documentElement.setAttribute('data-bs-theme', 'dark');
+</script>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+    li a.dropdown-item { font-size: 13px; text-decoration:none}
+    li a.nav-link {text-decoration:none}
+    /* --- Complete Dark Dropdown Menu Style --- */
+
+    .mail-badge-container {
+        position: relative;
+        display: inline-block;
+    }
+    .mail-badge-custom {
+        position: absolute;
+        top: -0.7em;
+        left: 1.1em;
+        background: white;
+        color: red;
+        font-weight: bold;
+        border-radius: 1em;
+        padding: 0.1em 0.5em;
+        font-size: 0.8em;
+        z-index: 10;
+        border: 2px solid red;
+        box-shadow: 0 0 2px #0002;
+    }
+</style>
+
+<div class="menu" style="font-size: 14.5px">
+<nav class="navbar navbar-expand-md bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+<li class="nav-item"><a class="nav-link" aria-current="false" href="/stats.php">Stats</a></li><li class="nav-item"><a class="nav-link" aria-current="false" href="/acc/">NotArmory</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTrade" role="button" data-bs-toggle="dropdown" aria-expanded="false">Trade</a><ul class="dropdown-menu" aria-labelledby="navbarDropdownTrade"><li><a class="dropdown-item" href="/trade/index.php">Main</a></li><li><a class="dropdown-item" href="/trade/statsearch.php">Stat Search</a></li><li><a class="dropdown-item" href="/trade/info.php">Profile</a></li><li><a class="dropdown-item text-warning" href="/trade/notes.php">Notes&amp;Prices</a></li></ul></li><li class="nav-item"><a class="nav-link" aria-current="false" href="/score/">Score</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownNormal" role="button" data-bs-toggle="dropdown" aria-expanded="false">Normal</a><ul class="dropdown-menu" aria-labelledby="navbarDropdownNormal"><li><a class="dropdown-item" href="/tlinfo.php">Info</a></li><li><a class="dropdown-item" href="/ladder/">Ladder</a></li><li><a class="dropdown-item" href="/ms/">Milestones</a></li><li><a class="dropdown-item" href="/kills/index.php">Kills per account</a></li><li><a class="dropdown-item" href="/kills/boss.php">Kills per boss</a></li><li><a class="dropdown-item" href="/kills/class.php">Kills per class</a></li><li><a class="dropdown-item" href="/kills/first.php">First kills</a></li><li><a class="dropdown-item" href="/kills/rifts.php">Rift Farmers</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSSF" role="button" data-bs-toggle="dropdown" aria-expanded="false">SSF</a><ul class="dropdown-menu" aria-labelledby="navbarDropdownSSF"><li><a class="dropdown-item" href="/ssf/info.php">Info</a></li><li><a class="dropdown-item" href="/ssf/ladder/">Ladder</a></li><li><a class="dropdown-item" href="/ssf/ms/">Milestones</a></li><li><a class="dropdown-item" href="/ssf/kills/index.php">Kills per account</a></li><li><a class="dropdown-item" href="/ssf/kills/boss.php">Kills per boss</a></li><li><a class="dropdown-item" href="/ssf/kills/class.php">Kills per class</a></li><li><a class="dropdown-item" href="/ssf/kills/first.php">First kills</a></li><li><a class="dropdown-item" href="/ssf/kills/rifts.php">Rift Farmers</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownXSF" role="button" data-bs-toggle="dropdown" aria-expanded="false">XSF</a><ul class="dropdown-menu" aria-labelledby="navbarDropdownXSF"><li><a class="dropdown-item" href="/xsf/info.php">Info</a></li><li><a class="dropdown-item" href="/xsf/ladder/">Ladder</a></li><li><a class="dropdown-item" href="/xsf/ms/">Milestones</a></li><li><a class="dropdown-item" href="/xsf/kills/index.php">Kills per account</a></li><li><a class="dropdown-item" href="/xsf/kills/boss.php">Kills per boss</a></li><li><a class="dropdown-item" href="/xsf/kills/class.php">Kills per class</a></li><li><a class="dropdown-item" href="/xsf/kills/first.php">First kills</a></li><li><a class="dropdown-item" href="/xsf/kills/rifts.php">Rift Farmers</a></li></ul></li><li class="nav-item"><a class="nav-link" aria-current="false" href="/quests/">Quests</a></li><li class="nav-item"><a class="nav-link" aria-current="false" href="/filters/">Filters</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMisc" role="button" data-bs-toggle="dropdown" aria-expanded="false">Misc</a><ul class="dropdown-menu" aria-labelledby="navbarDropdownMisc"><li><a class="dropdown-item" href="/gl/">Gamelist</a></li><li><a class="dropdown-item" href="/hc/tips.php">HC tips</a></li><li><a class="dropdown-item" href="/hc/deaths.php">HC Death stats</a></li><li><a class="dropdown-item" href="/acc/snapshots.php">Snapshots</a></li><li><a class="dropdown-item" href="/acc/finditem.php">Jewelry finder</a></li><li><a class="dropdown-item" href="/nl/">NonLadder</a></li><li><a class="dropdown-item" href="/quests/charmscore.php">Charm Score</a></li></ul></li>
+      </ul>
+    </div>
+    <span class="d-flex">
+<a href="/acc/mail.php" style="margin-right: 20px; text-decoration: none; vertical-align: middle;" title="No new mail">
+                    <span class="position-relative d-inline-block mail-badge-container">
+                        <i class="bi bi-envelope" style="font-size: 1.5rem; color: #bbb; vertical-align: middle;"></i>
+                    </span>
+                </a><ul class="navbar-nav me-auto mb-2 mb-md-0">
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><b>barbare</b></a><ul class="dropdown-menu" aria-labelledby="navbarUserDropdown"><li><select class="form-select form-select-sm" style="width:90%;margin:0 auto;" aria-label=".form-select-sm schc" name="schcmode" id="schcmode"><option value="auto" selected="">Mode:  Auto</option><option value="sc">Mode:  SC</option><option value="hc">Mode:  HC</option></select></li><li><a class="dropdown-item" href="/logout.php">logout</a></li></ul></li></ul></span>
+</div></nav></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// --- Bootstrap Dropdown Initialization/Opening Logic ---
+// We use a small timeout to ensure Bootstrap's JS has fully initialized itself
+// and all its components before we try to interact with them programmatically.
+// No auto-opening of dropdowns with .active class on page load. Let Bootstrap handle open/close naturally.
+
+// Your existing jQuery initialization for schcmode (unmodified)
+(function() {
+    function initializeSchcMode() {
+        if (typeof jQuery === 'undefined') {
+            console.error("jQuery is not loaded. Cannot initialize schc mode.");
+            return;
+        }
+        $("[name='schcmode']").on('change', function() {
+            var url = "/trade/schcmode.php";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#schcmode").serialize(),
+            });
+        });
+    }
+
+    function checkAndInitJQuery() {
+        if (window.jQuery) {
+            $(document).ready(initializeSchcMode);
+        } else {
+            var script = document.createElement('script');
+            script.src = 'https://code.jquery.com/jquery-3.7.1.min.js';
+            script.onload = function() {
+                if (window.jQuery) {
+                    $(document).ready(initializeSchcMode);
+                } else {
+                    console.error("Failed to load jQuery.");
+                }
+            };
+            script.onerror = function() {
+                console.error("Error loading jQuery from CDN.");
+            };
+            document.head.appendChild(script);
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        checkAndInitJQuery();
+    } else {
+        window.addEventListener('load', checkAndInitJQuery);
+    }
+})();
+</script>
+
+<h1 class=""> Champion Snoeglay (*Barbare) [Paladin] &nbsp; SC Ladder <i>#<span data-bs-toggle="tooltip" data-bs-original-title="Total rank">1745</span>/<span data-bs-toggle="tooltip" data-bs-original-title="Class rank">197</span></i></h1>
+<script type="text/javascript">document.title='NotArmory Snoeglay (109 Paladin)'</script>
+
+<div style="display:inline-block; width:49em; vertical-align:top; margin-right:3em">
+<h3>Stats</h3>
+<table style="width:48em">
+  <tbody><tr>
+    <th>Level</th>
+    <td><b class="color-white">109</b></td>
+    <th>Experience</th>
+    <td>5830117 (47%)</td>
+  </tr>
+  <tr>
+    <th>Strength</th>
+    <td>65</td>
+    <th>Life</th>
+    <td>4638/3735</td>
+  </tr>
+  <tr>
+    <th>Dexterity</th>
+    <td>30</td>
+    <th>Mana</th>
+    <td>3243/1601</td>
+  </tr>
+  <tr>
+    <th>Vitality</th>
+    <td>25</td>
+    <th>Inventory Gold</th>
+    <td>0</td>
+  </tr>
+  <tr>
+    <th>Energy</th>
+    <td>538</td>
+    <th>Stash Gold</th>
+    <td>280211</td>
+  </tr>
+  <tr>
+    <th>Free stat points</th>
+    <td>0</td>
+    <th>Signets eaten</th>
+    <td>3</td>
+  </tr>
+  <tr>
+    <th>Monsters killed</th>
+    <td>21217</td>
+    <th>Character deaths</th>
+    <td>40</td>
+  </tr>
+  <tr>
+    <th><span title="Boss Score - Measures a char's success in defeating uber bosses, factoring in difficulty.">Boss score</span> / 1st kills</th>
+    <td><span title="Total Boss kills: 3"> / 0x</span></td>
+    <th>Time spent</th>
+    <td>09:16:54</td>
+  </tr>
+  <tr>
+    <th style="cursor:help"><a href="/quests/charmscore.php" target="_blank">Charms completion</a></th>
+    <td style="cursor:help" data-bs-toggle="tooltip" data-bs-original-title="charms: 5/50&lt;br&gt;trophies: 0/21&lt;br&gt;upgrades: 0/22">5%</td>
+    <th style="cursor:help" data-bs-toggle="tooltip" data-bs-original-title="Indicates the rarity and value of the character's items">Gear score</th>
+    <td>5%</td>
+  </tr>
+
+</tbody></table>
+
+<h3>Skills</h3>
+<table>
+<tbody><tr>
+<td class="skills_td"><span class="skillpagename">Aspects</span>
+<span class="float_right">25</span>Elemental Wisdom
+<span class="float_right">1</span>Veneration of Justice
+<span class="float_right">18</span>Spark of Hope
+</td>
+<td class="skills_td"><span class="skillpagename">Warlock</span>
+<span class="float_right">20</span>Mind Flay
+<span class="float_right">1</span>Confluence
+<span class="float_right">25</span>Stormlord
+<span class="float_right">3</span>Slayer
+<span class="float_right">1</span>Symphony of Destruction
+<span class="float_right">15</span>Tainted Blood
+<span class="float_right">1</span>Acumen
+</td>
+<td class="skills_td"><span class="skillpagename">Mastery</span>
+<span class="float_right">3</span>Meditation
+<span class="float_right">4</span>Purity
+<span class="float_right">1</span>Freedom
+</td>
+</tr>
+<tr style="height:5px"><td></td></tr><tr>
+<td class="skills_td"><span class="skillpagename">Reward</span>
+<span class="float_right">1</span>Divine Apparition
+<span class="float_right">1</span>Superbeast
+</td>
+<td class="skills_td"><span class="oskills">Oskills</span>
+<span class="float_right">5</span>Blink
+</td>
+</tr><tr>
+<td class="skills_td">
+<span class="float_right">0</span>Free skill points
+</td>
+<td class="skills_td">
+
+</td>
+</tr>
+</tbody></table>
+</div>
+
+<div style="display:inline-block; width:276px;height:332px;vertical-align:top;margin-top:5px;background-image:url(/acc/gear_3.png);background-repeat:no-repeat;background-size:276px 332px;">
+<div style="display:block;height:332px;position:absolute">
+    <div class="hand1"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Voidstream&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Grand Scepter (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;One-Hand Damage: 30 to 35&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 51&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 279&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Paladin Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Amazon Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Slows Attacker by +18%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Regenerate Mana +47%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Damage Taken Reduced by 18&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50% Damage to Undead&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/3)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Voidstream&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Grand Scepter (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;One-Hand Damage: 30 to 35&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 51&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 279&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Paladin Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Amazon Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Slows Attacker by +18%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Regenerate Mana +47%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Damage Taken Reduced by 18&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50% Damage to Undead&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/3)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invgsc.png" class="gear_img"></div></div>
+    <div class="head"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Skull Lord&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Blackguard Helm (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;900&lt;/span&gt;&lt;span class='color-white'&gt; (495)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;(Paladin Only)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 50&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 187&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+71 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+19% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+82% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Curse Length Reduction +24%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;8% Reanimate as: &lt;/span&gt;&lt;span class='color-grey'&gt;Eternal Prisoner&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/4)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Skull Lord&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Blackguard Helm (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;900&lt;/span&gt;&lt;span class='color-white'&gt; (495)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;(Paladin Only)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 50&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 187&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+71 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+19% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+82% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Curse Length Reduction +24%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;8% Reanimate as: &lt;/span&gt;&lt;span class='color-grey'&gt;Eternal Prisoner&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/4)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invbhmu.png" class="gear_img"></div></div>
+    <div class="hand2"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;The Ivory Tower&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Tower Shield (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;4095&lt;/span&gt;&lt;span class='color-white'&gt; (1812)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 51&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 182&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 211&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+14% Bonus to Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+26% to Fire Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+26% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+126% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Maximum Mana +18%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Requirements -55%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;The Ivory Tower&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Tower Shield (4)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;4095&lt;/span&gt;&lt;span class='color-white'&gt; (1812)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 51&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 182&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 211&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+14% Bonus to Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+26% to Fire Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+26% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+126% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Maximum Mana +18%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Requirements -55%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invtow.png" class="gear_img"></div></div>
+    <div class="amulet"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;The Dreamcatcher&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Amulet&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 80&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-8% to Enemy Elemental Resistances&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +20%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+14 Mana after each Kill&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;The Dreamcatcher&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Amulet&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 80&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% Cast Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-8% to Enemy Elemental Resistances&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +20%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+14 Mana after each Kill&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invamu1.png" class="gear_img"></div></div>
+    <div class="body"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Akara's Robe&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Quilted Armor (3)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;AmnOrtRalOrtRal&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;509&lt;/span&gt;&lt;span class='color-white'&gt; (259)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 50&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 175&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+250 Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+12 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +72%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +72%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +22%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Resist +47%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Cannot be Upgraded&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (5/5)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invramn.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Amn Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 30&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrort.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ort Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrral.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ral Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 23&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrort.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ort Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrral.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ral Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 23&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Akara's Robe&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Quilted Armor (3)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;AmnOrtRalOrtRal&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;509&lt;/span&gt;&lt;span class='color-white'&gt; (259)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 50&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 175&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+250 Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+12 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +72%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +72%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +22%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Resist +47%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Cannot be Upgraded&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (5/5)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invramn.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Amn Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 30&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrort.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ort Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrral.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ral Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 23&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrort.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ort Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrral.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Ral Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 23&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +25%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invxtuu.png" class="gear_img"></div></div>
+    <div class="gloves"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Leather Gloves (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 6&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +30%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (1/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw5.png'&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Hellrush&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;span class='color-blue'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;span class='color-orange'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Allres&lt;/span&gt; &lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Leather Gloves (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 6&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +30%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (1/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw5.png'&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Hellrush&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;span class='color-blue'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;span class='color-orange'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Allres&lt;/span&gt; &lt;/div&gt;"><img src="/acc/items/invlgl.png" class="gear_img"></div></div>
+    <div class="boots"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Boots (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 12&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 104&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60% Hit Recovery&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Maximum Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+104 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;1x&lt;/span&gt; Max Dmg Armor&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; FHR&lt;/span&gt; &lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Boots (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 12&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 104&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60% Hit Recovery&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Maximum Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+104 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;1x&lt;/span&gt; Max Dmg Armor&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; FHR&lt;/span&gt; &lt;/div&gt;"><img src="/acc/items/invlbt.png" class="gear_img"></div></div>
+    <div class="ring1"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Ring&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Adds 5-11 Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% Life stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% to Summoned Minion Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +20%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Ring&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Adds 5-11 Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% Life stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% to Summoned Minion Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +20%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invrin5.png" class="gear_img"></div></div>
+    <div class="belt"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Sash (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 15&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +30%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (1/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw2.png'&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Hellrush&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;span class='color-blue'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;span class='color-orange'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Allres&lt;/span&gt; &lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-dgreen2'&gt;Sash (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 15&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 25&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgreen'&gt;Orb Effects Applied to this Item are Doubled&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+60 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50 to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +30%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+100 Required Level&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (1/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw2.png'&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Hellrush&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-orange'&gt;+3% to Movement Speed Until Level 100&lt;/span&gt;&lt;span class='color-blue'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;(Stackable)&lt;/span&gt;&lt;span class='color-orange'&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Maximum Stamina&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Slower Stamina Drain&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div&gt;&lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Energy&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Lightning Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Magic Spell Damage&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Spell Focus&lt;/span&gt; &lt;span class='badge text-bg-light fw-normal mb-1'&gt;&lt;span class='fw-bold text-danger'&gt;5x&lt;/span&gt; Allres&lt;/span&gt; &lt;/div&gt;"><img src="/acc/items/invlbl.png" class="gear_img"></div></div>
+    <div class="ring2"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Ring&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% Life stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Lightning Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Mana after each Kill&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Ring&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% Life stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Lightning Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Mana after each Kill&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invrin1.png" class="gear_img"></div></div>
+    <div class="hand3"><div class="item-inline" data-bs-toggle="tooltip" aria-label="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Pax Mystica&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Long Staff (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Tir&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Two-Hand Damage: 6 to 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Dexterity: 8&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3 to Maximum Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 to Blink&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +14%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+13% Magic Find&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50% Damage to Undead&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (2/2)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw4.png'&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3 to Maximum Damage&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrtir.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Tir Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3% to Fire Spell Damage&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Pax Mystica&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Long Staff (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Tir&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Two-Hand Damage: 6 to 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Dexterity: 8&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3 to Maximum Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 to Blink&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +14%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+13% Magic Find&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50% Damage to Undead&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (2/2)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='item-sockets'&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invjw4.png'&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3 to Maximum Damage&lt;/span&gt;&lt;/div&gt;&lt;div class='socket'&gt;&lt;img src='/acc/items/invrtir.png'&gt;&lt;br/&gt;&lt;span class='color-purple'&gt;Tir Rune&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 10&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+3% to Fire Spell Damage&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><img src="/acc/items/invlst.png" class="gear_img"></div></div>
+    <div class="hand4"><div class="item-inline" title="" data-bs-toggle="tooltip"></div></div>
+</div>
+</div>
+
+<div style="display:inline-block; width:49em;vertical-align:top; margin-right:3em">
+<h3>Items <a href="/acc/finditem.php?char=Snoeglay" target="_blank" class="float_right color-yellow" data-bs-toggle="tooltip" data-bs-original-title="Tool to find best ring/amulet/jewel/charm">Jewelry finder</a></h3>
+    <div id="controls-container"> <!-- START: Filter Controls -->
+      <div class="control-group">
+        Location:
+        <select id="ui-filter-location" data-cip-id="cIPJQ342845639">
+          <option value="">All</option>
+          <option class="Belt" value="Belt">Belt</option>
+          <option class="Cube" value="Cube">Cube</option>
+          <option class="Inventory" value="Inventory">Inventory</option>
+          <option class="Mercenary" value="Mercenary">Mercenary</option>
+          <option class="Stash" value="Stash">Stash</option>
+        </select>
+      </div>
+     &nbsp;
+      <div class="control-group">
+        Search: <input id="ui-filter-search" type="text" data-cip-id="ui-filter-search">
+      </div>
+    </div> <!-- END: Filter Controls -->
+<div id="itemdump_wrapper" class="dt-container dt-empty-footer"><div><table id="itemdump" class="dataTable"><colgroup><col data-dt-column="0"><col data-dt-column="1"><col data-dt-column="2"></colgroup>
+  <thead>
+  <tr role="row"><th data-dt-column="0" class="dt-nowrap dt-orderable-asc dt-orderable-desc dt-ordering-asc" rowspan="1" colspan="1" aria-label="Name: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Name</span><span class="dt-column-order"></span></th><th data-dt-column="1" class="dt-nowrap dt-orderable-asc dt-orderable-desc dt-ordering-asc" rowspan="1" colspan="1" aria-label="Type: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Type</span><span class="dt-column-order"></span></th><th data-dt-column="2" class="dt-nowrap dt-orderable-asc dt-orderable-desc dt-ordering-asc" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Location: Activate to invert sorting" tabindex="0"><span class="dt-column-title" role="button">Location</span><span class="dt-column-order"></span></th></tr>
+  </thead>
+  <tbody><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invhp4.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-white'&gt;Greater Healing Potion&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Regenerates 12.5% of Maximum Life (up to 15 000) per second&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Duration: 7 seconds&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-white">Greater Healing Potion</span></div></td>
+    <td class="color-white dt-nowrap sorting_2">Potion</td>
+    <td class="Belt dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="40963">Belt</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invhp5.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-white'&gt;Super Healing Potion&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Regenerates 13% of Maximum Life (up to 15 000) per second&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Duration: 7 seconds&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-white">Super Healing Potion [7x]</span></div></td>
+    <td class="color-white dt-nowrap sorting_2">Potion</td>
+    <td class="Belt dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="40960">Belt</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invfary1.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-orange'&gt;Arcane Shards (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-grey'&gt;Cube Reagent&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-orange">Arcane Shards (1)</span></div></td>
+    <td class="color-orange dt-nowrap sorting_2">Arcane Shards (1)</td>
+    <td class="Cube dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="50318">Cube</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/catal2.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Catalyst of Disenchantment&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Catalyst of Disenchantment</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Catalyst</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="36866">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/ccpal.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Eye of Divinity&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;(Paladin Challenge Item)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;(Paladin Only)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 90&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Keep in Inventory to Gain Bonus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-green'&gt;Unlocks your Ennead Skill&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to Paladin Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +5%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% Bonus to Defense&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Eye of Divinity</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Charm</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="37248">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/evileye.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Riftwalker's Eye&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Keep in Inventory to Gain Bonus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% to Experience Gained&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&lt;span class='color-tan'&gt;Bonus Quest I&lt;/span&gt;&lt;br/&gt;&lt;span class='color-grey'&gt;(cube charm by itself on completion)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-green'&gt;Defeat the Greater Riftwalker&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;- without taking damage from the Rift Storm&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&lt;span class='color-tan'&gt;Bonus Quest II&lt;/span&gt;&lt;br/&gt;&lt;span class='color-grey'&gt;(cube charm by itself on completion)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-green'&gt;Defeat the Ascendant Riftwalker&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;- with at least one Frozen Shambler alive&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;- without taking damage from the Rift Storm&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Riftwalker's Eye</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Charm</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="37504">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invworldkey.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Sacred Worldstone Key&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Keep in Inventory to Gain Bonus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Weapon Physical Damage +26%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+28% Bonus to Defense&lt;/span&gt; &nbsp;&lt;span class='charmrange'&gt;[21 to 30]&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Sacred Worldstone Key</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Charm</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="37632">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invgmg.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Sunstone of the Twin Seas&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 50&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Keep in Inventory to Gain Bonus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Combat Speeds&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Fire Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Lightning Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Cold Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% to All Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Elemental Resists +40%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% to Experience Gained&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Sunstone of the Twin Seas</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Charm</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="37120">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invfang.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;The Butcher's Tooth&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 100&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Keep in Inventory to Gain Bonus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% Magic Find&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to Light Radius&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Horror Under Tristram (Heroic)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Difficulty Level: 125&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Transmute with an Urt rune to receive two quest entrance scrolls&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Reward can be used to upgrade Paragon's Hammer&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">The Butcher's Tooth</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Charm</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="37376">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invbox.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Horadric Cube&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Horadric Cube</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Horadric Cube</td>
+    <td class="Inventory dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="36864">Inventory</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invamu3.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Amulet&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+9 to Vitality&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+112 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+41 to Mana&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5 Life after each Kill&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Amulet</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Amulet</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invlbt.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-green'&gt;Steppe Sleeper&lt;/span&gt;&lt;br/&gt;&lt;span class='color-green'&gt;Boots (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;1451&lt;/span&gt;&lt;span class='color-white'&gt; (672)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 80&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to Barbarian Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Movement Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+116% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% to Strength&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Requirements -100%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/4)&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Tundra Walker&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;(Barbarian Windcarver Set)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Ancient Bronze&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Grey Ranger&lt;/span&gt;&lt;br/&gt;&lt;span class='color-green'&gt;Steppe Sleeper&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Vale Hunter&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-green">Steppe Sleeper</span></div></td>
+    <td class="color-green dt-nowrap sorting_2">Boots (Set)</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invbrn.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Brandistock (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Two-Hand Damage: 144 to 175&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 430&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 460&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+158% Enhanced Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+83 Life on Melee Attack&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;2% Reanimate as: &lt;/span&gt;&lt;span class='color-grey'&gt;Returned Warrior&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+49% Magic Find&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Brandistock (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Brandistock (Sacred)</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invful.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Full Plate Mail (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 4172&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 690&lt;/span&gt;&lt;br/&gt;&lt;span class='color-dgrey'&gt;Ethereal&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+20% to Vitality&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+375 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +49%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +49%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+59% Magic Find&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Full Plate Mail (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Full Plate Mail (Sacred) [eth]</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invtbl.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Heavy Belt (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;207&lt;/span&gt;&lt;span class='color-white'&gt; (145)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 36&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Fire Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+43% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+6 to all Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 Life on Melee Attack&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 Mana on Melee Attack&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Heavy Belt (1)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Heavy Belt (1)</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invmsk.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Umbaru's Jinx&lt;/span&gt;&lt;br/&gt;&lt;span class='color-gold'&gt;Mask (1)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;159&lt;/span&gt;&lt;span class='color-white'&gt; (74)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Level: 7&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Required Strength: 30&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Hit Recovery&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+7% to Summoned Minion Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% to Summoned Minion Attack Rating&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+32% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+62 Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Length Reduction +12%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+6% Bonus to Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/1)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Umbaru's Jinx</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Mask (1)</td>
+    <td class="Mercenary dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="">Mercenary</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invamu1.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Amulet&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;2% Chance to cast level 1 Mythal on Melee Attack&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-10% to Enemy Lightning Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+201 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Physical Damage Taken Reduced by 22&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Target Takes Additional Damage of 14&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Amulet</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Amulet</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="54912">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invmstu.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Angel Star (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;One-Hand Damage: 55 to 58&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;(Paladin Only)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 602&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Paladin Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;20% Chance to cast level 21 Miasma on Melee Attack&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+40% Attack Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-10% to Enemy Cold Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+47% to Poison Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+50% Damage to Undead&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/3)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Angel Star (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Angel Star (Sacred)</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53250">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invbsh.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Bone Shield (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: 1091&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 527&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% Base Block Chance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+40% Block Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+123 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Maximum Fire Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Fire Resist +36%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Bone Shield (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Bone Shield (Sacred)</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53248">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invbrs.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Breast Plate (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;7595&lt;/span&gt;&lt;span class='color-white'&gt; (2944)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Strength: 600&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2 to All Skills&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+158% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% to All Attributes&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Maximum Cold Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Cold Resist +53%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Length Reduction +41%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/6)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Breast Plate (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Breast Plate (Sacred)</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53255">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/jewelcataoff.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Catalyst of Jewelcraft&lt;/span&gt;&lt;br/&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Catalyst of Jewelcraft</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Catalyst</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53261">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/catal1.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Catalyst of Learning&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Catalyst of Learning</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Catalyst</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53389">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invdgr.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Dagger (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;One-Hand Damage: 37 to 38&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 376&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 2&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+4 to Druid Skill Levels&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;2% Chance to cast level 15 Gift of Inner Fire on Kill&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Adds 164-181 Cold Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+10% Life stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Mana stolen per Hit&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/2)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Dagger (Sacred)</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Dagger (Sacred)</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53251">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invjw3.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Can be Inserted into Socketed Items&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+11 Spell Focus&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+2% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% to All Attributes&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Jewel</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Jewel</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="54541">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invjw1.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Can be Inserted into Socketed Items&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+15% Block Speed&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% to Physical/Magic Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+45 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +5%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Jewel</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Jewel</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="54669">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invjw3.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Can be Inserted into Socketed Items&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% to Fire Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+8% to Summoned Minion Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% to Dexterity&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Lightning Resist +6%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Jewel</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Jewel</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="54797">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invjw4.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-yellow'&gt;Jewel&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Can be Inserted into Socketed Items&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+12% to Summoned Minion Attack Rating&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+1% to Energy&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+22 to Mana&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-yellow">Jewel</span></div></td>
+    <td class="color-yellow dt-nowrap sorting_2">Jewel</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="54925">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invmph.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Key of Lies&lt;/span&gt;&lt;br/&gt;&lt;span class='color-grey'&gt;Quest Item&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Level: 125&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Summon a Portal to The Realm of Lies...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Key of Lies</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Key</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53260">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invmph.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-gold'&gt;Key of Sin&lt;/span&gt;&lt;br/&gt;&lt;span class='color-grey'&gt;Quest Item&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Level: 115&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Summon a Portal to The Realm of Sin...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-gold">Key of Sin</span></div></td>
+    <td class="color-gold dt-nowrap sorting_2">Key</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53259">Stash</span></td>
+  </tr><tr>
+    <td class="dt-nowrap sorting_3"><div class="item-inline" data-bs-toggle="tooltip" data-bs-original-title="&lt;div class='item-wrapper'&gt;&lt;div&gt;&lt;img src='/acc/items/invpa1.png'&gt;&lt;/div&gt;&lt;div&gt;&lt;span class='color-orange'&gt;Targe (Sacred)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;Defense: &lt;/span&gt;&lt;span class='color-blue'&gt;4488&lt;/span&gt;&lt;span class='color-white'&gt; (1700)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-white'&gt;(Paladin Only)&lt;/span&gt;&lt;br/&gt;&lt;span class='color-red'&gt;Required Dexterity: 437&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Prefixes: 3&lt;/span&gt;&lt;br/&gt;&lt;span class='color-yellow'&gt;Suffixes: 1&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+30% Hit Recovery&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+5% to Lightning Spell Damage&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;-5% to Enemy Lightning Resistance&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+164% Enhanced Defense&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;+461 to Life&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Maximum Poison Resist +1%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Poison Resist +40%&lt;/span&gt;&lt;br/&gt;&lt;span class='color-blue'&gt;Socketed (0/4)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"><span class="color-orange">Targe (Sacred)</span></div></td>
+    <td class="color-orange dt-nowrap sorting_2">Targe (Craft)</td>
+    <td class="Stash dt-nowrap sorting_1"><span data-toggle="tooltip" title="" data-location="53257">Stash</span></td>
+  </tr></tbody><tfoot></tfoot></table></div></div>
+</div>
+
+<div style="display:inline-block; width:30em;vertical-align:top">
+<h3>Quests</h3>
+<table style="width:30em">
+  <tbody><tr>
+    <td>Den of Evil</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+  <tr>
+    <td>Radament</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+  <tr>
+    <td>Lam Esen's Tome</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+  <tr>
+    <td>Golden Bird</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+  <tr>
+    <td>Izual</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+  <tr>
+    <td>Anya</td>
+    <td><input type="checkbox" readonly="" checked=""> Normal</td>
+    <td><input type="checkbox" readonly="" checked=""> Nightmare</td>
+    <td><input type="checkbox" readonly="" checked=""> Hell</td>
+  </tr>
+</tbody></table>
+</div>
+<script>
+  var checkbox = document.getElementsByClassName("part");
+  var i;
+  for (i = 0; i < checkbox.length; i++) {
+    checkbox[i].indeterminate = true;
+  }
+</script>
+<br>
+
+<div style="display:inline-block; width:49em;vertical-align:top; margin-right:3em">
+<h3>Stats from gear - experimental</h3>
+<table id="gearstats">
+<tbody><tr><th>Strength</th><td>32</td><td>10%</td></tr>
+<tr><th>Dexterity</th><td>32</td><td>10%</td></tr>
+<tr><th>Vitality</th><td>32</td><td>10%</td></tr>
+<tr><th>Energy</th><td>182</td><td>10%</td></tr>
+
+<tr class="color-red"><th>Life</th><td>100</td><td>0%</td></tr>
+<tr class="color-blue"><th>Mana</th><td>0</td><td>18%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><th>All Skills / Class Skills</th><td>7</td><td>6</td></tr>
+<tr><th>Maximum Skill / Experience</th><td>0</td><td>20%</td></tr>
+<tr><th><span class="color-red">Life</span> / <span class="color-blue">Mana</span> stolen per Hit</th><td class="color-red">10%</td><td class="color-blue">0%</td></tr>
+<tr><th><span class="color-red">Life</span> / <span class="color-blue">Mana</span> after each Kill</th><td class="color-red">0</td><td class="color-blue">19</td></tr>
+<tr><th><span class="color-red">Life</span> / <span class="color-blue">Mana</span> on Striking</th><td class="color-red">0</td><td class="color-blue">0%</td></tr>
+<tr><th><span class="color-red">Life</span> / <span class="color-blue">Mana</span> on Attack</th><td class="color-red">0</td><td class="color-blue">0%</td></tr>
+<tr><th>Regenerate <span class="color-red">Life</span> / <span class="color-blue">Mana</span></th><td class="color-red">0/s</td><td class="color-blue">47%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr class="color-blue"><th>Cold Resistance / Max</th><td>162%</td><td>0%</td></tr>
+<tr class="color-red"><th>Fire Resistance / Max</th><td>192%</td><td>0%</td></tr>
+<tr class="color-yellow"><th>Lightning Resistance / Max</th><td>192%</td><td>0%</td></tr>
+<tr class="color-green"><th>Poison Resistance / Max</th><td>167%</td><td>0%</td><td></td></tr>
+<tr><th><span class="color-purple">Magic</span> / Physical Resistance</th><td class="color-purple">0%</td><td>7%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><th>Phys / Ele Damage Reduced</th><td>18</td><td>0</td></tr>
+<tr><th><span class="color-green">Poison</span> / Curse length reduction</th><td class="color-green">0%</td><td>24%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr class="color-blue"><th>Cold Absorb</th><td>0</td><td>0%</td></tr>
+<tr class="color-red"><th>Fire Absorb</th><td>0</td><td>0%</td></tr>
+<tr class="color-yellow"><th>Lightning Absorb</th><td>0</td><td>0%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><th>Magic Find / Gold Find</th><td>20%</td><td>0%</td></tr>
+<tr><th>Movement Speed / Light Radius</th><td>17%</td><td>1</td></tr>
+<tr><th>wIAS / gIAS</th><td>0%</td><td>10%</td></tr>
+<tr><th>FCR</th><td colspan="2">90%</td></tr>
+<tr><th>FHR / FBR</th><td>70%</td><td>10%</td></tr>
+<tr><th>TCD / EWD</th><td>58%</td><td>26%</td></tr>
+
+<tr><th>Attack Rating</th><td>0</td><td>0%</td></tr>
+<tr><th>Crushing Blow / Deadly Strike</th><td>0%</td><td>0%</td></tr>
+<tr><th>Chance to Avoid Damage</th><td colspan="2">0%</td></tr>
+<tr><th>Slow Target / Attacker</th><td>0%</td><td>18%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<!--<tr><th>Physical Damage</th><td colspan=2>?</td></tr>-->
+<tr class="color-blue"><th>Cold Damage</th><td colspan="2">0</td></tr>
+<tr class="color-red"><th>Fire Damage</th><td colspan="2">0</td></tr>
+<tr class="color-yellow"><th>Lightning Damage</th><td colspan="2">0</td></tr>
+<tr class="color-purple"><th>Magic Damage</th><td colspan="2">0</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr class="color-blue"><th>Cold Spell Damage / Pierce</th><td>0%</td><td>13%</td></tr>
+<tr class="color-red"><th>Fire Spell Damage / Pierce</th><td>26%</td><td>13%</td></tr>
+<tr class="color-yellow"><th>Lightning Spell Damage / Pierce</th><td>132%</td><td>18%</td></tr>
+<tr class="color-green"><th>Poison Spell Damage / Pierce</th><td>0%</td><td>8%</td></tr>
+<tr><th><span class="color-purple">P/M Spell Dam.</span> / <span class="color-green">Poison Skill Dur.</span></th><td class="color-purple">110%</td><td class="color-green">0%</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><th>Summoned Minion Life / Damage</th><td>15%</td><td>0%</td></tr>
+<tr><th>Summoned Minion Resistances / AR</th><td>0%</td><td>0%</td></tr>
+
+</tbody></table>
+</div>
+<div style="display:inline-block; width:43em;vertical-align:top">
+<h3>Snapshots</h3>
+<a href="/acc/snapshot.php?action=add&amp;char=Snoeglay" target="_blank" style="color:yellow">Add snapshot</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="/acc/snapshots.php" target="_blank" style="color:yellow">Manage snapshots</a>
+<hr><form>
+<div style="display:inline-block;text-align:center"><select name="name" onchange="location = this.value;" data-cip-id="cIPJQ342845640">
+<option value="/char/Rat">Rat (lvl 135 SC Druid)</option>
+<option value="/char/SlugMule">SlugMule (lvl 9 SC Barbarian)</option>
+<option value="/char/SlugMuleTwo">SlugMuleTwo (lvl 1 SC Barbarian)</option>
+<option value="/char/Snoeglay" selected="">Snoeglay (lvl 109 SC Paladin)</option>
+</select>
+</div>
+</form><div style="display:inline-block;text-align:center">
+<a href="/acc/gamelog.php?char=Snoeglay" style="color:yellow" target="_blank">Gamelog</a> | <a href="/kills/char.php?id=123224" style="color:yellow" target="_blank">Kills</a> | <a href="/acc/buildlog.php?char=Snoeglay" style="color:yellow" target="_blank">Buildlog</a> | <a href="/ms/char.php?id=123224" style="color:yellow" target="_blank">Milestones</a></div>
+<hr>
+<div style="display:inline-block;max-width:25em; margin:auto">
+<h4>Last 15 users who viewed this character</h4>
+<div style="white-space: pre">
+</div>
+</div>
+<br>
+<div style="display:inline-block;text-align:center; max-width:45em;margin:150 0 50 0"><i>
+<!--  <span class="color-yellow">Work In Progress - not full Median XL v2.0 support yet</span><br /> -->
+  <a href="https://forum.median-xl.com/viewtopic.php?t=21707" target="_blank">Bugs&amp;Feedback</a><br>
+  <span style="font-size: 95%">Credits: Big thanks to Kambala</span>, <span style="font-size: 85%">Somnus, ryunp</span> <span style="font-size: 75%">and all testers</span>
+</i></div>
+</div>
+</div>
