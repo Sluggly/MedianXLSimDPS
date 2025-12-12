@@ -188,26 +188,12 @@ const statMappings = [
     { regex: /Ethereal/i, key: "Ethereal", type: "boolean" },
     { regex: /Half Freeze Duration/i, key: "HalfFreezeDuration", type: "boolean" },
 
+    // Socketed
+    { regex: /Socketed \((\d+)\/(\d+)\)/i, type: "sockets", filledKey: "SocketsFilled", maxKey: "SocketsMax" },
+
     // OSkill
     { regex: /\+(\d+) to ([\w\s']+)$/i, key: "OSkill" }
 ];
-
-// --- HELPER: Logic to detect if a line is an Item Type/Name ---
-function isItemNameOrType(line) {
-    // 1. Clean the line (remove suffixes like (Sacred), (1), etc.)
-    const cleanLine = cleanItemType(line); 
-    
-    // 2. Check exact match in all lists
-    if (allItemTypes.includes(cleanLine)) return true;
-
-    // 3. Check "Superior" prefix match
-    if (cleanLine.startsWith("Superior ")) {
-        const baseName = cleanLine.replace("Superior ", "");
-        if (allItemTypes.includes(baseName)) return true;
-    }
-
-    return false;
-}
 
 // --- HELPER: Logic to detect if a line is an Item Type/Name ---
 function isItemNameOrType(line) {
@@ -254,6 +240,10 @@ function parseStatsFromText(rawLines) {
                 if (map.type === "range") {
                     addStat(map.minKey, parseInt(match[1]));
                     addStat(map.maxKey, parseInt(match[2]));
+                }
+                else if (map.type === "sockets") {
+                    stats[map.filledKey] = parseInt(match[1]);
+                    stats[map.maxKey] = parseInt(match[2]);
                 }
                 else if (map.type === "Boolean") {
                     stats[map.key] = true;
@@ -438,15 +428,14 @@ function processItems(rawItems) {
         let slot = i.slot;
         let type = cleanItemType(i.type);
         if (slot === "Inventory" || !slot) { slot = getSlotByType(type); }
-
         if (slot === "Misc" || slot === "Unknown") { return acc; }
 
         const lines = parseTooltipToLines(i.tooltipHtml);
         
         // Process Sockets
         let processedSockets = [];
-        if (i.socketsRaw && i.socketsRaw.length > 0) {
-            processedSockets = i.socketsRaw.map(sock => {
+        if (i.sockets && i.sockets.length > 0) {
+            processedSockets = i.sockets.map(sock => {
                 let sockLines = parseTooltipToLines(sock.html || sock.text); // Support both sources
                 return {
                     name: sock.name,
@@ -457,12 +446,32 @@ function processItems(rawItems) {
             });
         }
 
+        // All item stats
+        let itemStats = parseStatsFromText(lines);
+
+        // Remove socketed items stats from base item
+        if (processedSockets.length > 0) {
+            processedSockets.forEach(sock => {
+                for (const [key, val] of Object.entries(sock.stats)) {
+                    // Only subtract numeric values, ignore booleans/OSkills for now to be safe
+                    if (typeof val === 'number' && itemStats[key] !== undefined) {
+                        itemStats[key] -= val;
+                        
+                        // Cleanup: If stat reaches 0 (or very close to it), remove it to clean up the tooltip
+                        if (Math.abs(itemStats[key]) < 0.01) {
+                            delete itemStats[key];
+                        }
+                    }
+                }
+            });
+        }
+
         acc.push({
             name: i.name,
             slot: slot,
             location: i.location || "Equipped",
             type: type,
-            stats: parseStatsFromText(lines),
+            stats: itemStats,
             socketed: processedSockets
         });
 

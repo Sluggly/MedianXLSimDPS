@@ -70,6 +70,8 @@ socket.on('scrapeSuccess', (data) => {
 
     if (inventoryData) {
         inventoryData.forEach(item => {
+            if (item.type === "Charm" || item.type === "Relic" || item.slot === "Charm" || item.slot === "Relic") return;
+
             let libItem = JSON.parse(JSON.stringify(item));
             libItem.owner = charData.charName;
             globalItemLibrary.push(libItem);
@@ -399,8 +401,6 @@ function renderEquippedGear() {
         div.className = "equip-slot";
         
         if (slot.item) {
-            let iconPath = `img/items/${slot.item.type}.png`;
-            
             // Icon
             let img = document.createElement('img');
             setItemImage(img, slot.item);
@@ -415,6 +415,68 @@ function renderEquippedGear() {
             nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, slot.item));
             nameSpan.addEventListener('mouseleave', hideItemTooltip);
 
+            // Sockets
+            let socketContainer = document.createElement('div');
+            socketContainer.className = "d-flex mr-3"; // Margin right to separate from button
+            
+            // Determine max sockets (parsed from text)
+            let maxSockets = slot.item.stats.SocketsMax || 0;
+            let filledSockets = slot.item.socketed ? slot.item.socketed.length : 0;
+
+            // If we parsed 0 max sockets but we HAVE filled sockets, use filled count
+            if (filledSockets > maxSockets) maxSockets = filledSockets;
+
+            for (let i = 0; i < maxSockets; i++) {
+                // Create a container for the socket to ensure size is enforced
+                let sockDiv = document.createElement('div');
+                sockDiv.style.width = "28px";
+                sockDiv.style.height = "28px";
+                sockDiv.style.marginRight = "4px";
+                sockDiv.style.display = "inline-block";
+                sockDiv.style.position = "relative"; // For centering content
+                sockDiv.style.verticalAlign = "middle";
+                sockDiv.style.border = "1px solid #444";
+                sockDiv.style.backgroundColor = "#111"; // Dark background for visibility
+                sockDiv.style.cursor = "help";
+
+                if (i < filledSockets) {
+                    let gem = slot.item.socketed[i];
+                    let sockImg = document.createElement('img');
+                    
+                    // Force size to fit container
+                    sockImg.style.width = "100%"; 
+                    sockImg.style.height = "100%";
+                    sockImg.style.objectFit = "contain"; 
+                    
+                    // Simple manual image loader since setItemImage is designed for item objects
+                    // We can reuse setItemImage if we tweak the gem object slightly or just call it directly
+                    setItemImage(sockImg, gem); 
+
+                    // Tooltip
+                    sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, gem));
+                    sockDiv.addEventListener('mouseleave', hideItemTooltip);
+                    
+                    sockDiv.appendChild(sockImg);
+                } else {
+                    // --- EMPTY SOCKET ---
+                    // Render a simple gray circle to represent an empty socket without needing an image file
+                    sockDiv.innerHTML = '<div style="width: 14px; height: 14px; background: #333; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: inset 0 0 3px #000;"></div>';
+                    
+                    // Tooltip for Empty Socket
+                    // Create a fake item object so showItemTooltip can render it nicely
+                    const emptySocketItem = {
+                        name: "Empty Socket",
+                        type: "Socket",
+                        stats: { "Info": "Can hold a Gem, Rune, or Jewel" }
+                    };
+                    
+                    sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, emptySocketItem));
+                    sockDiv.addEventListener('mouseleave', hideItemTooltip);
+                }
+                
+                socketContainer.appendChild(sockDiv);
+            }
+
             // Button
             let btn = document.createElement('button');
             btn.className = "btn btn-sm btn-outline-danger";
@@ -423,6 +485,7 @@ function renderEquippedGear() {
 
             div.appendChild(img);
             div.appendChild(nameSpan);
+            div.appendChild(socketContainer);
             div.appendChild(btn);
         } else {
             div.innerHTML = `<div style="width:32px;height:32px;background:#111;margin-right:10px;border:1px dashed #444"></div><span class="text-muted">${slot.label}: Empty</span>`;
@@ -1135,7 +1198,7 @@ function showItemTooltip(e, item) {
         statsTxt += `</div>`;
     }
 
-    tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small><br>${statsTxt}`;
+    tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small>${statsTxt}`;
     tooltip.style.display = 'block';
     moveItemTooltip(e);
 }

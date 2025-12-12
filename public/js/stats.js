@@ -153,7 +153,11 @@ const statConfig = {
     "AlreadyUpgraded": "Already Upgraded",
     "Corrupted": "Corrupted",
     "Ethereal": "Ethereal",
-    "HalfFreezeDuration": "Half Freeze Duration"
+    "HalfFreezeDuration": "Half Freeze Duration",
+
+    // Sockets
+    "SocketsFilled": "Socketed (%d",
+    "SocketsMax": "/%d)"
 };
 
 function computeTotalVitality(character) {
