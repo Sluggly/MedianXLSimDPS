@@ -1,71 +1,299 @@
+var helmList = ["Cap" ,"Skull Cap","Helm","Full Helm","Great Helm","Crown","Circlet","Coronet","Tiara","Diadem","Mask","Bone Helm","Morion","Cervelliere","Einherjar Helm","Spangenhelm","Jawbone Cap","Fanged Helm","Horned Helm","Assault Helmet","Avenger Guard","Wolf Head","Hawk Helm","Antlers","Falcon Mask","Spirit Mask","Hundsgugel","Blackguard Helm"];
+var bodyArmorList = ["Quilted Armor" ,"Leather Armor","Hard Leather Armor","Studded Leather","Ring Mail","Scale Mail","Chain Mail","Breast Plate","Splint Mail","Plate Mail","Field Plate","Light Plate","Gothic Plate","Full Plate Mail","Ancient Armor","Gambeson","Kazarghand","Lamellar Armor","Banded Plate","Ceremonial Armor"];
+var bootsList = ["Boots" ,"Heavy Boots","Chain Boots","Light Plated Boots","Greaves"];
+var glovesList = ["Leather Gloves" ,"Heavy Gloves","Chain Gloves","Light Gauntlets","Gauntlets","Soulbinder Gloves"];
+var beltList = ["Sash" ,"Light Belt","Belt","Heavy Belt","Plated Belt"];
+var weaponList = ["Flying Kinzhal", "Voidsworn Bow", "Kukri","Short Sword" ,"Scimitar","Saber","Falchion","Broad Sword","Long Sword","War Sword","Two-Handed Sword","Claymore","Giant Sword","Bastard Sword","Flamberge","Great Sword","Crystal Sword","Hand Axe","Axe","Double Axe","Military Pick","War Axe","Large Axe","Broad Axe","Battle Axe","Great Axe","Giant Axe","Club","Spiked Club","Mace","Morning Star","Flail","War Hammer","Maul","Great Maul","Scepter","Grand Scepter","War Scepter","Javelin","Pilum","Short Spear","Glaive","Throwing Spear","Spear","Trident","Brandistock","Spetum","Pike","Scythe","Dagger","Dirk","Kriss","Blade","Throwing Knife","Flying Knife","Balanced Knife","Throwing Axe","Balanced Axe","Short Staff","Long Staff","Gnarled Staff","Battle Staff","War Staff","Short Bow","Hunter's Bow","Long Bow","Composite Bow","Short Battle Bow","Long Battle Bow","Short War Bow","Long War Bow","Light Crossbow","Crossbow","Heavy Crossbow","Repeating Crossbow","Stag Bow","Reflex Bow","Maiden Spear","Maiden Pike","Maiden Javelin","Katar","Wrist Blade","Hatchet Hands","Cestus","Claws","Blade Talons","Scissors Katar","Halberd","Naginata","Spatha","Backsword","Ida","Bronze Sword","Kriegsmesser","Mammen Axe","Hammerhead Axe","Ono","Valaska","Labrys","Compound Bow","Serpent Bow","Maple Bow","Viper Bow","Recurve Bow","Flamen Staff","Raptor Scythe","Bonesplitter","Marrow Staff","Hexblade","Spirit Edge","Needle Crossbow","Dart Thrower","Stinger Crossbow","Trebuchet","Wand","Yew Wand","Bone Wand","Grim Wand","Bonebreaker","Goedendag","Angel Star","Hand of God","Holy Lance","Tepoztopilli","Eagle Orb","Sacred Globe","Smoked Sphere","Clasped Orb","Jared's Stone","Warp Blade","Tyrannical Blade","Voidforged Staff"];
+var offhandList = ["Buckler" ,"Small Shield","Large Shield","Kite Shield","Tower Shield","Gothic Shield","Bone Shield","Spiked Shield","Athulua's Hand","Phoenix Shield","Setzschild","Parma","Aspis","Totem Shield","Bladed Shield","Bull Shield","Bronze Shield","Gilded Shield","Preserved Head","Zombie Head","Unraveller Head","Gargoyle Head","Demon Head","Targe","Rondache","Heraldic Shield","Aerin Shield","Crown Shield","Arrow Quiver","Quiver"];
+var miscList = ["Ghost Trance", "Tenet of Judgement", "Pulsating Worldstone Shard", "Mark of Victory", "Empyrean Touch", "Arcane Hunger", "Gem", "Stash O' Treasures", "Corrupted Treasure", "Arcane Crystal", "Mephisto's Soulstone", "Golden Cycle", "Belladonna Extract", "Path of Brutality", "Oil", "Elemental Rune", "Dulra Fruit", "Dimensional Link", "Wirt's Other Leg", "Rune", "Reality Piercer", "Mark of Infusion", "Item Design", "Emblem", "Corrupted Cluster", "Dye", "Cycle", "Custom Signet", "Wirt's Leg", "Soulforge", "Scroll of Summoning", "Shrine","Positronic Brain","Corrupted Shards","Apple","Potion" ,"Arcane Cluster","Arcane Shards","Catalyst","Container of Knowledge","Horadric Cube","Pulsating Worldstone Crystal","Whisper of the Damned","Barrel","Breath of Thaumaturgy","Celestial Wind","Crate O' Souls","Dream Fragment","Elemental Dominion","Elemental Ire","Enchanted Rune","Essence","Gem Cluster","Key","Northern Winds","Riftstone","Rune Container","Scroll","Shrine Vessel","Sigil of Absolution","Signet","Soulforged Mystic Orb","Star Chart","UMO","Whisper of the Damned","Wings of the Departed"];
+var ringList = ["Ring","Assur's Bane", "Sigil of Deadly Sins"];
+var amuletList = ["Amulet"];
+var jewelList = ["Jewel"];
+const allItemTypes = [...helmList, ...bodyArmorList, ...bootsList, ...glovesList, ...beltList, ...weaponList, ...offhandList, ...miscList, ...ringList, ...amuletList, ...jewelList];
+
+const ignoreMappings = [
+    /Required Level: \d+/i,
+    /Required Strength: \d+/i,
+    /Required Dexterity: \d+/i,
+    /Prefixes: \d+/i,
+    /Suffixes: \d+/i,
+    /Defense: \d+/i,
+    /Durability: \d+/i,
+    /Quantity: \d+/i,
+    /\(Paladin Only\)/i,
+    /\(Amazon Only\)/i,
+    /\(Sorceress Only\)/i,
+    /\(Necromancer Only\)/i,
+    /\(Barbarian Only\)/i,
+    /\(Druid Only\)/i,
+    /\(Assassin Only\)/i,
+    /\(Stackable\)/i,
+    /Quest Item/i,
+    /Cannot be Renewed/i,
+    /Cannot be Crafted/i,
+    /Keep in Inventory to Gain Bonus/i,
+    /Socketed \(\d+\/\d+\)/i,
+    /Right-Click to/i,
+    /Can be Inserted into/i,
+    /You cannot move/i,
+    /Cube with/i,
+    /Ethereal/i,
+    /Transmute/i,
+    /Cube Reagent/i,
+    /Indestructible/i,
+    /Difficulty Level:/i,
+    /Area Level:/i,
+    /Reward:/i,
+    /Bonus Quest/i,
+    /Keep in Inventory to Gain Bonus/i,
+    /Charges:/i,
+    /Gold Cost:/i
+];
+
+const statMappings = [
+    // --- Attributes ---
+    { regex: /\+(\d+) to Strength/i, key: "Strength" },
+    { regex: /\+(\d+) to Dexterity/i, key: "Dexterity" },
+    { regex: /\+(\d+) to Vitality/i, key: "Vitality" },
+    { regex: /\+(\d+) to Energy/i, key: "Energy" },
+    { regex: /\+(\d+) to all Attributes/i, key: "AllAttributes" },
+    { regex: /\+(\d+)% to All Attributes/i, key: "AllAttributesPercent" },
+    { regex: /\+(\d+)% to Strength/i, key: "StrengthPercent" },
+    { regex: /\+(\d+)% to Dexterity/i, key: "DexterityPercent" },
+    { regex: /\+(\d+)% to Vitality/i, key: "VitalityPercent" },
+    { regex: /\+(\d+)% to Energy/i, key: "EnergyPercent" },
+    
+    // --- Life & Mana ---
+    { regex: /\+(\d+) to Life/i, key: "Life" },
+    { regex: /\+(\d+) to Mana/i, key: "Mana" },
+    { regex: /Maximum Life \+(\d+)%/i, key: "MaxLifePercent" },
+    { regex: /Maximum Mana \+(\d+)%/i, key: "MaxManaPercent" },
+    { regex: /\+(\d+) Life after each Kill/i, key: "LifeAfterKill" },
+    { regex: /\+(\d+) Mana after each Kill/i, key: "ManaAfterKill" },
+    { regex: /\+(\d+) Life on Melee Attack/i, key: "LifeOnAttack" },
+    { regex: /\+(\d+) Mana on Melee Attack/i, key: "ManaOnAttack" },
+    { regex: /\+(\d+) Life on Striking/i, key: "LifeOnStriking" },
+    { regex: /\+(\d+) Mana on Striking/i, key: "ManaOnStriking" },
+    { regex: /\+(\d+)% Life stolen per Hit/i, key: "LifeLeech" },
+    { regex: /\+(\d+)% Mana stolen per Hit/i, key: "ManaLeech" },
+    { regex: /\+(\d+) Life Regenerated per Second/i, key: "LifeRegen" },
+    { regex: /Regenerate Mana \+(\d+)%/i, key: "ManaRegen" },
+
+    // --- Damage ---
+    { regex: /\+(\d+) to Maximum Damage/i, key: "MaxDamage" },
+    { regex: /\+(\d+) to Minimum Damage/i, key: "MinDamage" },
+    { regex: /\+(\d+) Damage/i, key: "FlatDamage" },
+    { regex: /\+(\d+)% Enhanced Damage/i, key: "EnhancedDamage" },
+    { regex: /Weapon Physical Damage \+(\d+)%/i, key: "WeaponPhysicalDamage" },
+
+    // --- Elemental Adds ---
+    { regex: /Adds (\d+)-(\d+) Fire Damage/i, type: "range", minKey: "MinFireDamage", maxKey: "MaxFireDamage" },
+    { regex: /Adds (\d+)-(\d+) Lightning Damage/i, type: "range", minKey: "MinLightningDamage", maxKey: "MaxLightningDamage" },
+    { regex: /Adds (\d+)-(\d+) Cold Damage/i, type: "range", minKey: "MinColdDamage", maxKey: "MaxColdDamage" },
+    { regex: /Adds (\d+)-(\d+) Magic Damage/i, type: "range", minKey: "MinMagicDamage", maxKey: "MaxMagicDamage" },
+    { regex: /Adds (\d+)-(\d+) Damage/i, type: "range", minKey: "MinPhysicalDamage", maxKey: "MaxPhysicalDamage" },
+    { regex: /\+(\d+) Maximum Tri-Elemental Damage per 5 Character Levels/i, key: "TriEleDamagePerFiveLevel" }, 
+    { regex: /\+(\d+)% Innate Elemental Damage/i, key: "InnateElementalDamage" },
+    
+    // --- Spell Damage ---
+    { regex: /\+(\d+)% to Spell Damage/i, key: "SpellDamage" },
+    { regex: /\+(\d+)% to Fire Spell Damage/i, key: "FireSpellDamage" },
+    { regex: /\+(\d+)% to Cold Spell Damage/i, key: "ColdSpellDamage" },
+    { regex: /\+(\d+)% to Lightning Spell Damage/i, key: "LightningSpellDamage" },
+    { regex: /\+(\d+)% to Poison Spell Damage/i, key: "PoisonSpellDamage" },
+    { regex: /\+(\d+)% to Physical\/Magic Spell Damage/i, key: "PhysicalMagicalSpellDamage" },
+    { regex: /\+(\d+) Spell Focus/i, key: "SpellFocus" },
+    
+    // --- Pierce ---
+    { regex: /-(\d+)% to Enemy Fire Resistance/i, key: "FirePierce" },
+    { regex: /-(\d+)% to Enemy Lightning Resistance/i, key: "LightningPierce" },
+    { regex: /-(\d+)% to Enemy Cold Resistance/i, key: "ColdPierce" },
+    { regex: /-(\d+)% to Enemy Poison Resistance/i, key: "PoisonPierce" },
+    { regex: /-(\d+)% to Enemy Elemental Resistances/i, key: "ElementalPierce" },
+    
+    // --- Resists ---
+    { regex: /Fire Resist \+(\d+)%/i, key: "FireResist" },
+    { regex: /Cold Resist \+(\d+)%/i, key: "ColdResist" },
+    { regex: /Lightning Resist \+(\d+)%/i, key: "LightningResist" },
+    { regex: /Poison Resist \+(\d+)%/i, key: "PoisonResist" },
+    { regex: /Elemental Resists \+(\d+)%/i, key: "ElementalResist" },
+    { regex: /Physical Resist \+(\d+)%/i, key: "PhysicalResist" },
+    { regex: /Magic Resist \+(\d+)%/i, key: "MagicalResist" },
+
+    // --- Max Resists ---
+    { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
+    { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
+    { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
+    { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
+    { regex: /Maximum Elemental Resists \+(\d+)%/i, key: "MaxElementalResist" },
+
+    // --- Minions ---
+    { regex: /\+(\d+)% to Summoned Minion Life/i, key: "MinionLife" },
+    { regex: /\+(\d+)% to Summoned Minion Damage/i, key: "MinionDamage" },
+    { regex: /\+(\d+)% to Summoned Minion Resistances/i, key: "MinionResist" },
+    { regex: /\+(\d+)% to Summoned Minion Attack Rating/i, key: "MinionAR" },
+
+    // --- Absorb ---
+    { regex: /Fire Absorb \+(\d+)%/i, key: "AbsorbFire" },
+    { regex: /Cold Absorb \+(\d+)%/i, key: "AbsorbCold" },
+    { regex: /Lightning Absorb \+(\d+)%/i, key: "AbsorbLightning" },
+
+    // --- Skills & Misc ---
+    { regex: /\+(\d+) to All Skills/i, key: "AllSkill" },
+    { regex: /\+(\d+) to Amazon Skill Levels/i, key: "AmazonSkill" },
+    { regex: /\+(\d+) to Assassin Skill Levels/i, key: "AssassinSkill" },
+    { regex: /\+(\d+) to Barbarian Skill Levels/i, key: "BarbarianSkill" },
+    { regex: /\+(\d+) to Druid Skill Levels/i, key: "DruidSkill" },
+    { regex: /\+(\d+) to Necromancer Skill Levels/i, key: "NecromancerSkill" },
+    { regex: /\+(\d+) to Paladin Skill Levels/i, key: "PaladinSkill" },
+    { regex: /\+(\d+) to Sorceress Skill Levels/i, key: "SorceressSkill" },
+    { regex: /\+(\d+) to ([\w\s]+)/i, key: "SpecificSkill" }, // "+1 to Blink" - Special Handling Needed
+    { regex: /\+(\d+)% Cast Speed/i, key: "CastSpeed" },
+    { regex: /\+(\d+)% Attack Speed/i, key: "AttackSpeed" },
+    { regex: /\+(\d+)% Hit Recovery/i, key: "HitRecovery" },
+    { regex: /\+(\d+)% Block Speed/i, key: "BlockSpeed" },
+    { regex: /\+(\d+)% Movement Speed/i, key: "MovementSpeed" },
+    { regex: /\+(\d+)% Base Block Chance/i, key: "BaseBlock" },
+    { regex: /\+(\d+)% Magic Find/i, key: "MagicFind" },
+    { regex: /\+(\d+)% Gold Find/i, key: "GoldFind" },
+    { regex: /\+(\d+)% Experience Gained/i, key: "ExpGained" },
+    { regex: /\+(\d+) to Light Radius/i, key: "LightRadius" },
+    { regex: /Poison Length Reduction \+(\d+)%/i, key: "PLR" },
+    { regex: /Curse Length Reduction \+(\d+)%/i, key: "CLR" },
+    { regex: /Target Takes Additional Damage of (\d+)/i, key: "FlatDamageTaken" },
+    { regex: /Physical Damage Taken Reduced by (\d+)/i, key: "PDRFlat" },
+    { regex: /Slows Attacker by \+(\d+)%/i, key: "SlowAttacker" },
+    { regex: /Slow Target \+(\d+)%/i, key: "SlowTarget" },
+    { regex: /Requirements ([+-]\d+)%/i, key: "RequirementsPercent" },
+
+    // --- Defense ---
+    { regex: /\+(\d+)% Enhanced Defense/i, key: "EnhancedDefense" },
+    { regex: /\+(\d+)% Bonus to Defense/i, key: "BonusDefense" },
+    { regex: /\+(\d+) Defense/i, key: "FlatDefense" },
+
+    // --- Procs & Reanimate (Stores as string or boolean count) ---
+    { regex: /(\d+)% Chance to cast level \d+ .* on .*/i, key: "Proc" }, // Just counts procs for now
+    { regex: /(\d+)% Reanimate as: .*/i, key: "Reanimate" },
+
+    // --- Flags (Booleans) ---
+    // We treat these as value = 1
+    { regex: /Orb Effects Applied to this Item are Doubled/i, key: "OrbDoubler", type: "boolean" },
+    { regex: /Indestructible/i, key: "Indestructible", type: "boolean" },
+    { regex: /Cannot Be Frozen/i, key: "CannotBeFrozen", type: "boolean" },
+    { regex: /Cannot be Renewed/i, key: "CannotBeRenewed", type: "boolean" },
+    { regex: /Cannot be Crafted/i, key: "CannotBeCrafted", type: "boolean" },
+    { regex: /Shrine Blessed/i, key: "ShrineBlessed", type: "boolean" },
+    { regex: /Already Upgraded/i, key: "AlreadyUpgraded", type: "boolean" },
+    { regex: /Corrupted/i, key: "Corrupted", type: "boolean" },
+    { regex: /Ethereal/i, key: "Ethereal", type: "boolean" },
+    { regex: /Half Freeze Duration/i, key: "HalfFreezeDuration", type: "boolean" },
+
+    // OSkill
+    { regex: /\+(\d+) to ([\w\s']+)$/i, key: "OSkill" }
+];
+
+// --- HELPER: Logic to detect if a line is an Item Type/Name ---
+function isItemNameOrType(line) {
+    // 1. Clean the line (remove suffixes like (Sacred), (1), etc.)
+    const cleanLine = cleanItemType(line); 
+    
+    // 2. Check exact match in all lists
+    if (allItemTypes.includes(cleanLine)) return true;
+
+    // 3. Check "Superior" prefix match
+    if (cleanLine.startsWith("Superior ")) {
+        const baseName = cleanLine.replace("Superior ", "");
+        if (allItemTypes.includes(baseName)) return true;
+    }
+
+    return false;
+}
+
+// --- HELPER: Logic to detect if a line is an Item Type/Name ---
+function isItemNameOrType(line) {
+    // 1. Clean the line (remove suffixes like (Sacred), (1), etc.)
+    const cleanLine = cleanItemType(line); 
+    
+    // 2. Check exact match in all lists
+    if (allItemTypes.includes(cleanLine)) return true;
+
+    // 3. Check "Superior" prefix match
+    if (cleanLine.startsWith("Superior ")) {
+        const baseName = cleanLine.replace("Superior ", "");
+        if (allItemTypes.includes(baseName)) return true;
+    }
+
+    return false;
+}
+
 // --- HELPER: Stats Parser (Text -> Object) ---
 function parseStatsFromText(rawLines) {
     let stats = {};
 
-    // Helper to add to stats
     const addStat = (key, val) => {
-        if (stats[key]) stats[key] += val;
-        else stats[key] = val;
+        if (typeof val === 'number') {
+            if (stats[key]) stats[key] += val;
+            else stats[key] = val;
+        } else {
+            // For strings (Procs, Reanimates), just append or count?
+            // Let's just store "true" or count for now to acknowledge it exists
+            if (stats[key]) stats[key] += 1;
+            else stats[key] = 1;
+        }
     };
 
-    const mappings = [
-        // Attributes
-        { regex: /\+(\d+) to Strength/i, key: "Strength" },
-        { regex: /\+(\d+) to Dexterity/i, key: "Dexterity" },
-        { regex: /\+(\d+) to Vitality/i, key: "Vitality" },
-        { regex: /\+(\d+) to Energy/i, key: "Energy" },
-        { regex: /\+(\d+)% to All Attributes/i, key: "AllAttributesPercent" },
-        
-        // Base Stats
-        { regex: /\+(\d+) to Life/i, key: "Life" },
-        { regex: /\+(\d+) to Mana/i, key: "Mana" },
-        
-        // Spell Damage
-        { regex: /\+(\d+)% to Spell Damage/i, key: "SpellDamage" },
-        { regex: /\+(\d+)% to Fire Spell Damage/i, key: "FireSpellDamage" },
-        { regex: /\+(\d+)% to Cold Spell Damage/i, key: "ColdSpellDamage" },
-        { regex: /\+(\d+)% to Lightning Spell Damage/i, key: "LightningSpellDamage" },
-        { regex: /\+(\d+)% to Poison Spell Damage/i, key: "PoisonSpellDamage" },
-        { regex: /\+(\d+)% to Physical\/Magic Spell Damage/i, key: "PhysicalMagicalSpellDamage" },
-        
-        // Pierce
-        { regex: /-(\d+)% to Enemy Fire Resistance/i, key: "FirePierce" },
-        { regex: /-(\d+)% to Enemy Lightning Resistance/i, key: "LightningPierce" },
-        { regex: /-(\d+)% to Enemy Cold Resistance/i, key: "ColdPierce" },
-        { regex: /-(\d+)% to Enemy Poison Resistance/i, key: "PoisonPierce" },
-        
-        // Resists
-        { regex: /Fire Resist \+(\d+)%/i, key: "FireResist" },
-        { regex: /Cold Resist \+(\d+)%/i, key: "ColdResist" },
-        { regex: /Lightning Resist \+(\d+)%/i, key: "LightningResist" },
-        { regex: /Poison Resist \+(\d+)%/i, key: "PoisonResist" },
-        { regex: /Elemental Resists \+(\d+)%/i, key: "ElementalResist" },
-        { regex: /Physical Resist \+(\d+)%/i, key: "PhysicalResist" },
-        { regex: /Magic Resist \+(\d+)%/i, key: "MagicalResist" },
-
-        // Max Resists
-        { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
-        { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
-        { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
-        { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
-        { regex: /Maximum Elemental Resists \+(\d+)%/i, key: "MaxElementalResist" },
-
-        // Absorb
-        { regex: /Fire Absorb \+(\d+)%/i, key: "AbsorbFire" },
-        { regex: /Cold Absorb \+(\d+)%/i, key: "AbsorbCold" },
-        { regex: /Lightning Absorb \+(\d+)%/i, key: "AbsorbLightning" },
-
-        // Skills & Misc
-        { regex: /\+(\d+) to All Skills/i, key: "AllSkill" },
-        { regex: /\+(\d+) to [\w\s]+ Skill Levels/i, key: "ClassSkill" },
-        { regex: /\+(\d+) Spell Focus/i, key: "SpellFocus" }
-    ];
-
     rawLines.forEach(line => {
-        mappings.forEach(map => {
+        if(!line || line.trim() === "") return;
+
+        let matched = false;
+
+        for (const map of statMappings) {
             const match = line.match(map.regex);
-            if (match) { addStat(map.key, parseInt(match[1])); }
-        });
+            if (match) {
+                // Handle Ranges (Split into two keys)
+                if (map.type === "range") {
+                    addStat(map.minKey, parseInt(match[1]));
+                    addStat(map.maxKey, parseInt(match[2]));
+                }
+                else if (map.type === "Boolean") {
+                    stats[map.key] = true;
+                } 
+                else if (map.key === "OSkill") {
+                    if (!stats.OSkills) stats.OSkills = {};
+                    stats.OSkills[match[2].trim()] = parseInt(match[1]);
+                }
+                else {
+                    addStat(map.key, parseInt(match[1]));
+                }
+                matched = true;
+                break; 
+            }
+        }
+
+        // 2. If not captured, check Ignore List
+        if (!matched) {
+            for (const ignoreRegex of ignoreMappings) {
+                if (ignoreRegex.test(line)) {
+                    matched = true;
+                    break;
+                }
+            }
+        }
+
+        // 3. Check if it's an Item Name/Type (using your lists)
+        if (!matched) {
+            if (isItemNameOrType(line)) {
+                matched = true;
+            }
+        }
+
+        // 4. Log Unhandled
+        if (!matched) {
+            // Filter out short lines or single words that might be names/types missed by list
+            if(line.length > 2) {
+                console.warn(`[UNHANDLED STAT]: "${line}"`);
+            }
+        }
     });
     return stats;
 }
@@ -93,18 +321,6 @@ function parseTooltipToLines(htmlContent) {
         .map(line => line.trim())
         .filter(line => line.length > 0);
 }
-
-var helmList = ["Cap" ,"Skull Cap","Helm","Full Helm","Great Helm","Crown","Circlet","Coronet","Tiara","Diadem","Mask","Bone Helm","Morion","Cervelliere","Einherjar Helm","Spangenhelm","Jawbone Cap","Fanged Helm","Horned Helm","Assault Helmet","Avenger Guard","Wolf Head","Hawk Helm","Antlers","Falcon Mask","Spirit Mask","Hundsgugel","Blackguard Helm"];
-var bodyArmorList = ["Quilted Armor" ,"Leather Armor","Hard Leather Armor","Studded Leather","Ring Mail","Scale Mail","Chain Mail","Breast Plate","Splint Mail","Plate Mail","Field Plate","Light Plate","Gothic Plate","Full Plate Mail","Ancient Armor","Gambeson","Kazarghand","Lamellar Armor","Banded Plate","Ceremonial Armor"];
-var bootsList = ["Boots" ,"Heavy Boots","Chain Boots","Light Plated Boots","Greaves"];
-var glovesList = ["Leather Gloves" ,"Heavy Gloves","Chain Gloves","Light Gauntlets","Gauntlets","Soulbinder Gloves"];
-var beltList = ["Sash" ,"Light Belt","Belt","Heavy Belt","Plated Belt"];
-var weaponList = ["Flying Kinzhal", "Voidsworn Bow", "Kukri","Short Sword" ,"Scimitar","Saber","Falchion","Broad Sword","Long Sword","War Sword","Two-Handed Sword","Claymore","Giant Sword","Bastard Sword","Flamberge","Great Sword","Crystal Sword","Hand Axe","Axe","Double Axe","Military Pick","War Axe","Large Axe","Broad Axe","Battle Axe","Great Axe","Giant Axe","Club","Spiked Club","Mace","Morning Star","Flail","War Hammer","Maul","Great Maul","Scepter","Grand Scepter","War Scepter","Javelin","Pilum","Short Spear","Glaive","Throwing Spear","Spear","Trident","Brandistock","Spetum","Pike","Scythe","Dagger","Dirk","Kriss","Blade","Throwing Knife","Flying Knife","Balanced Knife","Throwing Axe","Balanced Axe","Short Staff","Long Staff","Gnarled Staff","Battle Staff","War Staff","Short Bow","Hunter's Bow","Long Bow","Composite Bow","Short Battle Bow","Long Battle Bow","Short War Bow","Long War Bow","Light Crossbow","Crossbow","Heavy Crossbow","Repeating Crossbow","Stag Bow","Reflex Bow","Maiden Spear","Maiden Pike","Maiden Javelin","Katar","Wrist Blade","Hatchet Hands","Cestus","Claws","Blade Talons","Scissors Katar","Halberd","Naginata","Spatha","Backsword","Ida","Bronze Sword","Kriegsmesser","Mammen Axe","Hammerhead Axe","Ono","Valaska","Labrys","Compound Bow","Serpent Bow","Maple Bow","Viper Bow","Recurve Bow","Flamen Staff","Raptor Scythe","Bonesplitter","Marrow Staff","Hexblade","Spirit Edge","Needle Crossbow","Dart Thrower","Stinger Crossbow","Trebuchet","Wand","Yew Wand","Bone Wand","Grim Wand","Bonebreaker","Goedendag","Angel Star","Hand of God","Holy Lance","Tepoztopilli","Eagle Orb","Sacred Globe","Smoked Sphere","Clasped Orb","Jared's Stone","Warp Blade","Tyrannical Blade","Voidforged Staff"];
-var offhandList = ["Buckler" ,"Small Shield","Large Shield","Kite Shield","Tower Shield","Gothic Shield","Bone Shield","Spiked Shield","Athulua's Hand","Phoenix Shield","Setzschild","Parma","Aspis","Totem Shield","Bladed Shield","Bull Shield","Bronze Shield","Gilded Shield","Preserved Head","Zombie Head","Unraveller Head","Gargoyle Head","Demon Head","Targe","Rondache","Heraldic Shield","Aerin Shield","Crown Shield","Arrow Quiver","Quiver"];
-var miscList = ["Ghost Trance", "Tenet of Judgement", "Pulsating Worldstone Shard", "Mark of Victory", "Empyrean Touch", "Arcane Hunger", "Gem", "Stash O' Treasures", "Corrupted Treasure", "Arcane Crystal", "Mephisto's Soulstone", "Golden Cycle", "Belladonna Extract", "Path of Brutality", "Oil", "Elemental Rune", "Dulra Fruit", "Dimensional Link", "Wirt's Other Leg", "Rune", "Reality Piercer", "Mark of Infusion", "Item Design", "Emblem", "Corrupted Cluster", "Dye", "Cycle", "Custom Signet", "Wirt's Leg", "Soulforge", "Scroll of Summoning", "Shrine","Positronic Brain","Corrupted Shards","Apple","Potion" ,"Arcane Cluster","Arcane Shards","Catalyst","Container of Knowledge","Horadric Cube","Pulsating Worldstone Crystal","Whisper of the Damned","Barrel","Breath of Thaumaturgy","Celestial Wind","Crate O' Souls","Dream Fragment","Elemental Dominion","Elemental Ire","Enchanted Rune","Essence","Gem Cluster","Key","Northern Winds","Riftstone","Rune Container","Scroll","Shrine Vessel","Sigil of Absolution","Signet","Soulforged Mystic Orb","Star Chart","UMO","Whisper of the Damned","Wings of the Departed"];
-var ringList = ["Ring","Assur's Bane", "Sigil of Deadly Sins"];
-var amuletList = ["Amulet"];
-var jewelList = ["Jewel"];
 
 function isTypeHelm(type) {
     for (const item of helmList) {
@@ -217,14 +433,16 @@ function cleanItemType(rawType) {
 
 // --- MAIN PROCESSOR: Raw Item Objects -> Final Item Objects ---
 function processItems(rawItems) {
-    return rawItems.map(i => {
-        const lines = parseTooltipToLines(i.tooltipHtml);
-        
+    return rawItems.reduce((acc, i) => {
         // Determine Slot (if not already set correctly)
         let slot = i.slot;
         let type = cleanItemType(i.type);
         if (slot === "Inventory" || !slot) { slot = getSlotByType(type); }
 
+        if (slot === "Misc" || slot === "Unknown") { return acc; }
+
+        const lines = parseTooltipToLines(i.tooltipHtml);
+        
         // Process Sockets
         let processedSockets = [];
         if (i.socketsRaw && i.socketsRaw.length > 0) {
@@ -239,16 +457,17 @@ function processItems(rawItems) {
             });
         }
 
-        return {
+        acc.push({
             name: i.name,
             slot: slot,
             location: i.location || "Equipped",
             type: type,
             stats: parseStatsFromText(lines),
             socketed: processedSockets
-        };
-    })
-    .filter(item => item.slot !== "Misc" && item.slot !== "Unknown");
+        });
+
+        return acc;
+    }, []);
 }
 
 module.exports = {

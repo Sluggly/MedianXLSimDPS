@@ -1086,7 +1086,25 @@ function showItemTooltip(e, item) {
     let statsTxt = "";
     if (item.stats) {
         for (let [key, val] of Object.entries(item.stats)) {
-            statsTxt += `<span class="magic-text">${key}: ${val}</span>\n`;
+            // Handle OSkills Object specifically
+            if (key === "OSkills" && typeof val === 'object') {
+                for (let [skillName, skillLevel] of Object.entries(val)) {
+                    statsTxt += `<span class="magic-text">+${skillLevel} to ${skillName}</span>\n`;
+                }
+                continue;
+            }
+
+            // Handle Boolean Flags
+            if (val === true) {
+                // Convert camelCase to Readable Text (e.g. "OrbDoubler" -> "Orb Doubler")
+                // Or you can create a specific mapping if you want exact in-game text back
+                let readable = key.replace(/([A-Z])/g, ' $1').trim();
+                statsTxt += `<span class="magic-text">${readable}</span>\n`;
+            } 
+            // Handle Standard Numbers
+            else {
+                statsTxt += `<span class="magic-text">${key}: ${val}</span>\n`;
+            }
         }
     }
     
