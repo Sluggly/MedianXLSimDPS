@@ -88,6 +88,104 @@ socket.on('scrapeError', (msg) => {
     document.getElementById('scrape-status').className = "text-danger small";
 });
 
+// --- STATE MANAGEMENT ---
+// Stores the sort/filter state for different tables
+const tableStates = {
+    library: {
+        sortCol: 'name',
+        sortDir: 'asc', // 'asc' or 'desc'
+        searchQuery: ''
+    },
+    topgear: {
+        sortCol: 'name',
+        sortDir: 'asc',
+        searchQuery: ''
+    }
+};
+
+// --- REUSABLE: Filter and Sort Logic ---
+function getProcessedItems(items, context) {
+    const state = tableStates[context];
+    
+    // 1. Filter
+    let result = items;
+    if (state.searchQuery) {
+        const q = state.searchQuery.toLowerCase();
+        result = result.filter(item => {
+            const name = (item.name || "").toLowerCase();
+            const type = (item.type || "").toLowerCase();
+            const owner = (item.owner || "none").toLowerCase();
+            return name.includes(q) || type.includes(q) || owner.includes(q);
+        });
+    }
+
+    // 2. Sort
+    result.sort((a, b) => {
+        let valA = (a[state.sortCol] || "").toString().toLowerCase();
+        let valB = (b[state.sortCol] || "").toString().toLowerCase();
+        
+        // Handle numeric sorting if needed (optional) but strings work for Name/Type/Owner
+        
+        if (valA < valB) return state.sortDir === 'asc' ? -1 : 1;
+        if (valA > valB) return state.sortDir === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    return result;
+}
+
+// --- HANDLERS: HTML Inputs trigger these ---
+
+function handleSort(context, column) {
+    const state = tableStates[context];
+    
+    // Toggle direction if clicking same column, otherwise reset to asc
+    if (state.sortCol === column) {
+        state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+        state.sortCol = column;
+        state.sortDir = 'asc';
+    }
+
+    // Visual Update for Headers
+    updateHeaderVisuals(context);
+
+    // Re-render specific table
+    if (context === 'library') renderItemLibrary();
+    if (context === 'topgear') renderTopGearSelection();
+}
+
+function handleLibrarySearch(query) {
+    tableStates.library.searchQuery = query;
+    renderItemLibrary();
+}
+
+function handleTopGearSearch(query) {
+    tableStates.topgear.searchQuery = query;
+    renderTopGearSelection();
+}
+
+function updateHeaderVisuals(context) {
+    // Find the specific table container based on context logic
+    let tableId = context === 'library' ? 'item-library-body' : 'topgear-selection-body';
+    let thead = document.getElementById(tableId).closest('table').querySelector('thead');
+    
+    // Reset all
+    thead.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('asc', 'desc');
+    });
+
+    // Find the header responsible for this col
+    // (This relies on the onclick text matching. Simple check)
+    let activeTh = Array.from(thead.querySelectorAll('th')).find(th => 
+        th.getAttribute('onclick') && th.getAttribute('onclick').includes(`'${tableStates[context].sortCol}'`)
+    );
+
+    if (activeTh) {
+        activeTh.classList.add(tableStates[context].sortDir);
+    }
+}
+
 // State Management
 let selectedChar = null;
 let selectedSkill = null;
@@ -120,25 +218,33 @@ function switchTab(tabName) {
 }
 
 // --- UI Rendering Functions ---
-
 function refreshCharacterList() {
-    const container = document.getElementById("character-list");
-    container.innerHTML = "";
+    // Defines which containers need to be updated
+    const targets = ["character-list", "edit-character-list"];
 
-    characterList.forEach((char, index) => {
-        let div = document.createElement("div");
-        div.className = "col-6";
-        let isActive = (selectedChar === char) ? "active" : "";
+    targets.forEach(targetId => {
+        const container = document.getElementById(targetId);
+        if (!container) return;
         
-        // Assuming image path: img/classes/Paladin.png
-        div.innerHTML = `
-            <div class="selectable-item ${isActive}" onclick="selectCharacter(${index})">
-                <img src="img/classes/${char.charClass}.png" alt="${char.charClass}" onerror="this.src='img/placeholder.png'">
-                <span class="item-name">${char.charName}</span>
-                <small>Lvl ${char.level} ${char.charClass}</small>
-            </div>
-        `;
-        container.appendChild(div);
+        container.innerHTML = "";
+
+        characterList.forEach((char, index) => {
+            let div = document.createElement("div");
+            // Adjust layout classes based on where it is being rendered
+            // Sim tab (character-list) is narrow col-6, Import tab (edit-list) is wider so col-md-3 looks good
+            div.className = targetId === "character-list" ? "col-6" : "col-6 col-md-3"; 
+            
+            let isActive = (selectedChar === char) ? "active" : "";
+            
+            div.innerHTML = `
+                <div class="selectable-item ${isActive}" onclick="selectCharacter(${index})">
+                    <img src="img/classes/${char.charClass}.png" alt="${char.charClass}" onerror="this.src='img/placeholder.png'">
+                    <span class="item-name">${char.charName}</span>
+                    <small>Lvl ${char.level} ${char.charClass}</small>
+                </div>
+            `;
+            container.appendChild(div);
+        });
     });
 }
 
@@ -324,65 +430,90 @@ function renderEquippedGear() {
         container.appendChild(div);
     });
 
-    // Charms & Relics (Loop through arrays)
     if (selectedChar.charms.length > 0 || selectedChar.relics.length > 0) {
-        let hr = document.createElement('div');
-        hr.className = "text-muted small mt-2 mb-1 text-uppercase font-weight-bold";
-        hr.innerText = "Inventory (Charms & Relics)";
-        container.appendChild(hr);
-    }
-
-    // 3. Helper to render list items (Charms/Relics)
-    const renderInventoryItem = (item, label) => {
-        let div = document.createElement('div');
-        div.className = "equip-slot";
+        // 1. Create Header with Toggle Button
+        let headerDiv = document.createElement('div');
+        headerDiv.className = "d-flex justify-content-between align-items-center mt-3 mb-2 p-2 bg-secondary text-white rounded";
+        headerDiv.style.cursor = "pointer"; // Make whole bar clickable
         
-        let iconPath = `img/items/${item.type}.png`;
+        let title = document.createElement('span');
+        title.innerHTML = `<strong>Inventory</strong> <small>(${selectedChar.charms.length + selectedChar.relics.length} items)</small>`;
+        
+        let toggleBtn = document.createElement('button');
+        toggleBtn.className = "btn btn-sm btn-dark";
+        toggleBtn.innerText = "Show"; // Default state text
+        
+        headerDiv.appendChild(title);
+        headerDiv.appendChild(toggleBtn);
+        container.appendChild(headerDiv);
 
-        let img = document.createElement('img');
-        setItemImage(img, item);
-        img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
-        img.addEventListener('mouseleave', hideItemTooltip);
+        // 2. Create Hidden Container
+        let charmsContainer = document.createElement('div');
+        charmsContainer.id = "charms-collapsible";
+        charmsContainer.style.display = "none"; // Closed by default
+        
+        // 3. Toggle Logic
+        headerDiv.onclick = () => {
+            if (charmsContainer.style.display === "none") {
+                charmsContainer.style.display = "block";
+                toggleBtn.innerText = "Hide";
+            } else {
+                charmsContainer.style.display = "none";
+                toggleBtn.innerText = "Show";
+            }
+        };
 
-        let nameSpan = document.createElement('strong');
-        nameSpan.className = "mr-auto text-warning ml-2";
-        nameSpan.innerHTML = `<span class="text-muted small">[${label}]</span> ${item.name}`;
-        nameSpan.style.cursor = "help";
-        nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, item));
-        nameSpan.addEventListener('mouseleave', hideItemTooltip);
+        // 4. Helper Function (same logic, just appending to charmsContainer now)
+        const renderInventoryItem = (item, label) => {
+            let div = document.createElement('div');
+            div.className = "equip-slot";
+            
+            let img = document.createElement('img');
+            setItemImage(img, item);
+            img.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+            img.addEventListener('mouseleave', hideItemTooltip);
 
-        let btn = document.createElement('button');
-        btn.className = "btn btn-sm btn-outline-danger";
-        btn.innerText = "Unequip";
-        btn.onclick = () => doUnequipItemByName(item.name);
+            let nameSpan = document.createElement('strong');
+            nameSpan.className = "mr-auto text-warning ml-2";
+            nameSpan.innerHTML = `<span class="text-muted small">[${label}]</span> ${item.name}`;
+            nameSpan.style.cursor = "help";
+            nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, item));
+            nameSpan.addEventListener('mouseleave', hideItemTooltip);
 
-        div.appendChild(img);
-        div.appendChild(nameSpan);
-        div.appendChild(btn);
-        container.appendChild(div);
-    };
+            let btn = document.createElement('button');
+            btn.className = "btn btn-sm btn-outline-danger";
+            btn.innerText = "Unequip";
+            btn.onclick = () => doUnequipItemByName(item.name);
 
-    // Render Charms
-    selectedChar.charms.forEach(charm => renderInventoryItem(charm, "Charm"));
-    
-    // Render Relics
-    selectedChar.relics.forEach(relic => renderInventoryItem(relic, "Relic"));
+            div.appendChild(img);
+            div.appendChild(nameSpan);
+            div.appendChild(btn);
+            charmsContainer.appendChild(div);
+        };
+
+        // Render Items into the hidden container
+        selectedChar.charms.forEach(charm => renderInventoryItem(charm, "Charm"));
+        selectedChar.relics.forEach(relic => renderInventoryItem(relic, "Relic"));
+
+        // Append the hidden container to main list
+        container.appendChild(charmsContainer);
+    }
 }
 
 function renderItemLibrary() {
-    const thead = document.querySelector('#item-library-body').closest('table').querySelector('thead tr');
-    // Ensure we have the Owner column header
-    if (thead.children.length === 4) { // Currently: Icon, Name, Type, Action
-        let th = document.createElement('th');
-        th.innerText = "Owner";
-        // Insert after Type (index 2)
-        thead.insertBefore(th, thead.children[3]);
-    }
+    // 1. Get Sorted & Filtered Items
+    // We pass globalItemLibrary source and the 'library' context string
+    const displayItems = getProcessedItems([...globalItemLibrary], 'library');
 
     const tbody = document.getElementById('item-library-body');
     tbody.innerHTML = "";
 
-    globalItemLibrary.forEach((item, index) => {
+    displayItems.forEach((item) => {
+        // Find original index for the Equip button action (IMPORTANT)
+        // We must pass the index of the item in the *Global* library, not the filtered list
+        // otherwise equipping will grab the wrong item.
+        let globalIndex = globalItemLibrary.indexOf(item); 
+
         let tr = document.createElement('tr');
         
         // Icon
@@ -408,62 +539,61 @@ function renderItemLibrary() {
         tdType.innerText = item.type;
         tdType.className = "align-middle text-muted";
 
-        // --- NEW: Owner ---
+        // Owner
         let tdOwner = document.createElement('td');
         let ownerName = item.owner || "None";
         tdOwner.innerText = ownerName;
         tdOwner.className = "align-middle";
-        if (ownerName !== "None") tdOwner.style.color = "#d4af37"; // Gold color for characters
+        if (ownerName !== "None") tdOwner.style.color = "#d4af37";
 
         // Action
         let tdBtn = document.createElement('td');
         tdBtn.className = "text-right";
-        // Using a closure to capture index safely
         let btn = document.createElement('button');
         btn.className = "btn btn-sm btn-success";
         btn.innerText = "Equip";
-        btn.onclick = () => doEquipFromLib(index);
+        // Use globalIndex here!
+        btn.onclick = () => doEquipFromLib(globalIndex); 
         tdBtn.appendChild(btn);
 
         tr.appendChild(tdIcon);
         tr.appendChild(tdName);
         tr.appendChild(tdType);
-        tr.appendChild(tdOwner); // Add Owner
+        tr.appendChild(tdOwner);
         tr.appendChild(tdBtn);
         
         tbody.appendChild(tr);
     });
+    
+    // Ensure arrows are correct after render
+    updateHeaderVisuals('library');
 }
 
 // --- Top Gear Logic ---
 function renderTopGearSelection() {
-    // 1. Update Table Header
-    const thead = document.querySelector('#topgear-selection-body').closest('table').querySelector('thead tr');
-    // Ensure we have the Owner column header. Currently: Select, Icon, Name, Type
-    if (thead.children.length === 4) { 
-        let th = document.createElement('th');
-        th.innerText = "Owner";
-        thead.appendChild(th); // Append to end
-    }
-
     const tbody = document.getElementById('topgear-selection-body');
     tbody.innerHTML = "";
 
     const validSlots = ["Helm", "Body Armor", "Gloves", "Belt", "Boots", "Amulet", "Ring", "Weapon1", "Weapon2"];
-    const equippableItems = globalItemLibrary.filter(item => validSlots.includes(item.slot));
+    
+    // 1. Filter by Slot FIRST (Business Logic)
+    let eligibleItems = globalItemLibrary.filter(item => validSlots.includes(item.slot));
 
-    if (equippableItems.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted p-3">No equippable items found in library.</td></tr>';
+    // 2. Then Apply Sort/Search (UI Logic)
+    const displayItems = getProcessedItems(eligibleItems, 'topgear');
+
+    if (displayItems.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted p-3">No matching items found.</td></tr>';
         return;
     }
 
-    equippableItems.forEach((item, index) => {
+    displayItems.forEach((item) => {
         let tr = document.createElement('tr');
         
         // Checkbox
         let tdCheck = document.createElement('td');
         tdCheck.className = "text-center align-middle";
-        // Important: Store the GLOBAL index, not the filtered index
+        // Important: Store the GLOBAL index
         let globalIndex = globalItemLibrary.indexOf(item);
         tdCheck.innerHTML = `<input type="checkbox" class="topgear-check" data-lib-index="${globalIndex}">`;
 
@@ -490,7 +620,7 @@ function renderTopGearSelection() {
         tdType.className = "align-middle text-muted";
         tdType.innerHTML = `<small>${item.type}</small>`;
 
-        // --- NEW: Owner ---
+        // Owner
         let tdOwner = document.createElement('td');
         let ownerName = item.owner || "None";
         tdOwner.innerText = ownerName;
@@ -505,6 +635,8 @@ function renderTopGearSelection() {
         
         tbody.appendChild(tr);
     });
+
+    updateHeaderVisuals('topgear');
 }
 
 // Toggle All Checkboxes
@@ -739,6 +871,9 @@ function selectCharacter(index) {
         <div class="stat-line">Light Dmg: <span class="stat-value">+${selectedChar.lightningSpellDamage}%</span></div>
         <div class="stat-line">Light Pierce: <span class="stat-value">-${selectedChar.lightningPiercing}%</span></div>
     `;
+    if(document.getElementById('tab-character').style.display === 'block') {
+        renderCharacterTab();
+    }
 }
 
 function selectSkill(index) {
