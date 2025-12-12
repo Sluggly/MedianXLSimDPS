@@ -32,6 +32,130 @@ var GAME_MAX_LIGHTNING_ABSORB = 40;
 var GAME_MAX_COLD_ABSORB = 40;
 var GAME_MAX_FIRE_ABSORB = 40;
 
+// --- TOOLTIP DISPLAY CONFIGURATION ---
+const statConfig = {
+    // Attributes
+    "Strength": "+%d to Strength",
+    "Dexterity": "+%d to Dexterity",
+    "Vitality": "+%d to Vitality",
+    "Energy": "+%d to Energy",
+    "AllAttributesPercent": "+%d% to All Attributes",
+    "AllAttributesFlat": "+%d to all Attributes",
+    "StrengthPercent": "+%d% to Strength",
+    "DexterityPercent": "+%d% to Dexterity",
+    "VitalityPercent": "+%d% to Vitality",
+    "EnergyPercent": "+%d% to Energy",
+
+    // Base Stats
+    "Life": "+%d to Life",
+    "Mana": "+%d to Mana",
+    "MaxLifePercent": "Maximum Life +%d%",
+    "MaxManaPercent": "Maximum Mana +%d%",
+    "LifeAfterKill": "+%d Life after each Kill",
+    "ManaAfterKill": "+%d Mana after each Kill",
+    "LifeOnAttack": "+%d Life on Melee Attack",
+    "ManaOnAttack": "+%d Mana on Melee Attack",
+    "LifeOnStriking": "+%d Life on Striking",
+    "ManaOnStriking": "+%d Mana on Striking",
+    "LifeLeech": "%d% Life stolen per Hit",
+    "ManaLeech": "%d% Mana stolen per Hit",
+    "LifeRegen": "+%d Life Regenerated per Second",
+    "ManaRegen": "Regenerate Mana +%d%",
+
+    // Damage
+    "MaxDamage": "+%d to Maximum Damage",
+    "MinDamage": "+%d to Minimum Damage",
+    "FlatDamage": "+%d Damage",
+    "EnhancedDamage": "+%d% Enhanced Damage",
+    "WeaponPhysicalDamage": "Weapon Physical Damage +%d%",
+    
+    // Spell Damage
+    "SpellDamage": "+%d% to Spell Damage",
+    "FireSpellDamage": "+%d% to Fire Spell Damage",
+    "ColdSpellDamage": "+%d% to Cold Spell Damage",
+    "LightningSpellDamage": "+%d% to Lightning Spell Damage",
+    "PoisonSpellDamage": "+%d% to Poison Spell Damage",
+    "PhysicalMagicalSpellDamage": "+%d% to Physical/Magic Spell Damage",
+    "TriEleDamagePerLevel": "+%d Maximum Tri-Elemental Damage per 5 Character Levels",
+    "InnateElementalDamage": "+%d% Innate Elemental Damage",
+
+    // Pierce (Note: Parser extracts positive number, we add '-' here)
+    "FirePierce": "-%d% to Enemy Fire Resistance",
+    "LightningPierce": "-%d% to Enemy Lightning Resistance",
+    "ColdPierce": "-%d% to Enemy Cold Resistance",
+    "PoisonPierce": "-%d% to Enemy Poison Resistance",
+    "ElementalPierce": "-%d% to Enemy Elemental Resistances",
+
+    // Resists
+    "FireResist": "Fire Resist +%d%",
+    "ColdResist": "Cold Resist +%d%",
+    "LightningResist": "Lightning Resist +%d%",
+    "PoisonResist": "Poison Resist +%d%",
+    "ElementalResist": "Elemental Resists +%d%",
+    "PhysicalResist": "Physical Resist +%d%",
+    "MagicalResist": "Magic Resist +%d%",
+
+    // Max Resists
+    "MaxFireResist": "Maximum Fire Resist +%d%",
+    "MaxColdResist": "Maximum Cold Resist +%d%",
+    "MaxLightningResist": "Maximum Lightning Resist +%d%",
+    "MaxPoisonResist": "Maximum Poison Resist +%d%",
+    "MaxElementalResist": "Maximum Elemental Resists +%d%",
+
+    // Minions
+    "MinionLife": "+%d% to Summoned Minion Life",
+    "MinionDamage": "+%d% to Summoned Minion Damage",
+    "MinionResist": "+%d% to Summoned Minion Resistances",
+    "MinionAR": "+%d% to Summoned Minion Attack Rating",
+
+    // Skills
+    "AllSkill": "+%d to All Skills",
+    "AmazonSkill": "+%d to Amazon Skill Levels",
+    "AssassinSkill": "+%d to Assassin Skill Levels",
+    "BarbarianSkill": "+%d to Barbarian Skill Levels",
+    "DruidSkill": "+%d to Druid Skill Levels",
+    "NecromancerSkill": "+%d to Necromancer Skill Levels",
+    "PaladinSkill": "+%d to Paladin Skill Levels",
+    "SorceressSkill": "+%d to Sorceress Skill Levels",
+    "SpellFocus": "+%d Spell Focus",
+
+    // Misc
+    "CastSpeed": "+%d% Cast Speed",
+    "AttackSpeed": "+%d% Attack Speed",
+    "HitRecovery": "+%d% Hit Recovery",
+    "BlockSpeed": "+%d% Block Speed",
+    "MovementSpeed": "+%d% Movement Speed",
+    "BaseBlock": "+%d% Base Block Chance",
+    "MagicFind": "+%d% Magic Find",
+    "GoldFind": "+%d% Gold Find",
+    "ExpGained": "+%d% to Experience Gained",
+    "LightRadius": "+%d to Light Radius",
+    "PLR": "Poison Length Reduction +%d%",
+    "CLR": "Curse Length Reduction +%d%",
+    "FlatDamageTaken": "Target Takes Additional Damage of %d",
+    "PDRFlat": "Physical Damage Taken Reduced by %d",
+    "SlowAttacker": "Slows Attacker by +%d%",
+    "SlowTarget": "Slow Target +%d%",
+    "RequirementsPercent": "Requirements %d%", // Value is usually negative in data e.g. -20
+
+    // Defense
+    "EnhancedDefense": "+%d% Enhanced Defense",
+    "BonusDefense": "+%d% Bonus to Defense",
+    "FlatDefense": "+%d Defense",
+
+    // Booleans (The value won't be used, just the text)
+    "OrbDoubler": "Orb Effects Applied to this Item are Doubled",
+    "Indestructible": "Indestructible",
+    "CannotBeFrozen": "Cannot Be Frozen",
+    "CannotBeRenewed": "Cannot be Renewed",
+    "CannotBeCrafted": "Cannot be Crafted",
+    "ShrineBlessed": "Shrine Blessed",
+    "AlreadyUpgraded": "Already Upgraded",
+    "Corrupted": "Corrupted",
+    "Ethereal": "Ethereal",
+    "HalfFreezeDuration": "Half Freeze Duration"
+};
+
 function computeTotalVitality(character) {
     let finalVitality = 0.0;
     // Base Stats + Attributed with level and Signets of learning

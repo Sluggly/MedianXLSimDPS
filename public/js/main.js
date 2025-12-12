@@ -1086,28 +1086,55 @@ function showItemTooltip(e, item) {
     let statsTxt = "";
     if (item.stats) {
         for (let [key, val] of Object.entries(item.stats)) {
-            // Handle OSkills Object specifically
+            
+            // 1. OSkills (Special Object Handling)
             if (key === "OSkills" && typeof val === 'object') {
                 for (let [skillName, skillLevel] of Object.entries(val)) {
-                    statsTxt += `<span class="magic-text">+${skillLevel} to ${skillName}</span>\n`;
+                    statsTxt += `<span class="magic-text">+${skillLevel} to ${skillName}</span><br>`;
                 }
                 continue;
             }
 
-            // Handle Boolean Flags
-            if (val === true) {
-                // Convert camelCase to Readable Text (e.g. "OrbDoubler" -> "Orb Doubler")
-                // Or you can create a specific mapping if you want exact in-game text back
-                let readable = key.replace(/([A-Z])/g, ' $1').trim();
-                statsTxt += `<span class="magic-text">${readable}</span>\n`;
+            // 2. Known Mapped Stats
+            if (statConfig[key]) {
+                // If it's a boolean flag (true), just print the text
+                if (typeof val === 'boolean' && val === true) {
+                    statsTxt += `<span class="magic-text">${statConfig[key]}</span><br>`;
+                } 
+                // If it's a number, format it
+                else if (typeof val === 'number') {
+                    // Check if value is float (e.g. 25.5), maybe fix to 0 decimals for display unless needed
+                    let displayVal = Number.isInteger(val) ? val : val.toFixed(1);
+                    let formatted = statConfig[key].replace('%d', displayVal);
+                    statsTxt += `<span class="magic-text">${formatted}</span><br>`;
+                }
             } 
-            // Handle Standard Numbers
+            // 3. Unmapped/Unknown Stats (Fallback)
             else {
-                statsTxt += `<span class="magic-text">${key}: ${val}</span>\n`;
+                // Add Spaces to CamelCase (e.g. "MinFireDamage" -> "Min Fire Damage")
+                let readableKey = key.replace(/([A-Z])/g, ' $1').trim();
+                statsTxt += `<span class="magic-text">${readableKey}: ${val}</span><br>`;
             }
         }
     }
     
+    // Sockets Section (Optional visual separator)
+    if (item.socketed && item.socketed.length > 0) {
+        statsTxt += `<div style="margin-top:5px; border-top:1px solid #444; padding-top:5px;">`;
+        item.socketed.forEach(sock => {
+            statsTxt += `<span style="color:#aaa; font-size:0.9em;">${sock.name}</span><br>`;
+            // Recursively show socket stats? Or just name to keep it clean.
+            // Let's just show stats for sockets briefly if you want:
+            if(sock.stats) {
+                for (let [k, v] of Object.entries(sock.stats)) {
+                     let disp = statConfig[k] ? statConfig[k].replace('%d', v) : `${k}: ${v}`;
+                     statsTxt += `<span style="color:#6969ff; font-size:0.85em;">&nbsp;&nbsp;${disp}</span><br>`;
+                }
+            }
+        });
+        statsTxt += `</div>`;
+    }
+
     tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small><br>${statsTxt}`;
     tooltip.style.display = 'block';
     moveItemTooltip(e);
