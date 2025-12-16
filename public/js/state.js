@@ -12,7 +12,7 @@ let selectedEnemy = null;
 
 // Table States (Sorting/Filtering)
 const tableStates = {
-    library: { sortCol: 'name', sortDir: 'asc', searchQuery: '' },
+    library: { sortCol: 'name', sortDir: 'asc', searchQuery: '', hideEquipped: false },
     topgear: { sortCol: 'name', sortDir: 'asc', searchQuery: '' }
 };
 

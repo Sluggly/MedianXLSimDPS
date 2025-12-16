@@ -4,6 +4,12 @@ function getProcessedItems(items, context) {
     
     // 1. Filter
     let result = items;
+
+    if (context === 'library' && state.hideEquipped && selectedChar) {
+        // Filter out items that are currently in the selectedChar's equipped list
+        result = result.filter(item => !selectedChar.equippedItems.includes(item));
+    }
+
     if (state.searchQuery) {
         const q = state.searchQuery.toLowerCase();
         result = result.filter(item => {
@@ -27,6 +33,11 @@ function getProcessedItems(items, context) {
     });
 
     return result;
+}
+
+function handleLibraryFilterChange(checkbox) {
+    tableStates.library.hideEquipped = checkbox.checked;
+    renderItemLibrary();
 }
 
 // --- HANDLERS: HTML Inputs trigger these ---

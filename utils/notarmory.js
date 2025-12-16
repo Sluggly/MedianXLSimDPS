@@ -199,18 +199,23 @@ async function scrapeCharacterData(url) {
 
                 // Socket Parsing
                 let socketsRaw = [];
-                const socketContainer = container.querySelector('.item-sockets');
-                if(socketContainer) {
-                    const socketDivs = socketContainer.querySelectorAll('.socket');
-                    socketDivs.forEach(sock => {
-                        let sNameEl = sock.querySelector('span[class^="color-"]');
-                        let sName = sNameEl ? sNameEl.innerText : "Unknown Socket";
-                        socketsRaw.push({
-                            name: sName,
-                            html: sock.innerHTML,
-                            text: sock.innerText
+                if (html) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+                    const socketContainer = tempDiv.querySelector('.item-sockets');
+                    
+                    if (socketContainer) {
+                        const socketDivs = socketContainer.querySelectorAll('.socket');
+                        socketDivs.forEach(sock => {
+                            let sNameEl = sock.querySelector('span[class^="color-"]');
+                            let sName = sNameEl ? sNameEl.innerText : "Unknown Socket";
+                            socketsRaw.push({
+                                name: sName,
+                                html: sock.innerHTML,
+                                text: sock.innerText
+                            });
                         });
-                    });
+                    }
                 }
 
                 return {
@@ -241,11 +246,34 @@ async function scrapeCharacterData(url) {
                 const type = tds[1].innerText.trim();
                 
                 const location = tds[2].innerText.trim();
+
+                let socketsRaw = [];
+                if (html) {
+                    // Create a dummy element to parse the HTML string
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+                    
+                    const socketContainer = tempDiv.querySelector('.item-sockets');
+                    if (socketContainer) {
+                        const socketDivs = socketContainer.querySelectorAll('.socket');
+                        socketDivs.forEach(sock => {
+                            let sNameEl = sock.querySelector('span[class^="color-"]');
+                            let sName = sNameEl ? sNameEl.innerText : "Unknown Socket";
+                            socketsRaw.push({
+                                name: sName,
+                                html: sock.innerHTML,
+                                text: sock.innerText
+                            });
+                        });
+                    }
+                }
+
                 return {
                     name: name,
                     location: location,
                     type: type,
                     tooltipHtml: html,
+                    sockets: socketsRaw
                 };
             }).filter(i => i !== null);
         });

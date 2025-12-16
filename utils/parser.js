@@ -8,8 +8,10 @@ var offhandList = ["Buckler" ,"Small Shield","Large Shield","Kite Shield","Tower
 var miscList = ["Ghost Trance", "Tenet of Judgement", "Pulsating Worldstone Shard", "Mark of Victory", "Empyrean Touch", "Arcane Hunger", "Gem", "Stash O' Treasures", "Corrupted Treasure", "Arcane Crystal", "Mephisto's Soulstone", "Golden Cycle", "Belladonna Extract", "Path of Brutality", "Oil", "Elemental Rune", "Dulra Fruit", "Dimensional Link", "Wirt's Other Leg", "Rune", "Reality Piercer", "Mark of Infusion", "Item Design", "Emblem", "Corrupted Cluster", "Dye", "Cycle", "Custom Signet", "Wirt's Leg", "Soulforge", "Scroll of Summoning", "Shrine","Positronic Brain","Corrupted Shards","Apple","Potion" ,"Arcane Cluster","Arcane Shards","Catalyst","Container of Knowledge","Horadric Cube","Pulsating Worldstone Crystal","Whisper of the Damned","Barrel","Breath of Thaumaturgy","Celestial Wind","Crate O' Souls","Dream Fragment","Elemental Dominion","Elemental Ire","Enchanted Rune","Essence","Gem Cluster","Key","Northern Winds","Riftstone","Rune Container","Scroll","Shrine Vessel","Sigil of Absolution","Signet","Soulforged Mystic Orb","Star Chart","UMO","Whisper of the Damned","Wings of the Departed"];
 var ringList = ["Ring","Assur's Bane", "Sigil of Deadly Sins"];
 var amuletList = ["Amulet"];
+var gemList = ["Perfect Ruby", "Perfect Diamond", "Perfect Amethyst", "Perfect Topaz", "Perfect Emerald", "Perfect Sapphire", "Perfect Skull", "Perfect Onyx", "Perfect Turquoise", "Perfect Bloodstone", "Perfect Amber", "Perfect Rainbow Stone"];
 var jewelList = ["Jewel"];
-const allItemTypes = [...helmList, ...bodyArmorList, ...bootsList, ...glovesList, ...beltList, ...weaponList, ...offhandList, ...miscList, ...ringList, ...amuletList, ...jewelList];
+var runeList = ["El Rune", "Eld Rune", "Tir Rune", "Nef Rune", "Eth Rune","Ith Rune","Tal Rune","Ral Rune","Ort Rune","Thul Rune","Amn Rune","Sol Rune","Shael Rune","Dol Rune","Hel Rune","Io Rune","Lum Rune","Ko Rune","Fal Rune","Lem Rune","Pul Rune","Um Rune","Mal Rune","Ist Rune","Gul Rune","Vex Rune","Ohm Rune","Lo Rune","Sur Rune","Ber Rune","Jah Rune","Cham Rune","Zod Rune","Ol Rune","Elq Rune","Tyr Rune","Nif Rune","Xeth Rune","Xith Rune","Thal Rune","Rhal Rune","Urt Rune","Tuul Rune","Ahmn Rune","Zol Rune","Shaen Rune","Doj Rune","Hem Rune","Iu Rune","Lux Rune","Ka Rune","Fel Rune","Lew Rune","Phul Rune","Un Rune","Mhal Rune","Yst Rune","Gur Rune","Vez Rune","Ohn Rune","Loz Rune","Zur Rune","Bur Rune","Iah Rune","Yham Rune","Xod Rune","Taha Rune","Ghal Rune","Qor Rune","Fire Rune","Stone Rune","Arcane Rune","Poison Rune","Light Rune","Ice Rune"];
+const allItemTypes = [...helmList, ...bodyArmorList, ...bootsList, ...glovesList, ...beltList, ...weaponList, ...offhandList, ...miscList, ...ringList, ...amuletList, ...jewelList, ...gemList, ...runeList];
 
 const ignoreMappings = [
     /Required Level: \d+/i,
@@ -110,7 +112,14 @@ const statMappings = [
     { regex: /-(\d+)% to Enemy Cold Resistance/i, key: "ColdPierce" },
     { regex: /-(\d+)% to Enemy Poison Resistance/i, key: "PoisonPierce" },
     { regex: /-(\d+)% to Enemy Elemental Resistances/i, key: "ElementalPierce" },
-    
+
+    // --- Max Resists ---
+    { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
+    { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
+    { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
+    { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
+    { regex: /Maximum Elemental Resists \+(\d+)%/i, key: "MaxElementalResist" },
+
     // --- Resists ---
     { regex: /Fire Resist \+(\d+)%/i, key: "FireResist" },
     { regex: /Cold Resist \+(\d+)%/i, key: "ColdResist" },
@@ -119,13 +128,6 @@ const statMappings = [
     { regex: /Elemental Resists \+(\d+)%/i, key: "ElementalResist" },
     { regex: /Physical Resist \+(\d+)%/i, key: "PhysicalResist" },
     { regex: /Magic Resist \+(\d+)%/i, key: "MagicalResist" },
-
-    // --- Max Resists ---
-    { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
-    { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
-    { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
-    { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
-    { regex: /Maximum Elemental Resists \+(\d+)%/i, key: "MaxElementalResist" },
 
     // --- Minions ---
     { regex: /\+(\d+)% to Summoned Minion Life/i, key: "MinionLife" },
@@ -147,7 +149,6 @@ const statMappings = [
     { regex: /\+(\d+) to Necromancer Skill Levels/i, key: "NecromancerSkill" },
     { regex: /\+(\d+) to Paladin Skill Levels/i, key: "PaladinSkill" },
     { regex: /\+(\d+) to Sorceress Skill Levels/i, key: "SorceressSkill" },
-    { regex: /\+(\d+) to ([\w\s]+)/i, key: "SpecificSkill" }, // "+1 to Blink" - Special Handling Needed
     { regex: /\+(\d+)% Cast Speed/i, key: "CastSpeed" },
     { regex: /\+(\d+)% Attack Speed/i, key: "AttackSpeed" },
     { regex: /\+(\d+)% Hit Recovery/i, key: "HitRecovery" },
@@ -192,7 +193,9 @@ const statMappings = [
     { regex: /Socketed \((\d+)\/(\d+)\)/i, type: "sockets", filledKey: "SocketsFilled", maxKey: "SocketsMax" },
 
     // OSkill
-    { regex: /\+(\d+) to ([\w\s']+)$/i, key: "OSkill" }
+    { regex: /\+(\d+) to ([\w\s']+)$/i, key: "OSkill" },
+    { regex: /\+(\d+) to ([\w\s]+)/i, key: "SpecificSkill" } // "+1 to Blink" - Special Handling Needed
+    
 ];
 
 // --- HELPER: Logic to detect if a line is an Item Type/Name ---
@@ -383,7 +386,21 @@ function isTypeAmulet(type) {
 }
 
 function isTypeJewel(type) {
-for (const item of jewelList) {
+    for (const item of jewelList) {
+        if (item === type || "Superior " + item === type) { return true; }
+    }
+    return false;
+}
+
+function isTypeGem(type) {
+    for (const item of gemList) {
+        if (item === type || "Superior " + item === type) { return true; }
+    }
+    return false;
+}
+
+function isTypeRune(type) {
+    for (const item of runeList) {
         if (item === type || "Superior " + item === type) { return true; }
     }
     return false;
@@ -403,6 +420,8 @@ function getSlotByType(type) {
     else if(isTypeRing(type)) return "Ring";
     else if(isTypeAmulet(type)) return "Amulet";
     else if(isTypeJewel(type)) return "Jewel";
+    else if(isTypeGem(type)) return "Gem";
+    else if(isTypeRune(type)) return "Rune";
 
     else if(type.includes("Charm") || type.includes("Trophy")) return "Charm";
 
@@ -437,10 +456,15 @@ function processItems(rawItems) {
         if (i.sockets && i.sockets.length > 0) {
             processedSockets = i.sockets.map(sock => {
                 let sockLines = parseTooltipToLines(sock.html || sock.text); // Support both sources
+                
+                let sockType = "Jewel"; // Default
+                if (sock.name.includes("Rune")) sockType = "Rune";
+                if (sock.name.includes("Perfect ")) sockType = "Gem";
+                
                 return {
                     name: sock.name,
                     slot: "Socket",
-                    type: "Gem/Rune",
+                    type: sockType,
                     stats: parseStatsFromText(sockLines)
                 };
             });
@@ -458,8 +482,19 @@ function processItems(rawItems) {
                         itemStats[key] -= val;
                         
                         // Cleanup: If stat reaches 0 (or very close to it), remove it to clean up the tooltip
-                        if (Math.abs(itemStats[key]) < 0.01) {
-                            delete itemStats[key];
+                        if (Math.abs(itemStats[key]) < 0.01) { delete itemStats[key]; }
+                    }
+                    else if (key === "OSkills" && typeof val === 'object' && itemStats["OSkills"]) {
+                        for (const [skillName, skillLevel] of Object.entries(val)) {
+                            if (itemStats["OSkills"][skillName]) {
+                                itemStats["OSkills"][skillName] -= skillLevel;
+                                if (itemStats["OSkills"][skillName] <= 0) {
+                                    delete itemStats["OSkills"][skillName];
+                                }
+                            }
+                        }
+                        if (Object.keys(itemStats["OSkills"]).length === 0) {
+                            delete itemStats["OSkills"];
                         }
                     }
                 }

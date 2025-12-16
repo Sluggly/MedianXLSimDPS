@@ -251,10 +251,12 @@ class Character {
             else this.ring2 = item;
         }
         else if (item.slot == "Charm") {
-            if (!this.charms.some(c => c.name === item.name)) { this.charms.push(item); }
+            this.charms = this.charms.filter(c => c.name !== item.name);
+            this.charms.push(item);
         }
         else if (item.slot == "Relic") {
-            if (!this.relics.some(r => r.name === item.name)) { this.relics.push(item); }
+            this.relics = this.relics.filter(c => c.name !== item.name);
+            this.relics.push(item);
         }
         this.updateEquippedItems();
     }
