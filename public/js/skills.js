@@ -1,5 +1,3 @@
-var skillList = []; // Array containing all created skills
-
 class Skill {
     constructor(name, charClass, tree, requirement, scaling, isSpell) {
         this.name = name; // String unique "Mind Flay"

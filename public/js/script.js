@@ -1,7 +1,3 @@
-var characterList = []; // Array containing all user created characters
-var itemList = []; // Array containing all user created items
-var enemyList = []; // Array containing all created enemies
-
 class Character {
     constructor(charName, charClass, level) {
         this.charName = charName; // String unique
@@ -489,20 +485,22 @@ function loadCharacterFromJSON(data) {
         let ringCount = 0;
         data.items.forEach(itemData => {
             // Re-create the Item instance
-            let newItem = createItem(
+            let tempItem = createItem(
                 itemData.name,
                 itemData.slot,
                 itemData.type, // Note: You might need to update createItem to accept 'type' if it doesn't match perfectly, passing itemData.stats to the 3rd arg based on your constructor
                 itemData.stats,
                 itemData.socketed
             );
+
+            tempItem.owner = data.charName;
+            let finalItem = getOrRegisterItem(tempItem);
             
-            if (newItem.slot === "Ring") {
+            if (finalItem.slot === "Ring") {
                 ringCount++;
-                newChar.equipItem(newItem, ringCount); // Pass 1 or 2
-            } else {
-                newChar.equipItem(newItem);
-            }
+                newChar.equipItem(finalItem, ringCount);
+            } 
+            else {  newChar.equipItem(finalItem); }
         });
     }
 
@@ -523,4 +521,39 @@ function loadSkillFromJSON(data) {
 
 function loadEnemyFromJSON(data) {
     return createEnemy(data.name, data.life, data.resists);
+}
+
+// --- HELPER: Deep Compare Items ---
+function areItemsEqual(itemA, itemB) {
+    if (!itemA || !itemB) return false;
+    if (itemA.name !== itemB.name) return false;
+    
+    // Check Stats
+    if (JSON.stringify(itemA.stats) !== JSON.stringify(itemB.stats)) return false;
+    
+    // Check Sockets
+    // We strictly compare the arrays
+    return JSON.stringify(itemA.socketed) === JSON.stringify(itemB.socketed);
+}
+
+// --- HELPER: Item Registrar (Single Source of Truth) ---
+function getOrRegisterItem(newItem) {
+    // 1. Check if this item already exists in the Global Library
+    // We access the global variable directly
+    let existingItem = globalItemLibrary.find(i => areItemsEqual(i, newItem));
+
+    if (existingItem) {
+        // If found, we discard 'newItem' and use the existing one from memory
+        // Optional: Update owner if the existing one has no owner
+        if ((!existingItem.owner || existingItem.owner === "None") && newItem.owner) {
+            existingItem.owner = newItem.owner;
+        }
+        return existingItem;
+    } else {
+        // If not found, we register this new item into the library
+        // Ensure owner is set
+        if (!newItem.owner) newItem.owner = "None";
+        globalItemLibrary.push(newItem);
+        return newItem;
+    }
 }
