@@ -36,18 +36,6 @@ function selectCharacter(index) {
     selectedChar.calculateFinalStats(); 
     refreshCharacterList(); // Re-render to show active border
     
-    // Update Stats Preview
-    let statsDiv = document.getElementById("character-stats-preview");
-    statsDiv.innerHTML = `
-        <div class="stat-line">STR: <span class="stat-value">${selectedChar.strength}</span></div>
-        <div class="stat-line">DEX: <span class="stat-value">${selectedChar.dexterity}</span></div>
-        <div class="stat-line">VIT: <span class="stat-value">${selectedChar.vitality}</span></div>
-        <div class="stat-line">ENE: <span class="stat-value">${selectedChar.energy}</span></div>
-        <div class="stat-line">Spell Focus: <span class="stat-value">${selectedChar.spellFocus}</span></div>
-        <br>
-        <div class="stat-line">Light Dmg: <span class="stat-value">+${selectedChar.lightningSpellDamage}%</span></div>
-        <div class="stat-line">Light Pierce: <span class="stat-value">-${selectedChar.lightningPiercing}%</span></div>
-    `;
     if(document.getElementById('tab-character').style.display === 'block') {
         renderCharacterTab();
     }
@@ -163,4 +151,98 @@ function renderEnemyStats() {
             <div class="col-6" style="color:#9e9e9e">Phys: ${r[5]}%</div>
         </div>
     `;
+}
+
+// Initialize Dropdown
+function initEnemySelect() {
+    const select = document.getElementById('sim-enemy-select');
+    select.innerHTML = "";
+    
+    enemyList.forEach((enemy, index) => {
+        let opt = document.createElement('option');
+        opt.value = index;
+        opt.text = enemy.name;
+        select.add(opt);
+    });
+
+    // Default select first
+    if (enemyList.length > 0) selectEnemy(0);
+}
+
+// Populate Inputs from Object
+function selectEnemy(index) {
+    selectedEnemy = enemyList[index];
+    if (!selectedEnemy) return;
+
+    // General
+    document.getElementById('enemy-name').value = selectedEnemy.name;
+    document.getElementById('enemy-level').value = selectedEnemy.level;
+    document.getElementById('enemy-type').value = selectedEnemy.type;
+    document.getElementById('enemy-life').value = selectedEnemy.life;
+    document.getElementById('enemy-defense').value = selectedEnemy.defense;
+    document.getElementById('enemy-isboss').checked = selectedEnemy.isBoss;
+    document.getElementById('enemy-block').value = selectedEnemy.blockChance;
+    document.getElementById('enemy-avoid').value = selectedEnemy.avoidChance;
+
+    // Resists
+    document.getElementById('enemy-res-phys').value = selectedEnemy.resists.physical;
+    document.getElementById('enemy-res-fire').value = selectedEnemy.resists.fire;
+    document.getElementById('enemy-res-cold').value = selectedEnemy.resists.cold;
+    document.getElementById('enemy-res-light').value = selectedEnemy.resists.lightning;
+    document.getElementById('enemy-res-pois').value = selectedEnemy.resists.poison;
+    document.getElementById('enemy-res-magic').value = selectedEnemy.resists.magic;
+
+    // Max Resists
+    document.getElementById('enemy-max-fire').value = selectedEnemy.maxResists.fire;
+    document.getElementById('enemy-max-cold').value = selectedEnemy.maxResists.cold;
+    document.getElementById('enemy-max-light').value = selectedEnemy.maxResists.lightning;
+    document.getElementById('enemy-max-pois').value = selectedEnemy.maxResists.poison;
+
+    // Absorb
+    document.getElementById('enemy-abs-fire').value = selectedEnemy.absorb.fire;
+    document.getElementById('enemy-abs-cold').value = selectedEnemy.absorb.cold;
+    document.getElementById('enemy-abs-light').value = selectedEnemy.absorb.lightning;
+    document.getElementById('enemy-abs-pois').value = selectedEnemy.absorb.poison;
+
+    // Pierce (Enemy Offense)
+    document.getElementById('enemy-pierce-fire').value = selectedEnemy.pierce.fire;
+    document.getElementById('enemy-pierce-cold').value = selectedEnemy.pierce.cold;
+    document.getElementById('enemy-pierce-light').value = selectedEnemy.pierce.lightning;
+    document.getElementById('enemy-pierce-pois').value = selectedEnemy.pierce.poison;
+}
+
+// Read Inputs back to Object (For manual overrides)
+function updateCurrentEnemyFromInputs() {
+    if (!selectedEnemy) return;
+
+    selectedEnemy.name = document.getElementById('enemy-name').value;
+    selectedEnemy.level = parseInt(document.getElementById('enemy-level').value);
+    selectedEnemy.type = document.getElementById('enemy-type').value;
+    selectedEnemy.life = parseInt(document.getElementById('enemy-life').value);
+    selectedEnemy.defense = parseInt(document.getElementById('enemy-defense').value);
+    selectedEnemy.isBoss = document.getElementById('enemy-isboss').checked;
+    selectedEnemy.blockChance = parseInt(document.getElementById('enemy-block').value);
+    selectedEnemy.avoidChance = parseInt(document.getElementById('enemy-avoid').value);
+
+    selectedEnemy.resists.physical = parseInt(document.getElementById('enemy-res-phys').value);
+    selectedEnemy.resists.fire = parseInt(document.getElementById('enemy-res-fire').value);
+    selectedEnemy.resists.cold = parseInt(document.getElementById('enemy-res-cold').value);
+    selectedEnemy.resists.lightning = parseInt(document.getElementById('enemy-res-light').value);
+    selectedEnemy.resists.poison = parseInt(document.getElementById('enemy-res-pois').value);
+    selectedEnemy.resists.magic = parseInt(document.getElementById('enemy-res-magic').value);
+
+    selectedEnemy.maxResists.fire = parseInt(document.getElementById('enemy-max-fire').value);
+    selectedEnemy.maxResists.cold = parseInt(document.getElementById('enemy-max-cold').value);
+    selectedEnemy.maxResists.lightning = parseInt(document.getElementById('enemy-max-light').value);
+    selectedEnemy.maxResists.poison = parseInt(document.getElementById('enemy-max-pois').value);
+
+    selectedEnemy.absorb.fire = parseInt(document.getElementById('enemy-abs-fire').value);
+    selectedEnemy.absorb.cold = parseInt(document.getElementById('enemy-abs-cold').value);
+    selectedEnemy.absorb.lightning = parseInt(document.getElementById('enemy-abs-light').value);
+    selectedEnemy.absorb.poison = parseInt(document.getElementById('enemy-abs-pois').value);
+
+    selectedEnemy.pierce.fire = parseInt(document.getElementById('enemy-pierce-fire').value);
+    selectedEnemy.pierce.cold = parseInt(document.getElementById('enemy-pierce-cold').value);
+    selectedEnemy.pierce.lightning = parseInt(document.getElementById('enemy-pierce-light').value);
+    selectedEnemy.pierce.poison = parseInt(document.getElementById('enemy-pierce-pois').value);
 }

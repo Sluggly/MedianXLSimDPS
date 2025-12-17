@@ -57,6 +57,11 @@ const statMergeRules = [
         color: "#ffffff"
     },
     { 
+        min: "ThrowMinDamage", max: "ThrowMaxDamage", 
+        format: "Throw Damage: %min to %max",
+        color: "#ffffff"
+    },
+    { 
         min: "SocketsFilled", max: "SocketsMax", 
         format: "Socketed (%min/%max)" 
     },
@@ -94,6 +99,16 @@ const statMergeRules = [
         keys: ["AttackSpeed", "CastSpeed", "HitRecovery", "BlockSpeed"],
         format: "+%val% Combat Speeds",
         color: "#6969ff"
+    },
+    {
+        min: "LightDmgPerDef_Amt", max: "LightDmgPerDef_Per",
+        format: "+%min Lightning Damage per %max% Bonus to Defense",
+        color: "#ffa500"
+    },
+    {
+        min: "LightDmgPerPhys_Amt", max: "LightDmgPerPhys_Per",
+        format: "+%min Lightning Damage per %max% Total Weapon Physical Damage Bonus",
+        color: "#ffa500"
     }
 ];
 
@@ -188,6 +203,7 @@ function showItemTooltip(e, item) {
                 } 
                 else if (typeof val === 'number') {
                     let displayVal = Number.isInteger(val) ? val : val.toFixed(1);
+                    if (val < 0 && formatStr.includes('+%d')) { formatStr = formatStr.replace('+%d', '%d'); }
                     displayLine = formatStr.replace('%d', displayVal);
                 }
 

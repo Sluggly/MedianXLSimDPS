@@ -61,8 +61,8 @@ function simulateMindFlayDamage(skill, character, enemy) {
     totalPhysicalDamageHigh = totalPhysicalDamageHigh * (1 + (character.physicalMagicalSpellDamage/100.0));
 
     // Resist Calculation
-    let enemyLightRes = enemy.resists[2] - character.lightningPiercing;
-    let enemyPhysRes = enemy.resists[5]; // No Physical Spell Piercing
+    let enemyLightRes = Math.min(enemy.resists.lightning, enemy.maxResists.lightning) - character.lightningPiercing;
+    let enemyPhysRes = 0; // No Physical Spell Piercing
     let effectiveLightRes = Math.max(enemyLightRes, -100);
     let effectivePhysRes = Math.max(enemyPhysRes, -100);
 

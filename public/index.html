@@ -69,7 +69,6 @@
                     <div class="card-header">1. Character</div>
                     <div class="card-body">
                         <div id="character-list" class="row no-gutters"></div>
-                        <div id="character-stats-preview" class="mt-3 border-top pt-2"></div>
                     </div>
                 </div>
             </div>
@@ -88,6 +87,125 @@
                     <div class="card-body">
                         <div id="enemy-list" class="row"></div>
                         <div id="enemy-stats-preview" class="mt-3 pt-3 border-top" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-danger text-white">Target Settings</div>
+                    <div class="card-body p-2" style="overflow-y: auto;">
+
+                        <hr class="my-2">
+
+                        <h6 class="text-danger small font-weight-bold">GENERAL</h6>
+                        <div class="form-row mb-2">
+                            <div class="col-6">
+                                <label class="small text-muted mb-0">Name</label>
+                                <input type="text" class="form-control form-control-sm" id="enemy-name">
+                            </div>
+                            <div class="col-3">
+                                <label class="small text-muted mb-0">Level</label>
+                                <input type="number" class="form-control form-control-sm" id="enemy-level">
+                            </div>
+                            <div class="col-3">
+                                <label class="small text-muted mb-0">Type</label>
+                                <select class="form-control form-control-sm p-0" id="enemy-type">
+                                    <option value="Demon">Demon</option>
+                                    <option value="Undead">Undead</option>
+                                    <option value="Animal">Animal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <label class="small text-muted mb-0">Life</label>
+                                <input type="number" class="form-control form-control-sm" id="enemy-life">
+                            </div>
+                            <div class="col-4">
+                                <label class="small text-muted mb-0">Defense</label>
+                                <input type="number" class="form-control form-control-sm" id="enemy-defense">
+                            </div>
+                            <div class="col-4 d-flex align-items-center justify-content-center">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="enemy-isboss">
+                                    <label class="custom-control-label small" for="enemy-isboss">Is Boss?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row mb-3 border-bottom pb-2">
+                            <div class="col-6">
+                                <label class="small text-muted mb-0">Block Chance %</label>
+                                <input type="number" class="form-control form-control-sm" id="enemy-block">
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted mb-0">Avoid Chance %</label>
+                                <input type="number" class="form-control form-control-sm" id="enemy-avoid">
+                            </div>
+                        </div>
+
+                        <h6 class="text-danger small font-weight-bold">RESISTANCES & MITIGATION</h6>
+                        <table class="table table-sm table-dark small text-center mb-2">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Elem</th>
+                                    <th>Res%</th>
+                                    <th>Max%</th>
+                                    <th>Abs%</th>
+                                    <th>Pier%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left text-secondary">Phys</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-phys"></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-danger">Fire</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-fire"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-max-fire"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-abs-fire"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-pierce-fire"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-info">Cold</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-cold"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-max-cold"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-abs-cold"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-pierce-cold"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-warning">Light</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-light"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-max-light"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-abs-light"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-pierce-light"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-success">Pois</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-pois"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-max-pois"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-abs-pois"></td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-pierce-pois"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-purple">Magic</td>
+                                    <td><input type="number" class="form-control form-control-sm p-0 text-center h-75" id="enemy-res-magic"></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mt-2 text-center">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="updateCurrentEnemyFromInputs()">Update Target Stats</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -115,113 +233,93 @@
     <div id="tab-character" class="tab-content" style="display:none;">
         <div class="row">
 
-            <div class="card mb-3">
-                <div class="card-header">Select or Import Character</div>
-                <div class="card-body">
-                    <label class="font-weight-bold text-warning">Select Existing Character:</label>
-                    <div id="edit-character-list" class="row no-gutters mb-3" style="max-height: 200px; overflow-y: auto;"></div>
-                    
-                    <hr class="border-secondary">
-
-                    <label>Or Import from NotArmory URL:</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="scraper-url" placeholder="Snoeglay or https://tsw.vn.cz/char/...">
-                        <div class="input-group-append">
-                            <button class="btn btn-diablo" type="button" id="btn-scrape">Import</button>
+            <div class="col-md-3">
+                
+                <div class="card mb-3">
+                    <div class="card-header">Select or Import</div>
+                    <div class="card-body p-2">
+                        <div id="edit-character-list" class="row no-gutters mb-2" style="max-height: 150px; overflow-y: auto;"></div>
+                        <hr class="border-secondary my-2">
+                        <div class="input-group input-group-sm mb-2">
+                            <input type="text" class="form-control" id="scraper-url" placeholder="Name or URL...">
+                            <div class="input-group-append">
+                                <button class="btn btn-diablo" type="button" id="btn-scrape">Import</button>
+                            </div>
                         </div>
+                        <div id="scrape-status" class="text-info small" style="min-height: 1.2em;"></div>
                     </div>
-                    <div id="scrape-status" class="text-info small"></div>
+                </div>
+
+                <div class="card" style="height: calc(100vh - 350px); min-height: 500px;">
+                    <div class="card-header">Equipped Gear</div>
+                    <div class="card-body p-2" id="equipped-gear-list" style="overflow-y: auto;">
+                        </div>
                 </div>
             </div>
             
-            <!-- LEFT: Character Stats -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>Stats</span>
-                        <button class="btn btn-sm btn-diablo" onclick="downloadCharacterJSON()">Export JSON</button>
+            <div class="col-md-3">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header d-flex justify-content-between align-items-center p-2">
+                        <span class="small font-weight-bold text-uppercase">Stats</span>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="cycleStatTab(-1)">&lt;</button>
+                            <span id="stat-tab-title" class="mx-2 small text-warning font-weight-bold" style="min-width: 80px; text-align: center;">ATTRIBUTES</span>
+                            <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="cycleStatTab(1)">&gt;</button>
+                        </div>
+                        <button class="btn btn-sm btn-diablo py-0" style="font-size: 0.7rem;" onclick="downloadCharacterJSON()">Exp</button>
                     </div>
-                    <div class="card-body">
-                        <!-- Basic Info -->
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Name</label>
-                            <div class="col-sm-8"><input type="text" class="form-control bg-dark text-white" id="edit-char-name" readonly></div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Level</label>
-                            <div class="col-sm-8"><input type="number" class="form-control stat-input" id="edit-char-level" onchange="updateCharStat('level', this.value)"></div>
+                    
+                    <div class="card-body p-0 d-flex flex-column" style="height: 100%;">
+                        <div class="p-2 border-bottom flex-shrink-0" style="background-color: #1a1a1a;">
+                            <div class="form-group row mb-0 align-items-center">
+                                <div class="col-7 pr-1">
+                                    <input type="text" class="form-control form-control-sm bg-dark text-white border-secondary" id="edit-char-name" readonly>
+                                </div>
+                                <label class="col-2 col-form-label col-form-label-sm text-muted text-right px-0">Lvl</label>
+                                <div class="col-3 pl-1">
+                                    <input type="number" class="form-control form-control-sm stat-input w-100" id="edit-char-level" onchange="updateCharStat('level', this.value)">
+                                </div>
+                            </div>
                         </div>
 
-                        <hr style="background-color:#444">
-
-                        <!-- Attributes -->
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label text-danger">Strength</label>
-                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-str" onchange="updateCharStat('str', this.value)"></div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label text-success">Dexterity</label>
-                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-dex" onchange="updateCharStat('dex', this.value)"></div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label text-primary">Vitality</label>
-                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-vit" onchange="updateCharStat('vit', this.value)"></div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label text-info">Energy</label>
-                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-ene" onchange="updateCharStat('ene', this.value)"></div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label text-warning">Spell Focus</label>
-                            <div class="col-sm-6"><input type="number" class="form-control stat-input" id="edit-focus" onchange="updateCharStat('focus', this.value)"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Equipped Gear -->
-                <div class="card mt-3">
-                    <div class="card-header">Equipped Gear</div>
-                    <div class="card-body p-2" id="equipped-gear-list">
-                        <!-- JS renders slots here -->
+                        <div id="stats-content-area" class="p-3 flex-grow-1" style="overflow-y: auto;">
+                            </div>
                     </div>
                 </div>
             </div>
 
-            <!-- RIGHT: Item Library -->
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="col-md-6">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header d-flex justify-content-between align-items-center p-2">
                         <span>Item Library</span>
-                        <div class="d-flex align-items-center">
-                            <div class="custom-control custom-checkbox mr-3">
+                        <div class="d-flex align-items-center flex-wrap justify-content-end">
+                            <div class="custom-control custom-checkbox mr-2">
                                 <input type="checkbox" class="custom-control-input" id="chk-hide-equipped" onchange="handleLibraryFilterChange(this)">
-                                <label class="custom-control-label text-muted" for="chk-hide-equipped" style="font-size: 0.9rem; padding-top: 1px;">Hide Equipped</label>
+                                <label class="custom-control-label text-muted small" for="chk-hide-equipped">Equip</label>
                             </div>
-                            <div class="custom-control custom-checkbox mr-3">
+                            <div class="custom-control custom-checkbox mr-2">
                                 <input type="checkbox" class="custom-control-input" id="chk-hide-jewels" onchange="handleLibraryFilterChange(this)">
-                                <label class="custom-control-label text-muted small" for="chk-hide-jewels">Hide Jewels</label>
+                                <label class="custom-control-label text-muted small" for="chk-hide-jewels">Jewel</label>
                             </div>
-
-                            <div class="custom-control custom-checkbox mr-3">
+                            <div class="custom-control custom-checkbox mr-2">
                                 <input type="checkbox" class="custom-control-input" id="chk-hide-charms" onchange="handleLibraryFilterChange(this)">
-                                <label class="custom-control-label text-muted small" for="chk-hide-charms">Hide Charms</label>
+                                <label class="custom-control-label text-muted small" for="chk-hide-charms">Charm</label>
                             </div>
-
-                            <div class="custom-control custom-checkbox mr-3">
+                            <div class="custom-control custom-checkbox mr-2">
                                 <input type="checkbox" class="custom-control-input" id="chk-hide-gemrunes" onchange="handleLibraryFilterChange(this)">
-                                <label class="custom-control-label text-muted small" for="chk-hide-gemrunes">Hide Gems/Runes</label>
+                                <label class="custom-control-label text-muted small" for="chk-hide-gemrunes">Gem</label>
                             </div>
-                            <input type="text" class="search-input" id="library-search" placeholder="Search Name, Type, Owner..." onkeyup="handleLibrarySearch(this.value)">
+                            <input type="text" class="search-input form-control form-control-sm" style="width: 100px;" id="library-search" placeholder="Search..." onkeyup="handleLibrarySearch(this.value)">
                         </div>
                     </div>
-                    <div class="card-body p-0"> 
-                        <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <div class="card-body p-0" style="height: calc(100vh - 200px); min-height: 600px;"> 
+                        <div class="table-responsive h-100">
                             <table class="table table-dark table-striped table-sm mb-0">
                                 <thead>
                                     <tr>
-                                        <th style="width: 50px;">Icon</th>
+                                        <th style="width: 40px;">Icon</th>
                                         <th class="sortable" onclick="handleSort('library', 'name')">Name</th>
-                                        <th style="width: 140px;">Sockets</th>
+                                        <th style="width: 100px;">Sockets</th>
                                         <th class="sortable" onclick="handleSort('library', 'type')">Type</th>
                                         <th class="sortable" onclick="handleSort('library', 'owner')">Owner</th>
                                         <th class="text-right">Action</th>

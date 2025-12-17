@@ -3,17 +3,9 @@
 function renderCharacterTab() {
     if (!selectedChar) return;
     
-    // Fill Basic Info & Attributes
-    document.getElementById('edit-char-name').value = selectedChar.charName;
-    document.getElementById('edit-char-level').value = selectedChar.level;
-    document.getElementById('edit-str').value = selectedChar.attributedStrength;
-    document.getElementById('edit-dex').value = selectedChar.attributedDexterity;
-    document.getElementById('edit-vit').value = selectedChar.attributedVitality;
-    document.getElementById('edit-ene').value = selectedChar.attributedEnergy;
-    document.getElementById('edit-focus').value = selectedChar.spellFocus;
-
     renderEquippedGear();
     renderItemLibrary();
+    renderCharacterStats();
 }
 
 // Function to handle Stat Inputs changes
@@ -397,4 +389,162 @@ function doSocketItemToSlot(libIndex, targetSlotId) {
     let gemItem = globalItemLibrary[libIndex];
     selectedChar.socketItem(targetSlotId, gemItem);
     renderCharacterTab(); // Re-render to show filled socket
+}
+
+// 1. Configuration
+const statTabs = [
+    { id: 'attributes', label: 'Attributes' },
+    { id: 'resistances', label: 'Resistances' },
+    { id: 'spells', label: 'Spell Dmg' },
+    { id: 'combat', label: 'Combat' },
+    { id: 'skills', label: 'Skills/Misc' }
+];
+
+let currentStatTabIndex = 0;
+
+// 2. Navigation Handler
+function cycleStatTab(direction) {
+    currentStatTabIndex += direction;
+    if (currentStatTabIndex < 0) currentStatTabIndex = statTabs.length - 1;
+    if (currentStatTabIndex >= statTabs.length) currentStatTabIndex = 0;
+    
+    renderCharacterStats(); 
+}
+
+// 3. Main Render Function (Call this from renderCharacterTab)
+function renderCharacterStats() {
+    if (!selectedChar) return;
+
+    // Update Header Inputs
+    document.getElementById('edit-char-name').value = selectedChar.charName;
+    document.getElementById('edit-char-level').value = selectedChar.level;
+
+    // Update Title
+    const currentTab = statTabs[currentStatTabIndex];
+    document.getElementById('stat-tab-title').innerText = currentTab.label.toUpperCase();
+
+    const container = document.getElementById('stats-content-area');
+    container.innerHTML = "";
+
+    // Switch Logic
+    switch (currentTab.id) {
+        case 'attributes': renderAttributesTab(container); break;
+        case 'resistances': renderResistancesTab(container); break;
+        case 'spells': renderSpellsTab(container); break;
+        case 'combat': renderCombatTab(container); break;
+        case 'skills': renderSkillsTab(container); break;
+    }
+}
+
+// --- Helper: Create Row ---
+function createStatRow(label, value, colorClass = "text-white", isInput = false, inputId = "") {
+    let valHtml = `<span class="${colorClass} font-weight-bold">${value}</span>`;
+    
+    if (isInput) {
+        // Render editable input for Base Attributes
+        valHtml = `<input type="number" class="form-control form-control-sm stat-input d-inline-block text-center" 
+                   style="width: 70px; height: 24px; padding: 0;" 
+                   id="${inputId}" value="${value}" onchange="updateCharStat('${inputId.split('-')[1]}', this.value)">`;
+    }
+
+    return `
+        <div class="d-flex justify-content-between align-items-center mb-1" style="font-size: 0.9rem; border-bottom: 1px solid #333; padding-bottom: 2px;">
+            <span class="text-muted">${label}</span>
+            ${valHtml}
+        </div>`;
+}
+
+// --- Tab Renderers ---
+
+function renderAttributesTab(container) {
+    let html = `<h6 class="text-warning small font-weight-bold mb-2 mt-4">FINAL TOTALS</h6>`;
+    html += createStatRow("Total Strength", selectedChar.strength, "text-danger");
+    html += createStatRow("Total Dexterity", selectedChar.dexterity, "text-success");
+    html += createStatRow("Total Vitality", selectedChar.vitality, "text-primary");
+    html += createStatRow("Total Energy", selectedChar.energy, "text-info");
+
+    html += `<h6 class="text-warning small font-weight-bold mb-2 mt-4">VITALS</h6>`;
+    html += createStatRow("Life", Math.floor(selectedChar.life), "text-danger");
+    html += createStatRow("Mana", Math.floor(selectedChar.mana), "text-blue");
+    
+    container.innerHTML = html;
+}
+
+function renderResistancesTab(container) {
+    let html = `<h6 class="text-warning small font-weight-bold mb-2">RESISTANCES (CURRENT / MAX)</h6>`;
+    
+    const resRow = (name, curr, max, color) => `
+        <div class="d-flex justify-content-between align-items-center mb-1" style="font-size:0.9rem; border-bottom: 1px solid #333;">
+            <span class="text-muted">${name}</span>
+            <span>
+                <span class="${color} font-weight-bold">${curr}%</span> 
+                <span class="text-muted small"> / ${max}%</span>
+            </span>
+        </div>`;
+
+    html += resRow("Fire", selectedChar.fireResistance, selectedChar.maximumFireResistance, "text-danger");
+    html += resRow("Cold", selectedChar.coldResistance, selectedChar.maximumColdResistance, "text-blue");
+    html += resRow("Lightning", selectedChar.lightningResistance, selectedChar.maximumLightningResistance, "text-warning");
+    html += resRow("Poison", selectedChar.poisonResistance, selectedChar.maximumPoisonResistance, "text-success");
+    html += resRow("Magic", selectedChar.magicResistance, selectedChar.maximumMagicResistance, "text-purple");
+    html += resRow("Physical", selectedChar.physicalResistance, selectedChar.maximumPhysicalResistance, "text-secondary");
+
+    html += `<h6 class="text-warning small font-weight-bold mb-2 mt-4">ABSORB & DEFENSE</h6>`;
+    html += createStatRow("Fire Absorb", selectedChar.fireAbsorb + "%", "text-danger");
+    html += createStatRow("Cold Absorb", selectedChar.coldAbsorb + "%", "text-blue");
+    html += createStatRow("Light Absorb", selectedChar.lightningAbsorb + "%", "text-warning");
+    html += createStatRow("Total Defense", selectedChar.defense, "text-white");
+    html += createStatRow("Block Chance", selectedChar.blockChance + "%", "text-white");
+
+    container.innerHTML = html;
+}
+
+function renderSpellsTab(container) {
+    let html = `<h6 class="text-warning small font-weight-bold mb-2">SPELL DAMAGE BONUS</h6>`;
+    html += createStatRow("Fire", "+" + selectedChar.fireSpellDamage + "%", "text-danger");
+    html += createStatRow("Cold", "+" + selectedChar.coldSpellDamage + "%", "text-blue");
+    html += createStatRow("Lightning", "+" + selectedChar.lightningSpellDamage + "%", "text-warning");
+    html += createStatRow("Poison", "+" + selectedChar.poisonSpellDamage + "%", "text-success");
+    html += createStatRow("Phys/Magic", "+" + selectedChar.physicalMagicalSpellDamage + "%", "text-purple");
+
+    html += createStatRow("Spell Focus", selectedChar.spellFocus, "text-warning");
+
+    html += `<h6 class="text-warning small font-weight-bold mb-2 mt-4">ENEMY RESIST PIERCE</h6>`;
+    html += createStatRow("Fire Pierce", "-" + selectedChar.firePiercing + "%", "text-danger");
+    html += createStatRow("Cold Pierce", "-" + selectedChar.coldPiercing + "%", "text-blue");
+    html += createStatRow("Light Pierce", "-" + selectedChar.lightningPiercing + "%", "text-warning");
+    html += createStatRow("Poison Pierce", "-" + selectedChar.poisonPiercing + "%", "text-success");
+
+    container.innerHTML = html;
+}
+
+function renderCombatTab(container) {
+    let html = `<h6 class="text-warning small font-weight-bold mb-2">SPEEDS</h6>`;
+    html += createStatRow("Attack Speed (IAS)", (selectedChar.ias || 0) + "%");
+    html += createStatRow("Cast Speed (FCR)", (selectedChar.fcr || 0) + "%");
+    html += createStatRow("Hit Recovery (FHR)", (selectedChar.fhr || 0) + "%");
+    html += createStatRow("Block Speed (FBR)", (selectedChar.fbr || 0) + "%");
+    html += createStatRow("Run/Walk (FRW)", (selectedChar.frw || 0) + "%");
+
+    html += `<h6 class="text-warning small font-weight-bold mb-2 mt-4">OFFENSIVE STATS</h6>`;
+    html += createStatRow("Deadly Strike", (selectedChar.deadlyStrike || 0) + "%");
+    html += createStatRow("Crushing Blow", (selectedChar.crushingBlow || 0) + "%");
+    html += createStatRow("Life Leech", (selectedChar.lifeLeech || 0) + "%", "text-danger");
+    html += createStatRow("Mana Leech", (selectedChar.manaLeech || 0) + "%", "text-blue");
+
+    container.innerHTML = html;
+}
+
+function renderSkillsTab(container) {
+    let html = `<h6 class="text-warning small font-weight-bold mb-2">SKILL LEVELS</h6>`;
+    html += createStatRow("All Skills", "+" + selectedChar.allSkillLevel, "text-gold");
+    // You would add Class Skills here if computed
+    
+    html += `<h6 class="text-warning small font-weight-bold mb-2 mt-4">MISC</h6>`;
+    html += createStatRow("Magic Find", (selectedChar.magicFind || 0) + "%", "text-gold");
+    html += createStatRow("Gold Find", (selectedChar.goldFind || 0) + "%", "text-gold");
+    html += createStatRow("Exp Gained", "+" + (selectedChar.experienceGained || 0) + "%");
+    html += createStatRow("Light Radius", (selectedChar.lightRadius || 0));
+
+    container.innerHTML = html;
 }

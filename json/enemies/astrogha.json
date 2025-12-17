@@ -1,0 +1,24 @@
+{
+    "id": "astrogha",
+    "name": "Astrogha",
+    "level": 130,
+    "type": "Demon",
+    "isBoss": true,
+    "life": 15000000,
+    "lifeRegen": 0,
+    "defense": 85000,
+    "blockChance": 50, 
+    "avoidChance": 5,
+    "resists": {
+        "physical": 50,
+        "magic": 75,
+        "fire": 75,
+        "cold": 75,
+        "lightning": 75,
+        "poison": 95
+    },
+    "maxResists": { "fire": 90, "cold": 90, "lightning": 90, "poison": 95 },
+    "absorb": { "fire": 0, "cold": 0, "lightning": 0 },
+    "flatAbsorb": { "fire": 0, "cold": 0, "lightning": 0 },
+    "pierce": { "fire": 20, "cold": 20, "lightning": 20, "poison": 50 }
+}

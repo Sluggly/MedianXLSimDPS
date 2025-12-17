@@ -86,6 +86,7 @@ const statMappings = [
     // --- Damage ---
     { regex: /One-Hand Damage: (\d+) to (\d+)/i, type: "range", minKey: "OneHandMinDamage", maxKey: "OneHandMaxDamage" },
     { regex: /Two-Hand Damage: (\d+) to (\d+)/i, type: "range", minKey: "TwoHandMinDamage", maxKey: "TwoHandMaxDamage" },
+    { regex: /Throw Damage: (\d+) to (\d+)/i, type: "range", minKey: "ThrowMinDamage", maxKey: "ThrowMaxDamage" },
     { regex: /\+(\d+) to Maximum Damage/i, key: "MaxDamage" },
     { regex: /\+(\d+) to Minimum Damage/i, key: "MinDamage" },
     { regex: /\+(\d+) Damage/i, key: "FlatDamage" },
@@ -93,7 +94,9 @@ const statMappings = [
     { regex: /Weapon Physical Damage \+(\d+)%/i, key: "WeaponPhysicalDamage" },
     { regex: /([+-]?\d+)% Bonus to Attack Rating/i, key: "AttackRatingPercent" },
     { regex: /([+-]?\d+)% Chance of Crushing Blow/i, key: "CrushingBlow" },
+    { regex: /([+-]?\d+)% Deadly Strike/i, key: "DeadlyStrike" },
     { regex: /([+-]?\d+)% Damage to Undead/i, key: "DamageToUndead" },
+    { regex: /([+-]?\d+)% Damage to Demons/i, key: "DamageToDemons" },
 
     // --- Elemental Adds ---
     { regex: /Adds (\d+)-(\d+) Fire Damage/i, type: "range", minKey: "MinFireDamage", maxKey: "MaxFireDamage" },
@@ -103,49 +106,54 @@ const statMappings = [
     { regex: /Adds (\d+)-(\d+) Damage/i, type: "range", minKey: "MinPhysicalDamage", maxKey: "MaxPhysicalDamage" },
     { regex: /\+(\d+) Maximum Tri-Elemental Damage per 5 Character Levels/i, key: "TriEleDamagePerFiveLevel" }, 
     { regex: /\+(\d+)% Innate Elemental Damage/i, key: "InnateElementalDamage" },
+    { regex: /Innate Lightning Damage: .*?\((\d+(?:\.\d+)?)% of Dexterity\)/i, key: "IEDLightningDex" },
+    { regex: /Innate Fire Damage: .*?\((\d+(?:\.\d+)?)% of Strength\)/i, key: "IEDFireStr" },
+    { regex: /Innate Cold Damage: .*?\((\d+(?:\.\d+)?)% of Dexterity\)/i, key: "IEDColdDex" },
+    { regex: /Innate .*? Damage: .*?\((\d+(?:\.\d+)?)% of Vitality\)/i, key: "IEDVitality" },
     
     // --- Spell Damage ---
-    {  regex: /\+(\d+)% to Spell Damage/i, type: "multi", keys: ["FireSpellDamage", "ColdSpellDamage", "LightningSpellDamage", "PoisonSpellDamage", "PhysicalMagicalSpellDamage"] },
-    { regex: /\+(\d+)% to Fire Spell Damage/i, key: "FireSpellDamage" },
-    { regex: /\+(\d+)% to Cold Spell Damage/i, key: "ColdSpellDamage" },
-    { regex: /\+(\d+)% to Lightning Spell Damage/i, key: "LightningSpellDamage" },
-    { regex: /\+(\d+)% to Poison Spell Damage/i, key: "PoisonSpellDamage" },
-    { regex: /\+(\d+)% to Physical\/Magic Spell Damage/i, key: "PhysicalMagicalSpellDamage" },
+    { regex: /([+-]?\d+)% to Spell Damage/i, type: "multi", keys: ["FireSpellDamage", "ColdSpellDamage", "LightningSpellDamage", "PoisonSpellDamage", "PhysicalMagicalSpellDamage"] },
+    { regex: /([+-]?\d+)% to Fire Spell Damage/i, key: "FireSpellDamage" },
+    { regex: /([+-]?\d+)% to Cold Spell Damage/i, key: "ColdSpellDamage" },
+    { regex: /([+-]?\d+)% to Lightning Spell Damage/i, key: "LightningSpellDamage" },
+    { regex: /([+-]?\d+)% to Poison Spell Damage/i, key: "PoisonSpellDamage" },
+    { regex: /([+-]?\d+)% to Physical\/Magic Spell Damage/i, key: "PhysicalMagicalSpellDamage" },
     { regex: /\+(\d+) Spell Focus/i, key: "SpellFocus" },
-    
+
     // --- Pierce ---
     { regex: /-(\d+)% to Enemy Fire Resistance/i, key: "FirePierce" },
     { regex: /-(\d+)% to Enemy Lightning Resistance/i, key: "LightningPierce" },
     { regex: /-(\d+)% to Enemy Cold Resistance/i, key: "ColdPierce" },
     { regex: /-(\d+)% to Enemy Poison Resistance/i, key: "PoisonPierce" },
     { regex: /-(\d+)% to Enemy Elemental Resistances/i, type: "multi", keys: ["FirePierce", "ColdPierce", "LightningPierce", "PoisonPierce"] },
-    
+
     // --- Max Resists ---
-    { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
-    { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
-    { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
-    { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
-    { regex: /Maximum Elemental Resists \+(\d+)%/i, type: "multi", keys: ["MaxFireResist", "MaxColdResist", "MaxLightningResist", "MaxPoisonResist"] },
+    { regex: /Maximum Fire Resist ([+-]?\d+)%/i, key: "MaxFireResist" },
+    { regex: /Maximum Cold Resist ([+-]?\d+)%/i, key: "MaxColdResist" },
+    { regex: /Maximum Lightning Resist ([+-]?\d+)%/i, key: "MaxLightningResist" },
+    { regex: /Maximum Poison Resist ([+-]?\d+)%/i, key: "MaxPoisonResist" },
+    { regex: /Maximum Elemental Resists ([+-]?\d+)%/i, type: "multi", keys: ["MaxFireResist", "MaxColdResist", "MaxLightningResist", "MaxPoisonResist"] },
 
     // --- Resists ---
-    { regex: /Fire Resist \+(\d+)%/i, key: "FireResist" },
-    { regex: /Cold Resist \+(\d+)%/i, key: "ColdResist" },
-    { regex: /Lightning Resist \+(\d+)%/i, key: "LightningResist" },
-    { regex: /Poison Resist \+(\d+)%/i, key: "PoisonResist" },
-    { regex: /Elemental Resists \+(\d+)%/i, type: "multi", keys: ["FireResist", "ColdResist", "LightningResist", "PoisonResist"] },
-    { regex: /Physical Resist \+(\d+)%/i, key: "PhysicalResist" },
-    { regex: /Magic Resist \+(\d+)%/i, key: "MagicalResist" },
+    { regex: /Fire Resist ([+-]?\d+)%/i, key: "FireResist" },
+    { regex: /Cold Resist ([+-]?\d+)%/i, key: "ColdResist" },
+    { regex: /Lightning Resist ([+-]?\d+)%/i, key: "LightningResist" },
+    { regex: /Poison Resist ([+-]?\d+)%/i, key: "PoisonResist" },
+    { regex: /Elemental Resists ([+-]?\d+)%/i, type: "multi", keys: ["FireResist", "ColdResist", "LightningResist", "PoisonResist"] },
+    { regex: /Physical Resist ([+-]?\d+)%/i, key: "PhysicalResist" },
+    { regex: /Magic Resist ([+-]?\d+)%/i, key: "MagicalResist" },
 
     // --- Minions ---
     { regex: /\+(\d+)% to Summoned Minion Life/i, key: "MinionLife" },
     { regex: /\+(\d+)% to Summoned Minion Damage/i, key: "MinionDamage" },
     { regex: /\+(\d+)% to Summoned Minion Resistances/i, key: "MinionResist" },
     { regex: /\+(\d+)% to Summoned Minion Attack Rating/i, key: "MinionAR" },
+    { regex: /([+-]?\d+)% Bonus to Summoned Edyrem Life/i, key: "EdyremLife" },
 
     // --- Absorb ---
-    { regex: /Fire Absorb \+(\d+)%/i, key: "AbsorbFire" },
-    { regex: /Cold Absorb \+(\d+)%/i, key: "AbsorbCold" },
-    { regex: /Lightning Absorb \+(\d+)%/i, key: "AbsorbLightning" },
+    { regex: /Fire Absorb ([+-]?\d+)%/i, key: "AbsorbFire" },
+    { regex: /Cold Absorb ([+-]?\d+)%/i, key: "AbsorbCold" },
+    { regex: /Lightning Absorb ([+-]?\d+)%/i, key: "AbsorbLightning" },
 
     // --- Skills ---
     { regex: /\+(\d+) to All Skills/i, key: "AllSkill" },
@@ -162,7 +170,7 @@ const statMappings = [
     { regex: /\+(\d+)% Block Speed/i, key: "BlockSpeed" },
     { regex: /\+(\d+)% Movement Speed/i, key: "MovementSpeed" },
     { regex: /([+-]?\d+)% Combat Speeds/i, type: "multi", keys: ["AttackSpeed", "CastSpeed", "HitRecovery", "BlockSpeed"] },
-    { regex: /\+(\d+)% Base Block Chance/i, key: "BaseBlock" },
+    { regex: /([+-]?\d+)% Base Block Chance/i, key: "BaseBlock" },
     { regex: /([+-]?\d+)% Magic Find/i, key: "MagicFind" },
     { regex: /([+-]?\d+)% Gold Find/i, key: "GoldFind" },
     { regex: /([+-]?\d+)% Experience Gained/i, key: "ExpGained" },
@@ -179,6 +187,7 @@ const statMappings = [
     { regex: /\+(\d+)% Enhanced Defense/i, key: "EnhancedDefense" },
     { regex: /\+(\d+)% Bonus to Defense/i, key: "BonusDefense" },
     { regex: /([+-]?\d+) Defense/i, key: "FlatDefense" },
+    { regex: /([+-]?\d+)% Chance to Avoid Damage/i, key: "AvoidDamage" },
 
     // --- Procs & Reanimate (Stores as string or boolean count) ---
     { regex: /(\d+)% Chance to cast level \d+ .* on .*/i, key: "Proc" }, // Just counts procs for now
@@ -187,6 +196,7 @@ const statMappings = [
     // --- Miscs ---
     { regex: /Requirements ([+-]\d+)%/i, key: "RequirementsPercent" },
     { regex: /([+-]?\d+) Required Level/i, key: "RequiredLevel" },
+    { regex: /([+-]?\d+)% to All Vendor Prices/i, key: "VendorPrices" },
 
     // --- Conditionals ---
     { regex: /\+(\d+) Lightning Damage per (\d+)% Bonus to Defense/i, type: "range", minKey: "LightDmgPerDef_Amt", maxKey: "LightDmgPerDef_Per" },
@@ -205,6 +215,7 @@ const statMappings = [
     { regex: /Corrupted/i, key: "Corrupted", type: "boolean" },
     { regex: /Ethereal/i, key: "Ethereal", type: "boolean" },
     { regex: /Half Freeze Duration/i, key: "HalfFreezeDuration", type: "boolean" },
+    { regex: /Stun Attack/i, key: "StunAttack", type: "boolean" },
 
     // Socketed
     { regex: /Socketed \((\d+)\/(\d+)\)/i, type: "sockets", filledKey: "SocketsFilled", maxKey: "SocketsMax" },

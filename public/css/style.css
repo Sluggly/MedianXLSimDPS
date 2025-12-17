@@ -234,3 +234,7 @@ th.sortable.desc::after {
     width: 200px;
     font-size: 0.9rem;
 }
+
+.text-gold { color: #d4af37 !important; }
+.text-purple { color: #e040fb !important; }
+.text-blue { color: #448aff !important; }

@@ -70,13 +70,17 @@ const statConfig = {
     "OneHandMaxDamage": "%d",
     "TwoHandMinDamage": "Two-Hand Damage: %d to ",
     "TwoHandMaxDamage": "%d",
+    "ThrowMinDamage": "Throw Damage: %d to ", 
+    "ThrowMaxDamage": "%d",
     "MaxDamage": "+%d to Maximum Damage",
     "MinDamage": "+%d to Minimum Damage",
     "FlatDamage": "+%d Damage",
     "EnhancedDamage": "+%d% Enhanced Damage",
     "WeaponPhysicalDamage": "Weapon Physical Damage +%d%",
     "CrushingBlow": "+%d% Chance of Crushing Blow",
+    "DeadlyStrike": "+%d% Deadly Strike",
     "DamageToUndead": "+%d% Damage to Undead",
+    "DamageToDemons": "+%d% Damage to Demons",
     
     // Spell Damage
     "SpellDamage": "+%d% to Spell Damage",
@@ -88,6 +92,12 @@ const statConfig = {
     "TriEleDamagePerLevel": "+%d Maximum Tri-Elemental Damage per 5 Character Levels",
     "InnateElementalDamage": "+%d% Innate Elemental Damage",
     "PoisonSkillDuration": "+%d% Bonus to Poison Skill Duration",
+
+    // Innate Elemental Damage Conversions
+    "IEDLightningDex": "Innate Lightning Damage: (%d% of Dexterity)",
+    "IEDFireStr": "Innate Fire Damage: (%d% of Strength)",
+    "IEDColdDex": "Innate Cold Damage: (%d% of Dexterity)",
+    "IEDVitality": "Innate Elemental Damage: (%d% of Vitality)",
 
     // Pierce (Note: Parser extracts positive number, we add '-' here)
     "FirePierce": "-%d% to Enemy Fire Resistance",
@@ -113,16 +123,17 @@ const statConfig = {
     "MaxElementalResist": "Maximum Elemental Resists +%d%",
 
     // Absorbs
-    "AbsorbFire": "Fire Absorb %d%",
-    "AbsorbCold": "Cold Absorb %d%",
-    "AbsorbLightning": "Lightning Absorb %d%",
-    "AbsorbPoison": "Poison Absorb %d%",
+    "AbsorbFire": "Fire Absorb +%d%",
+    "AbsorbCold": "Cold Absorb +%d%",
+    "AbsorbLightning": "Lightning Absorb +%d%",
+    "AbsorbPoison": "Poison Absorb +%d%",
 
     // Minions
     "MinionLife": "+%d% to Summoned Minion Life",
     "MinionDamage": "+%d% to Summoned Minion Damage",
     "MinionResist": "+%d% to Summoned Minion Resistances",
     "MinionAR": "+%d% to Summoned Minion Attack Rating",
+    "EdyremLife": "+%d% Bonus to Summoned Edyrem Life",
 
     // Skills
     "AllSkill": "+%d to All Skills",
@@ -141,7 +152,8 @@ const statConfig = {
     "HitRecovery": "+%d% Hit Recovery",
     "BlockSpeed": "+%d% Block Speed",
     "MovementSpeed": "+%d% Movement Speed",
-    "BaseBlock": "+%d% Base Block Chance",
+    "BaseBlock": "%d% Base Block Chance",
+    "AvoidDamage": "+%d% Chance to Avoid Damage",
     "MagicFind": "+%d% Magic Find",
     "GoldFind": "+%d% Gold Find",
     "ExpGained": "+%d% to Experience Gained",
@@ -154,6 +166,7 @@ const statConfig = {
     "SlowTarget": "Slow Target +%d%",
     "RequirementsPercent": "Requirements %d%",
     "RequiredLevel": "%d Required Level",
+    "VendorPrices": "%d% to All Vendor Prices",
 
     // Defense
     "EnhancedDefense": "+%d% Enhanced Defense",
@@ -172,49 +185,78 @@ const statConfig = {
     "Corrupted": { format: "Corrupted", color: "#ff0000" },
     "Ethereal": "Ethereal",
     "HalfFreezeDuration": "Half Freeze Duration",
+    "StunAttack": "Stun Attack",
 
     // Sockets
     "SocketsFilled": "Socketed (%d",
     "SocketsMax": "/%d)"
 };
 
-function computeTotalVitality(character) {
-    let finalVitality = 0.0;
-    // Base Stats + Attributed with level and Signets of learning
-    finalVitality += character.startingVitality + character.attributedVitality;
-    return finalVitality;
+// Helper to sum a specific stat key from all items (Gear + Sockets)
+function computeTotalStat(character, statKey) {
+    let total = 0;
+    character.equippedItems.forEach(item => {
+        if (!item) return;
+
+        // 1. Item Stats
+        if (item.stats && item.stats[statKey]) {
+            total += item.stats[statKey];
+        }
+        
+        // 2. Socketed Stats
+        if (item.socketed && item.socketed.length > 0) {
+            item.socketed.forEach(sock => {
+                if (sock.stats && sock.stats[statKey]) {
+                    total += sock.stats[statKey];
+                }
+            });
+        }
+    });
+    return total;
 }
 
 function computeTotalStrength(character) {
-    let finalStrength = 0.0;
-    // Base Stats + Attributed with level and Signets of learning
-    finalStrength += character.startingStrength + character.attributedStrength;
-    return finalStrength;
+    // Base (Starting + Level points + Signets)
+    let base = character.startingStrength + character.attributedStrength;
+    // Flat Bonuses from Items (e.g. +10 Strength)
+    let flatBonus = computeTotalStat(character, "Strength");
+    // Percent Bonuses from Items (e.g. +5% Strength)
+    let percentBonus = computeTotalStat(character, "StrengthPercent");
+    // Calculation: (Base + Flat) * (1 + %Total)
+    let total = (base + flatBonus) * (1 + (percentBonus / 100.0));
+
+    return Math.floor(total);
 }
 
 function computeTotalDexterity(character) {
-    let finalDexterity = 0.0;
-    // Base Stats + Attributed with level and Signets of learning
-    finalDexterity += character.startingDexterity + character.attributedDexterity;
-    return finalDexterity;
+    let base = character.startingDexterity + character.attributedDexterity;
+    let flatBonus = computeTotalStat(character, "Dexterity");
+    let percentBonus = computeTotalStat(character, "DexterityPercent");
+    let total = (base + flatBonus) * (1 + (percentBonus / 100.0));
+    return Math.floor(total);
+}
+
+function computeTotalVitality(character) {
+    let base = character.startingVitality + character.attributedVitality;
+    let flatBonus = computeTotalStat(character, "Vitality");
+    let percentBonus = computeTotalStat(character, "VitalityPercent");
+    let total = (base + flatBonus) * (1 + (percentBonus / 100.0));
+    return Math.floor(total);
 }
 
 function computeTotalEnergy(character) {
-    let finalEnergy = 0.0;
-    // Base Stats + Attributed with level and Signets of learning
-    finalEnergy += character.startingEnergy + character.attributedEnergy;
-    return finalEnergy;
+    let base = character.startingEnergy + character.attributedEnergy;
+    let flatBonus = computeTotalStat(character, "Energy");
+    let percentBonus = computeTotalStat(character, "EnergyPercent");
+    let total = (base + flatBonus) * (1 + (percentBonus / 100.0));
+    return Math.floor(total);
 }
 
 function computeTotalSpellFocus(character) {
-    let finalSpellFocus = 0.0;
-    for (const item of character.equippedItems) {
-        if ((item != null)&&(item != [])) {
-            if (item.stats["SpellFocus"] != null) { finalSpellFocus += item.stats["SpellFocus"]; }
-        }
-    }
-    if (finalSpellFocus > GAME_MAX_SPELL_FOCUS) { finalSpellFocus = GAME_MAX_SPELL_FOCUS; }
-    return finalSpellFocus;
+    let itemsSpellFocus = computeTotalStat(character, "SpellFocus");
+    let total = itemsSpellFocus;
+    if (total > GAME_MAX_SPELL_FOCUS) { total = GAME_MAX_SPELL_FOCUS; }
+    return Math.floor(total);
 }
 
 function computeTotalLightningSpellDamage(character) {
@@ -222,7 +264,6 @@ function computeTotalLightningSpellDamage(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["LightningSpellDamage"] != null) { finalLightningSpellDamage += item.stats["LightningSpellDamage"]; }
-            if (item.stats["SpellDamage"] != null) { finalLightningSpellDamage += item.stats["SpellDamage"]; }
         }
     }
     return finalLightningSpellDamage;
@@ -233,7 +274,6 @@ function computeTotalFireSpellDamage(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["FireSpellDamage"] != null) { finalFireSpellDamage += item.stats["FireSpellDamage"]; }
-            if (item.stats["SpellDamage"] != null) { finalFireSpellDamage += item.stats["SpellDamage"]; }
         }
     }
     return finalFireSpellDamage;
@@ -244,7 +284,6 @@ function computeTotalPoisonSpellDamage(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["PoisonSpellDamage"] != null) { finalPoisonSpellDamage += item.stats["PoisonSpellDamage"]; }
-            if (item.stats["SpellDamage"] != null) { finalPoisonSpellDamage += item.stats["SpellDamage"]; }
         }
     }
     return finalPoisonSpellDamage;
@@ -255,7 +294,6 @@ function computeTotalColdSpellDamage(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["ColdSpellDamage"] != null) { finalColdSpellDamage += item.stats["ColdSpellDamage"]; }
-            if (item.stats["SpellDamage"] != null) { finalColdSpellDamage += item.stats["SpellDamage"]; }
         }
     }
     return finalColdSpellDamage;
@@ -266,67 +304,86 @@ function computeTotalPhysicalMagicalSpellDamage(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["PhysicalMagicalSpellDamage"] != null) { finalPhysicalMagicalSpellDamage += item.stats["PhysicalMagicalSpellDamage"]; }
-            if (item.stats["SpellDamage"] != null) { finalPhysicalMagicalSpellDamage += item.stats["SpellDamage"]; }
         }
     }
     return finalPhysicalMagicalSpellDamage;
 }
 
 function computeTotalLightningPierce(character) {
-    let finalLightningPierce = 0.0;
-    for (const item of character.equippedItems) {
-        if ((item != null)&&(item != [])) {
-            if (item.stats["LightningPierce"] != null) {  finalLightningPierce += item.stats["LightningPierce"]; }
-        }
-    }
-    return finalLightningPierce;
+    let itemsLightningPierce = computeTotalStat(character, "LightningPierce");
+    let total = itemsLightningPierce;
+    return Math.floor(total);
 }
 
 function computeTotalFirePierce(character) {
-    let finalFirePierce = 0.0;
-    for (const item of character.equippedItems) {
-        if ((item != null)&&(item != [])) {
-            if (item.stats["FirePierce"] != null) {  finalFirePierce += item.stats["FirePierce"]; }
-        }
-    }
-    return finalFirePierce;
+    let itemsFirePierce = computeTotalStat(character, "FirePierce");
+    let total = itemsFirePierce;
+    return Math.floor(total);
 }
 
 function computeTotalPoisonPierce(character) {
-    let finalPoisonPierce = 0.0;
-    for (const item of character.equippedItems) {
-        if ((item != null)&&(item != [])) {
-            if (item.stats["PoisonPierce"] != null) {  finalPoisonPierce += item.stats["PoisonPierce"]; }
-        }
-    }
-    return finalPoisonPierce;
+    let itemsPoisonPierce = computeTotalStat(character, "PoisonPierce");
+    let total = itemsPoisonPierce;
+    return Math.floor(total);
 }
 
 function computeTotalColdPierce(character) {
-    let finalColdPierce = 0.0;
-    for (const item of character.equippedItems) {
-        if ((item != null)&&(item != [])) {
-            if (item.stats["ColdPierce"] != null) {  finalColdPierce += item.stats["ColdPierce"]; }
-        }
-    }
-    return finalColdPierce;
+    let itemsColdPierce = computeTotalStat(character, "ColdPierce");
+    let total = itemsColdPierce;
+    return Math.floor(total);
 }
 
 function computeTotalLife(character) {
-    let finalLife = 0.0;
-    // Base Stats + Level Scaling
-    finalLife += character.startingLife + (character.level-1) * character.lifePerLevel + (character.vitality - character.startingVitality) * character.lifePerVitality;
-    // Quests
-    if (character.quests.includes("Golden Bird Normal")) { finalLife += 50; }
-    if (character.quests.includes("Golden Bird Nightmare")) { finalLife += 50; }
-    if (character.quests.includes("Golden Bird Hell")) { finalLife += 50; }
-    return finalLife;
+    // Base Life (Starting + Level Up)
+    let baseLife = character.startingLife + ((character.level - 1) * character.lifePerLevel);
+
+    // Life from Vitality
+    // We use the TOTAL computed Vitality (including item flat/%)
+    // We subtract startingVitality because 'baseLife' already covers it.
+    let lifeFromVitality = (character.vitality - character.startingVitality) * character.lifePerVitality;
+
+    // Flat Life from Quests (Golden Bird: +50 life per difficulty)
+    let questLife = 0;
+    if (character.quests && character.quests.includes("Golden Bird Normal")) questLife += 50;
+    if (character.quests && character.quests.includes("Golden Bird Nightmare")) questLife += 50;
+    if (character.quests && character.quests.includes("Golden Bird Hell")) questLife += 50;
+
+    // 4. Flat Life from Items (e.g. "+40 to Life")
+    let itemFlatLife = computeTotalStat(character, "Life");
+
+    // --- Sum Flat ---
+    let totalFlatLife = baseLife + lifeFromVitality + questLife + itemFlatLife;
+
+    // Percent Life from Items (e.g. "Maximum Life +5%")
+    let itemPercentLife = computeTotalStat(character, "MaxLifePercent");
+
+    // Formula: TotalFlat * (1 + TotalPercent/100)
+    let finalLife = totalFlatLife * (1 + (itemPercentLife / 100.0));
+
+    return Math.floor(finalLife);
 }
 
 function computeTotalMana(character) {
-    let finalMana = 0.0;
-    finalMana = character.startingMana + (character.level-1) * character.manaPerLevel + (character.energy - character.startingEnergy) * character.manaPerEnergy;
-    return finalMana;
+    // Base Mana (Starting + Level Up)
+    let baseMana = character.startingMana + ((character.level - 1) * character.manaPerLevel);
+
+    // Mana from Energy
+    // We use the TOTAL computed Energy
+    let manaFromEnergy = (character.energy - character.startingEnergy) * character.manaPerEnergy;
+
+    // Flat Mana from Items (e.g. "+20 to Mana")
+    let itemFlatMana = computeTotalStat(character, "Mana");
+
+    // --- Sum Flat ---
+    let totalFlatMana = baseMana + manaFromEnergy + itemFlatMana;
+
+    // Percent Mana from Items (e.g. "Maximum Mana +5%")
+    let itemPercentMana = computeTotalStat(character, "MaxManaPercent");
+
+    // --- Apply Multiplier ---
+    let finalMana = totalFlatMana * (1 + (itemPercentMana / 100.0));
+
+    return Math.floor(finalMana);
 }
 
 function computeTotalAllSkillLevel(character) {
@@ -415,7 +472,6 @@ function computeTotalFireResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["FireResist"] != null) { finalFireResistance += item.stats["FireResist"]; }
-            if (item.stats["ElementalResist"] != null) { finalFireResistance += item.stats["ElementalResist"]; }
         }
     }
     if (finalFireResistance < GAME_MIN_FIRE_RESISTANCE) { finalFireResistance = GAME_MIN_FIRE_RESISTANCE; }
@@ -428,7 +484,6 @@ function computeTotalColdResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["ColdResist"] != null) { finalColdResistance += item.stats["ColdResist"]; }
-            if (item.stats["ElementalResist"] != null) { finalColdResistance += item.stats["ElementalResist"]; }
         }
     }
     if (finalColdResistance < GAME_MIN_COLD_RESISTANCE) { finalColdResistance = GAME_MIN_COLD_RESISTANCE; }
@@ -441,7 +496,6 @@ function computeTotalPoisonResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["PoisonResist"] != null) { finalPoisonResistance += item.stats["PoisonResist"]; }
-            if (item.stats["ElementalResist"] != null) { finalPoisonResistance += item.stats["ElementalResist"]; }
         }
     }
     if (finalPoisonResistance < GAME_MIN_POISON_RESISTANCE) { finalPoisonResistance = GAME_MIN_POISON_RESISTANCE; }
@@ -454,7 +508,6 @@ function computeTotalLightningResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["LightningResist"] != null) { finalLightningResistance += item.stats["LightningResist"]; }
-            if (item.stats["ElementalResist"] != null) { finalLightningResistance += item.stats["ElementalResist"]; }
         }
     }
     if (finalLightningResistance < GAME_MIN_LIGHTNING_RESISTANCE) { finalLightningResistance = GAME_MIN_LIGHTNING_RESISTANCE; }
@@ -489,7 +542,6 @@ function computeTotalMaximumFireResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["MaxFireResist"] != null) { finalMaximumFireResistance += item.stats["MaxFireResist"]; }
-            if (item.stats["MaxElementalResist"] != null) { finalMaximumFireResistance += item.stats["MaxElementalResist"]; }
         }
     }
     if (finalMaximumFireResistance > GAME_MAX_MAXIMUM_FIRE_RESISTANCE) { finalMaximumFireResistance = GAME_MAX_MAXIMUM_FIRE_RESISTANCE; }
@@ -502,7 +554,6 @@ function computeTotalMaximumColdResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["MaxColdResist"] != null) { finalMaximumColdResistance += item.stats["MaxColdResist"]; }
-            if (item.stats["MaxElementalResist"] != null) { finalMaximumColdResistance += item.stats["MaxElementalResist"]; }
         }
     }
     if (finalMaximumColdResistance > GAME_MAX_MAXIMUM_COLD_RESISTANCE) { finalMaximumColdResistance = GAME_MAX_MAXIMUM_COLD_RESISTANCE; }
@@ -515,7 +566,6 @@ function computeTotalMaximumPoisonResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["MaxPoisonResist"] != null) { finalMaximumPoisonResistance += item.stats["MaxPoisonResist"]; }
-            if (item.stats["MaxElementalResist"] != null) { finalMaximumPoisonResistance += item.stats["MaxElementalResist"]; }
         }
     }
     if (finalMaximumPoisonResistance > GAME_MAX_MAXIMUM_POISON_RESISTANCE) { finalMaximumPoisonResistance = GAME_MAX_MAXIMUM_POISON_RESISTANCE; }
@@ -528,7 +578,6 @@ function computeTotalMaximumLightningResistance(character) {
     for (const item of character.equippedItems) {
         if ((item != null)&&(item != [])) {
             if (item.stats["MaxLightningResist"] != null) { finalMaximumLightningResistance += item.stats["MaxLightningResist"]; }
-            if (item.stats["MaxElementalResist"] != null) { finalMaximumLightningResistance += item.stats["MaxElementalResist"]; }
         }
     }
     if (finalMaximumLightningResistance > GAME_MAX_MAXIMUM_LIGHTNING_RESISTANCE) { finalMaximumLightningResistance = GAME_MAX_MAXIMUM_LIGHTNING_RESISTANCE; }

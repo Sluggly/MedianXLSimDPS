@@ -77,8 +77,7 @@ io.on('connection', (socket) => {
                 attributes: rawData.charInfo.attributes,
                 items: finalItems,
                 learnedSkills: rawData.charInfo.learnedSkills,
-                quests: [],
-                spellFocus: finalItems.reduce((acc, i) => acc + (i.stats.SpellFocus || 0), 0)
+                quests: []
             };
 
             // E. Send to Client

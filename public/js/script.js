@@ -6,11 +6,15 @@ class Character {
         this.learnedSkills = []; // Map "Name" -> Level
         this.resetStats();
         this.resetGear();
-        this.setBaseStats();
+        this.setBaseStats(this.charClass);
+        this.attributedStrength = 0;
+        this.attributedDexterity = 0;
+        this.attributedVitality = 0;
+        this.attributedEnergy = 0;
     }
 
     setBaseStats(charClass) {
-        if (charClass == "Amazon") {
+        if (charClass === "Amazon") {
             this.startingStrength = 25;
             this.startingDexterity = 25;
             this.startingVitality = 20;
@@ -23,7 +27,7 @@ class Character {
             this.startingMana = 15;
             this.startingBlockChance = 3;
         }
-        else if (charClass == "Assassin") {
+        else if (charClass === "Assassin") {
             this.startingStrength = 20;
             this.startingDexterity = 30;
             this.startingVitality = 15;
@@ -36,7 +40,7 @@ class Character {
             this.startingMana = 15;
             this.startingBlockChance = 3;
         }
-        else if (charClass == "Barbarian") {
+        else if (charClass === "Barbarian") {
             this.startingStrength = 30;
             this.startingDexterity = 20;
             this.startingVitality = 30;
@@ -49,7 +53,7 @@ class Character {
             this.startingMana = 5;
             this.startingBlockChance = 0;
         }
-        else if (charClass == "Druid") {
+        else if (charClass === "Druid") {
             this.startingStrength = 25;
             this.startingDexterity = 20;
             this.startingVitality = 15;
@@ -62,7 +66,7 @@ class Character {
             this.startingMana = 25;
             this.startingBlockChance = 3;
         }
-        else if (charClass == "Necromancer") {
+        else if (charClass === "Necromancer") {
             this.startingStrength = 15;
             this.startingDexterity = 25;
             this.startingVitality = 20;
@@ -75,7 +79,7 @@ class Character {
             this.startingMana = 25;
             this.startingBlockChance = 1;
         }
-        else if (charClass == "Paladin") {
+        else if (charClass === "Paladin") {
             this.startingStrength = 25;
             this.startingDexterity = 20;
             this.startingVitality = 25;
@@ -88,7 +92,7 @@ class Character {
             this.startingMana = 15;
             this.startingBlockChance = 1;
         }
-        else if (charClass == "Sorceress") {
+        else if (charClass === "Sorceress") {
             this.startingStrength = 10;
             this.startingDexterity = 25;
             this.startingVitality = 15;
@@ -126,10 +130,6 @@ class Character {
         this.dexterity = 0;
         this.vitality = 0;
         this.energy = 0;
-        this.attributedStrength = 0;
-        this.attributedDexterity = 0;
-        this.attributedVitality = 0;
-        this.attributedEnergy = 0;
         this.life = 0;
         this.mana = 0;
         this.spellFocus = 0; // Max 1000
@@ -385,10 +385,10 @@ class Character {
     }
 
     addAttributePoints(strength,dexterity,vitality,energy) {
-        this.attributedStrength = strength;
-        this.attributedDexterity = dexterity;
-        this.attributedVitality = vitality;
-        this.attributedEnergy = energy;
+        if (strength > this.startingStrength) { this.attributedStrength = strength - this.startingStrength; }        
+        if (dexterity > this.startingDexterity) { this.attributedDexterity = dexterity - this.startingDexterity; }        
+        if (vitality > this.startingVitality) { this.attributedVitality = vitality - this.startingVitality; }        
+        if (energy > this.startingEnergy) { this.attributedEnergy = energy - this.startingEnergy; }        
     }
 
     setAllQuestsDone() {
@@ -441,10 +441,47 @@ class Character {
 }
 
 class Enemy {
-    constructor(name, life, resists) {
-        this.name = name;
-        this.life = life;
-        this.resists = resists; // Array Fire,Cold,Lightning,Poison,Magical,Physical
+    constructor(data = {}) {
+        this.id = data.id || "custom";
+        this.name = data.name || "New Enemy";
+        this.level = data.level || 120;
+        this.type = data.type || "Demon"; // Demon, Undead, Animal
+        this.isBoss = data.isBoss || false;
+        
+        // Vitals
+        this.life = data.life || 100000;
+        
+        // Defense
+        this.defense = data.defense || 10000;
+        this.blockChance = data.blockChance || 0;
+        this.avoidChance = data.avoidChance || 0;
+
+        // Resistances (Damage Reduction)
+        // Default to 0 if not provided
+        this.resists = Object.assign({
+            physical: 0, magic: 0,
+            fire: 0, cold: 0, lightning: 0, poison: 0
+        }, data.resists);
+
+        // Max Resistances (Caps)
+        this.maxResists = Object.assign({
+            fire: 75, cold: 75, lightning: 75, poison: 75
+        }, data.maxResists);
+
+        // Percent Absorb
+        this.absorb = Object.assign({
+            fire: 0, cold: 0, lightning: 0, poison: 0
+        }, data.absorb);
+
+        // Flat Absorb (Integer reduction)
+        this.flatAbsorb = Object.assign({
+            fire: 0, cold: 0, lightning: 0, poison: 0
+        }, data.flatAbsorb);
+
+        // Enemy Offense (Pierce)
+        this.pierce = Object.assign({
+            fire: 0, cold: 0, lightning: 0, poison: 0
+        }, data.pierce);
     }
 }
 
@@ -471,8 +508,8 @@ function createItem(name, slot, type, stats, socketed, requiredLevel = 0) {
     return item;
 }
 
-function createEnemy(name,life,resists) {
-    let enemy = new Enemy(name,life,resists);
+function createEnemy(data) {
+    let enemy = new Enemy(data);
     enemyList.push(enemy);
     return enemy;
 }
@@ -591,7 +628,7 @@ function loadSkillFromJSON(data) {
 }
 
 function loadEnemyFromJSON(data) {
-    return createEnemy(data.name, data.life, data.resists);
+    createEnemy(data);
 }
 
 // --- HELPER: Deep Compare Items ---
