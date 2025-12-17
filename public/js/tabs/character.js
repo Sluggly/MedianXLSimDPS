@@ -68,67 +68,10 @@ function renderEquippedGear() {
             nameSpan.addEventListener('mousemove', (e) => showItemTooltip(e, slot.item));
             nameSpan.addEventListener('mouseleave', hideItemTooltip);
 
-            // Sockets
             let socketContainer = document.createElement('div');
-            socketContainer.className = "d-flex mr-3"; // Margin right to separate from button
+            socketContainer.className = "d-flex mr-3"; 
             
-            // Determine max sockets (parsed from text)
-            let maxSockets = slot.item.stats.SocketsMax || 0;
-            let filledSockets = slot.item.socketed ? slot.item.socketed.length : 0;
-
-            // If we parsed 0 max sockets but we HAVE filled sockets, use filled count
-            if (filledSockets > maxSockets) maxSockets = filledSockets;
-
-            for (let i = 0; i < maxSockets; i++) {
-                // Create a container for the socket to ensure size is enforced
-                let sockDiv = document.createElement('div');
-                sockDiv.style.width = "28px";
-                sockDiv.style.height = "28px";
-                sockDiv.style.marginRight = "4px";
-                sockDiv.style.display = "inline-block";
-                sockDiv.style.position = "relative"; // For centering content
-                sockDiv.style.verticalAlign = "middle";
-                sockDiv.style.border = "1px solid #444";
-                sockDiv.style.backgroundColor = "#111"; // Dark background for visibility
-                sockDiv.style.cursor = "help";
-
-                if (i < filledSockets) {
-                    let gem = slot.item.socketed[i];
-                    let sockImg = document.createElement('img');
-                    
-                    // Force size to fit container
-                    sockImg.style.width = "100%"; 
-                    sockImg.style.height = "100%";
-                    sockImg.style.objectFit = "contain"; 
-                    
-                    // Simple manual image loader since setItemImage is designed for item objects
-                    // We can reuse setItemImage if we tweak the gem object slightly or just call it directly
-                    setItemImage(sockImg, gem); 
-
-                    // Tooltip
-                    sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, gem));
-                    sockDiv.addEventListener('mouseleave', hideItemTooltip);
-                    
-                    sockDiv.appendChild(sockImg);
-                } else {
-                    // --- EMPTY SOCKET ---
-                    // Render a simple gray circle to represent an empty socket without needing an image file
-                    sockDiv.innerHTML = '<div style="width: 14px; height: 14px; background: #333; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: inset 0 0 3px #000;"></div>';
-                    
-                    // Tooltip for Empty Socket
-                    // Create a fake item object so showItemTooltip can render it nicely
-                    const emptySocketItem = {
-                        name: "Empty Socket",
-                        type: "Socket",
-                        stats: { "Info": "Can hold a Gem, Rune, or Jewel" }
-                    };
-                    
-                    sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, emptySocketItem));
-                    sockDiv.addEventListener('mouseleave', hideItemTooltip);
-                }
-                
-                socketContainer.appendChild(sockDiv);
-            }
+            socketContainer.appendChild(createSocketVisuals(slot.item, slot.id));
 
             // Button
             let btn = document.createElement('button');
@@ -290,6 +233,12 @@ function renderItemLibrary() {
         tdName.addEventListener('mousemove', (e) => showItemTooltip(e, item));
         tdName.addEventListener('mouseleave', hideItemTooltip);
 
+        // Sockets
+        let tdSockets = document.createElement('td');
+        tdSockets.className = "align-middle";
+        // Use the helper from ui.js
+        tdSockets.appendChild(createSocketVisuals(item));
+
         // Type
         let tdType = document.createElement('td');
         tdType.innerText = item.type;
@@ -320,7 +269,32 @@ function renderItemLibrary() {
         };
 
         // --- SLOT LOGIC ---
-        if (item.slot === "Ring") {
+        if (["Jewel", "Gem", "Rune"].includes(item.type)) {
+            // Define targets
+            const targets = [
+                { id: "Helm", lbl: "HE" },
+                { id: "Body Armor", lbl: "BA" },
+                { id: "Gloves", lbl: "GL" },
+                { id: "Belt", lbl: "BE" },
+                { id: "Boots", lbl: "BO" },
+                { id: "Weapon1", lbl: "W1" },
+                { id: "Weapon2", lbl: "W2" }
+            ];
+
+            targets.forEach(tgt => {
+                let btn = document.createElement('button');
+                btn.className = "btn btn-sm btn-dark ml-1 px-1";
+                btn.style.fontSize = "0.7rem";
+                btn.innerText = tgt.lbl;
+                btn.title = "Socket into " + tgt.id;
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    doSocketItemToSlot(globalIndex, tgt.id);
+                };
+                tdBtn.appendChild(btn);
+            });
+        }
+        else if (item.slot === "Ring") {
             // -- Ring 1 --
             if (selectedChar && selectedChar.ring1 === item) {
                 // Is Equipped in Slot 1 -> Unequip
@@ -394,6 +368,7 @@ function renderItemLibrary() {
 
         tr.appendChild(tdIcon);
         tr.appendChild(tdName);
+        tr.appendChild(tdSockets);
         tr.appendChild(tdType);
         tr.appendChild(tdOwner);
         tr.appendChild(tdBtn);
@@ -407,4 +382,19 @@ function renderItemLibrary() {
     if (scrollContainer) {
         scrollContainer.scrollTop = savedScrollTop;
     }
+}
+
+// Action: Unsocket an item from specific slot and index
+function doUnsocketItem(slotId, socketIndex) {
+    if (!selectedChar) return;
+    selectedChar.unsocketItem(slotId, socketIndex);
+    renderCharacterTab(); // Re-render to show empty socket
+}
+
+// Action: Socket a library item into a specific slot
+function doSocketItemToSlot(libIndex, targetSlotId) {
+    if (!selectedChar) return;
+    let gemItem = globalItemLibrary[libIndex];
+    selectedChar.socketItem(targetSlotId, gemItem);
+    renderCharacterTab(); // Re-render to show filled socket
 }

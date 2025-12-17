@@ -5,9 +5,22 @@ function getProcessedItems(items, context) {
     // 1. Filter
     let result = items;
 
-    if (context === 'library' && state.hideEquipped && selectedChar) {
-        // Filter out items that are currently in the selectedChar's equipped list
-        result = result.filter(item => !selectedChar.equippedItems.includes(item));
+    if (context === 'library') {
+        if (state.hideEquipped && selectedChar) {
+            result = result.filter(item => !selectedChar.equippedItems.includes(item));
+        }
+
+        if (state.hideJewels) {
+            result = result.filter(item => item.type !== "Jewel");
+        }
+        
+        if (state.hideCharms) {
+            result = result.filter(item => !["Charm", "Relic"].includes(item.type));
+        }
+
+        if (state.hideGemRunes) {
+            result = result.filter(item => !["Gem", "Rune"].includes(item.type));
+        }
     }
 
     if (state.searchQuery) {
@@ -36,7 +49,10 @@ function getProcessedItems(items, context) {
 }
 
 function handleLibraryFilterChange(checkbox) {
-    tableStates.library.hideEquipped = checkbox.checked;
+    if (checkbox.id === 'chk-hide-equipped') tableStates.library.hideEquipped = checkbox.checked;
+    if (checkbox.id === 'chk-hide-jewels') tableStates.library.hideJewels = checkbox.checked;
+    if (checkbox.id === 'chk-hide-charms') tableStates.library.hideCharms = checkbox.checked;
+    if (checkbox.id === 'chk-hide-gemrunes') tableStates.library.hideGemRunes = checkbox.checked;
     renderItemLibrary();
 }
 

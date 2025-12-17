@@ -144,3 +144,71 @@ function switchTab(tabName) {
     if (tabName === 'character') renderCharacterTab(); 
     if (tabName === 'topgear') renderTopGearSelection();
 }
+
+// Generates the socket visual container for any item
+function createSocketVisuals(item, slotId = null) {
+    const container = document.createElement('div');
+    container.className = "d-flex align-items-center"; 
+
+    // Determine max sockets
+    let maxSockets = 0;
+    if (item.stats && item.stats.SocketsMax) maxSockets = item.stats.SocketsMax;
+    // Fallback: If we parsed sockets but didn't get a Max Stat (e.g. legacy data), use filled count
+    if (item.socketed && item.socketed.length > maxSockets) maxSockets = item.socketed.length;
+
+    if (maxSockets === 0) return container; // Return empty container
+
+    const filledSockets = item.socketed ? item.socketed.length : 0;
+
+    for (let i = 0; i < maxSockets; i++) {
+        let sockDiv = document.createElement('div');
+        // Visual Styling (Matching Equipped Gear look)
+        sockDiv.style.width = "24px";  // Slightly smaller for table compacting
+        sockDiv.style.height = "24px";
+        sockDiv.style.marginRight = "2px";
+        sockDiv.style.display = "inline-block";
+        sockDiv.style.position = "relative";
+        sockDiv.style.verticalAlign = "middle";
+        sockDiv.style.border = "1px solid #555";
+        sockDiv.style.backgroundColor = "#000";
+        sockDiv.style.cursor = "help";
+
+        if (i < filledSockets) {
+            // --- FILLED SOCKET ---
+            let gem = item.socketed[i];
+            let sockImg = document.createElement('img');
+            sockImg.style.width = "100%";
+            sockImg.style.height = "100%";
+            sockImg.style.objectFit = "contain";
+            sockImg.style.display = "block";
+            
+            setItemImage(sockImg, gem);
+            
+            // Tooltip
+            sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, gem));
+            sockDiv.addEventListener('mouseleave', hideItemTooltip);
+
+            if (slotId) {
+                sockDiv.style.cursor = "pointer"; // Change cursor
+                sockDiv.style.borderColor = "#a00"; // Red border hint
+                sockDiv.onclick = (e) => {
+                    e.stopPropagation();
+                    hideItemTooltip();
+                    doUnsocketItem(slotId, i);
+                };
+            }
+            
+            sockDiv.appendChild(sockImg);
+        } else {
+            // --- EMPTY SOCKET ---
+            sockDiv.innerHTML = '<div style="width: 10px; height: 10px; background: #333; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: inset 0 0 2px #000;"></div>';
+            
+            const emptySocketItem = { name: "Empty Socket", type: "Socket", stats: { "Info": "Can hold a Gem, Rune, or Jewel" } };
+            sockDiv.addEventListener('mousemove', (e) => showItemTooltip(e, emptySocketItem));
+            sockDiv.addEventListener('mouseleave', hideItemTooltip);
+        }
+        
+        container.appendChild(sockDiv);
+    }
+    return container;
+}

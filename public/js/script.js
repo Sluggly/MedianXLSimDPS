@@ -280,6 +280,50 @@ class Character {
         this.updateEquippedItems();
     }
 
+    // Add a gem/rune/jewel to an equipped item
+    socketItem(slotId, gemItem) {
+        let item = this.getItemFromSlot(slotId);
+        if (!item) {
+            alert("No item equipped in slot: " + slotId);
+            return;
+        }
+
+        // Check Max Sockets
+        let maxSockets = item.stats.SocketsMax || 0;
+        if (maxSockets === 0) {
+             // Try to infer from existing sockets if max is missing
+             if (item.socketed && item.socketed.length > 0) maxSockets = 6; 
+             else {
+                 alert("This item has no sockets.");
+                 return;
+             }
+        }
+
+        if (!item.socketed) item.socketed = [];
+        
+        if (item.socketed.length >= maxSockets) {
+            alert("Item is fully socketed!");
+            return;
+        }
+        
+        // We can reuse createItem from script.js context or simple object copy
+        let gemClone = JSON.parse(JSON.stringify(gemItem)); 
+        
+        item.socketed.push(gemClone);
+        this.calculateFinalStats();
+    }
+
+    // Remove a gem/rune/jewel from an equipped item
+    unsocketItem(slotId, socketIndex) {
+        let item = this.getItemFromSlot(slotId);
+        if (!item || !item.socketed) return;
+
+        // Remove the item at the specific index
+        item.socketed.splice(socketIndex, 1);
+        
+        this.calculateFinalStats();
+    }
+
     updateEquippedItems() {
         this.equippedItems = [];
         if (this.helm != null) { this.equippedItems.push(this.helm); }

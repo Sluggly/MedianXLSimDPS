@@ -1,0 +1,10 @@
+{
+  "name": "Perfect Diamond",
+  "slot": "Gem",
+  "type": "Gem",
+  "stats": {
+    "Strength": 10,
+    "SpellDamage": 5
+  },
+  "socketed": null
+}

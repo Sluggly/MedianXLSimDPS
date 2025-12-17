@@ -510,6 +510,21 @@ function processItems(rawItems) {
             socketed: processedSockets
         });
 
+        if (processedSockets.length > 0) {
+            processedSockets.forEach(sock => {
+                if (sock.type === "Jewel") {
+                    acc.push({
+                        name: sock.name,      // e.g. "Jewel" or "Rainbow Facet"
+                        slot: "Jewel",        // Explicit slot for the library logic
+                        location: i.location || "Equipped", // Preserve origin context if needed
+                        type: "Jewel",
+                        stats: sock.stats,    // The stats specific to this jewel
+                        socketed: []          // Jewels themselves don't have sockets
+                    });
+                }
+            });
+        }
+
         return acc;
     }, []);
 }

@@ -7,9 +7,23 @@ socket.on('initData', (data) => {
     // 1. Load Global Items
     globalItemLibrary = [];
     if (data.items) {
-        data.items.forEach(item => {
-            item.owner = "None"; // Default owner
-            globalItemLibrary.push(item);
+        data.items.forEach(itemData => {
+            // Fix: Instantiate properly using the factory function
+            // This ensures structure matches (and handles null socketed array)
+            let socketed = itemData.socketed || []; 
+
+            let newItem = createItem(
+                itemData.name, 
+                itemData.slot, 
+                itemData.type, 
+                itemData.stats, 
+                socketed
+            );
+
+            newItem.owner = "None"; // Default owner for local files
+            
+            // Fix: Use the registrar to add to globalItemLibrary logic
+            getOrRegisterItem(newItem);
         });
     }
     
