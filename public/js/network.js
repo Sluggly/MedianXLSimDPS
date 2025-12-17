@@ -17,7 +17,8 @@ socket.on('initData', (data) => {
                 itemData.slot, 
                 itemData.type, 
                 itemData.stats, 
-                socketed
+                socketed,
+                itemData.requiredLevel || 0
             );
 
             newItem.owner = "None"; // Default owner for local files

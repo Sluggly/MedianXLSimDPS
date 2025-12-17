@@ -1,0 +1,12 @@
+{
+  "name": "Xeth Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ColdSpellDamage": 5 },
+    "Armor": { "ColdSpellDamage": 5 },
+    "Shield": { "ColdSpellDamage": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 95
+}

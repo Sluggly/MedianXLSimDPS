@@ -1,0 +1,12 @@
+{
+  "name": "Yham Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MaxManaPercent": 5 },
+    "Armor": { "MaxLifePercent": 2, "MaxManaPercent": 2 },
+    "Shield": { "MaxLifePercent": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 120
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Eth Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ColdSpellDamage": 3 },
+    "Armor": { "ColdSpellDamage": 3 },
+    "Shield": { "ColdSpellDamage": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 15
+}

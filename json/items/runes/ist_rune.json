@@ -1,0 +1,12 @@
+{
+  "name": "Ist Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MagicFind": 10 },
+    "Armor": { "MagicFind": 7 },
+    "Shield": { "MagicFind": 7 }
+  },
+  "socketed": [],
+  "requiredLevel": 63
+}

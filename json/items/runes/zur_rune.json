@@ -1,0 +1,12 @@
+{
+  "name": "Zur Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ManaRegen": 22 },
+    "Armor": { "ManaRegen": 11 },
+    "Shield": { "ManaRegen": 11 }
+  },
+  "socketed": [],
+  "requiredLevel": 115
+}

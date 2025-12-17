@@ -1,0 +1,12 @@
+{
+  "name": "Ral Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "FireResist": 30 },
+    "Armor": { "FireResist": 25 },
+    "Shield": { "FireResist": 25 }
+  },
+  "socketed": [],
+  "requiredLevel": 23
+}

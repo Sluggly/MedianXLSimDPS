@@ -1,0 +1,12 @@
+{
+  "name": "Loz Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "BlockSpeed": 30 },
+    "Armor": { "BlockSpeed": 30 },
+    "Shield": { "BlockSpeed": 40 }
+  },
+  "socketed": [],
+  "requiredLevel": 115
+}

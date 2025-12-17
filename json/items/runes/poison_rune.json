@@ -1,0 +1,12 @@
+{
+  "name": "Poison Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonPierce": 5 },
+    "Armor": { "PoisonPierce": 3 },
+    "Shield": { "PLR": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

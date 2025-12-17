@@ -40,7 +40,7 @@ const statConfig = {
     "Vitality": "+%d to Vitality",
     "Energy": "+%d to Energy",
     "AllAttributesPercent": "+%d% to All Attributes",
-    "AllAttributesFlat": "+%d to all Attributes",
+    "AllAttributes": "+%d to all Attributes",
     "StrengthPercent": "+%d% to Strength",
     "DexterityPercent": "+%d% to Dexterity",
     "VitalityPercent": "+%d% to Vitality",
@@ -57,6 +57,8 @@ const statConfig = {
     "ManaOnAttack": "+%d Mana on Melee Attack",
     "LifeOnStriking": "+%d Life on Striking",
     "ManaOnStriking": "+%d Mana on Striking",
+    "LifeWhenStruck": "+%d Life when Struck by an Enemy",
+    "ManaWhenStruck": "+%d Mana when Struck by an Enemy",
     "LifeLeech": "%d% Life stolen per Hit",
     "ManaLeech": "%d% Mana stolen per Hit",
     "LifeRegen": "+%d Life Regenerated per Second",
@@ -78,6 +80,7 @@ const statConfig = {
     "PhysicalMagicalSpellDamage": "+%d% to Physical/Magic Spell Damage",
     "TriEleDamagePerLevel": "+%d Maximum Tri-Elemental Damage per 5 Character Levels",
     "InnateElementalDamage": "+%d% Innate Elemental Damage",
+    "PoisonSkillDuration": "+%d% Bonus to Poison Skill Duration",
 
     // Pierce (Note: Parser extracts positive number, we add '-' here)
     "FirePierce": "-%d% to Enemy Fire Resistance",
@@ -101,6 +104,12 @@ const statConfig = {
     "MaxLightningResist": "Maximum Lightning Resist +%d%",
     "MaxPoisonResist": "Maximum Poison Resist +%d%",
     "MaxElementalResist": "Maximum Elemental Resists +%d%",
+
+    // Absorbs
+    "AbsorbFire": "Fire Absorb %d%",
+    "AbsorbCold": "Cold Absorb %d%",
+    "AbsorbLightning": "Lightning Absorb %d%",
+    "AbsorbPoison": "Poison Absorb %d%",
 
     // Minions
     "MinionLife": "+%d% to Summoned Minion Life",

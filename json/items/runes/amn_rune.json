@@ -1,0 +1,12 @@
+{
+  "name": "Amn Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonResist": 30 },
+    "Armor": { "PoisonResist": 25 },
+    "Shield": { "PoisonResist": 25 }
+  },
+  "socketed": [],
+  "requiredLevel": 30
+}

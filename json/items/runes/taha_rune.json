@@ -1,0 +1,12 @@
+{
+  "name": "Taha Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ElementalPierce": 3 },
+    "Armor": { "ElementalPierce": 2 },
+    "Shield": { "ElementalPierce": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Light Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "LightningPierce": 5 },
+    "Armor": { "LightningPierce": 3 },
+    "Shield": { "AbsorbLightning": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Ko Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "StrengthPercent": 5 },
+    "Armor": { "StrengthPercent": 5 },
+    "Shield": { "StrengthPercent": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 48
+}

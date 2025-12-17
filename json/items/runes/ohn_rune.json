@@ -1,0 +1,12 @@
+{
+  "name": "Ohn Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "HitRecovery": 30 },
+    "Armor": { "HitRecovery": 30 },
+    "Shield": { "HitRecovery": 40 }
+  },
+  "socketed": [],
+  "requiredLevel": 115
+}

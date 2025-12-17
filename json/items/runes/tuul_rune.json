@@ -1,0 +1,12 @@
+{
+  "name": "Tuul Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ColdResist": 35 },
+    "Armor": { "ColdResist": 35 },
+    "Shield": { "ColdResist": 45 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

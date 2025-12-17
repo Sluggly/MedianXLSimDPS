@@ -305,9 +305,33 @@ class Character {
             alert("Item is fully socketed!");
             return;
         }
-        
-        // We can reuse createItem from script.js context or simple object copy
-        let gemClone = JSON.parse(JSON.stringify(gemItem)); 
+
+        // Clone the gem
+        let gemClone = JSON.parse(JSON.stringify(gemItem));
+
+        // --- RESOLVE CONTEXTUAL STATS ---
+        // If the gem has contextual stats (Weapon/Armor/Shield), flatten them now based on the target Item type.
+        if (gemClone.stats.Weapon || gemClone.stats.Armor || gemClone.stats.Shield) {
+            let activeStats = {};
+            
+            // Logic to determine context
+            let context = "Armor"; // Default (Helms, Body, Gloves, Belt, Boots)
+            
+            if (item.slot === "Weapon1") {
+                context = "Weapon";
+            }
+            else if (item.slot === "Weapon2") {
+                // Dual Wield vs Shield check
+                if (isTypeOffhand(item.type)) { context = "Shield"; } 
+                else { context = "Weapon"; }
+            }
+
+            // Apply specific stats
+            if (gemClone.stats[context]) { activeStats = gemClone.stats[context]; }
+            
+            // Overwrite the gem's stats with the resolved flat list
+            gemClone.stats = activeStats;
+        }
         
         item.socketed.push(gemClone);
         this.calculateFinalStats();
@@ -425,12 +449,13 @@ class Enemy {
 }
 
 class Item {
-    constructor(name, slot, type, stats, socketed) {
+    constructor(name, slot, type, stats, socketed, requiredLevel = 0) {
         this.name = name; // String
         this.slot = slot; // String in "Helm","Weapon1","Weapon2",..."Charm","Relic"
         this.type = type; // String
         this.stats = stats; // Dictionnay StatsName -> Value
         this.socketed = socketed; // Array of item
+        this.requiredLevel = requiredLevel; // Int
     }
 }
 
@@ -440,8 +465,8 @@ function createCharacter(charName, charClass, level) {
     return character;
 }
 
-function createItem(name, slot, type, stats, socketed) {
-    let item = new Item(name, slot, type, stats, socketed);
+function createItem(name, slot, type, stats, socketed, requiredLevel = 0) {
+    let item = new Item(name, slot, type, stats, socketed, requiredLevel);
     itemList.push(item);
     return item;
 }

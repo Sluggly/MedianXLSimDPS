@@ -1,0 +1,12 @@
+{
+  "name": "Xith Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonSpellDamage": 5 },
+    "Armor": { "PoisonSpellDamage": 5 },
+    "Shield": { "PoisonSpellDamage": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 95
+}

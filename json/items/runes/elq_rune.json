@@ -1,0 +1,12 @@
+{
+  "name": "Elq Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MaxDamage": 20 },
+    "Armor": { "MaxDamage": 10 },
+    "Shield": { "MaxDamage": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 90
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Gul Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AttackSpeed": 15 },
+    "Armor": { "AttackSpeed": 15 },
+    "Shield": { "AttackSpeed": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 65
+}

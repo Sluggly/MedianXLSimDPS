@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Turquoise",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "ManaRegen": 10 },
+    "Armor": { "PoisonResist": 20, "MaxPoisonResist": 1 },
+    "Shield": { "MagicFind": 8 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

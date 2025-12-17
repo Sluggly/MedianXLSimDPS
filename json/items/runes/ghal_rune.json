@@ -1,0 +1,12 @@
+{
+  "name": "Ghal Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "SpellFocus": 25 },
+    "Armor": { "SpellFocus": 15 },
+    "Shield": { "SpellFocus": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

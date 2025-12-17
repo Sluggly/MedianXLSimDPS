@@ -1,0 +1,12 @@
+{
+  "name": "Fire Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "FirePierce": 5 },
+    "Armor": { "FirePierce": 3 },
+    "Shield": { "AbsorbFire": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Doj Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionLife": 20 },
+    "Armor": { "MinionLife": 20 },
+    "Shield": { "MinionLife": 20 }
+  },
+  "socketed": [],
+  "requiredLevel": 105
+}

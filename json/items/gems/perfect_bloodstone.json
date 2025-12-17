@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Bloodstone",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "MinionLife": 10 },
+    "Armor": { "FireResist": 20, "MaxFireResist": 1 },
+    "Shield": { "LightningResist": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

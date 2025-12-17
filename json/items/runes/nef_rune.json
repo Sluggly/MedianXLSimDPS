@@ -1,0 +1,12 @@
+{
+  "name": "Nef Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "LightningSpellDamage": 3 },
+    "Armor": { "LightningSpellDamage": 3 },
+    "Shield": { "LightningSpellDamage": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 13
+}

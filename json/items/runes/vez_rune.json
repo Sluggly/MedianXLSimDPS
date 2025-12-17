@@ -1,0 +1,12 @@
+{
+  "name": "Vez Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "CastSpeed": 40 },
+    "Armor": { "CastSpeed": 30 },
+    "Shield": { "CastSpeed": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 115
+}

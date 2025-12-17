@@ -1,0 +1,12 @@
+{
+  "name": "Ice Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ColdPierce": 5 },
+    "Armor": { "ColdPierce": 3 },
+    "Shield": { "AbsorbCold": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

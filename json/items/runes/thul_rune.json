@@ -1,0 +1,12 @@
+{
+  "name": "Thul Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ColdResist": 30 },
+    "Armor": { "ColdResist": 25 },
+    "Shield": { "ColdResist": 25 }
+  },
+  "socketed": [],
+  "requiredLevel": 28
+}

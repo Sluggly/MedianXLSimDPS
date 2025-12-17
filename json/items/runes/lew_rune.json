@@ -1,0 +1,12 @@
+{
+  "name": "Lew Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "VitalityPercent": 6 },
+    "Armor": { "VitalityPercent": 6 },
+    "Shield": { "VitalityPercent": 6 }
+  },
+  "socketed": [],
+  "requiredLevel": 110
+}

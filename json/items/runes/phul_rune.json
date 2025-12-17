@@ -1,0 +1,12 @@
+{
+  "name": "Phul Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "EnergyPercent": 7 },
+    "Armor": { "EnergyPercent": 7 },
+    "Shield": { "EnergyPercent": 7 }
+  },
+  "socketed": [],
+  "requiredLevel": 110
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Xod Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AllSkill": 1 },
+    "Armor": { "AllSkill": 1 },
+    "Shield": { "AllSkill": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 120
+}

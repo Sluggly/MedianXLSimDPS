@@ -1,0 +1,12 @@
+{
+  "name": "Qor Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "DeadlyStrike": 3 },
+    "Armor": { "DeadlyStrike": 2 },
+    "Shield": { "DeadlyStrike": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

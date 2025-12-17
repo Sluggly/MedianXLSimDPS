@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Sapphire",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "ManaAfterKill": 8 },
+    "Armor": { "ColdResist": 20 },
+    "Shield": { "ColdResist": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

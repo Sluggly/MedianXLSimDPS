@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Topaz",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "SpellFocus": 10 },
+    "Armor": { "EnergyPercent": 5 },
+    "Shield": { "LightningResist": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

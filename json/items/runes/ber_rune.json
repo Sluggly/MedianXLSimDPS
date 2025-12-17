@@ -1,0 +1,12 @@
+{
+  "name": "Ber Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "SlowTarget": 3 },
+    "Armor": { "SlowAttacker": 2 },
+    "Shield": { "SlowAttacker": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 78
+}

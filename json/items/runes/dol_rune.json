@@ -1,0 +1,12 @@
+{
+  "name": "Dol Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionLife": 10 },
+    "Armor": { "MinionLife": 10 },
+    "Shield": { "MinionLife": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 38
+}

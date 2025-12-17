@@ -1,0 +1,12 @@
+{
+  "name": "Jah Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "EnhancedDamage": 15 },
+    "Armor": { "EnhancedDefense": 15 },
+    "Shield": { "EnhancedDefense": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 80
+}

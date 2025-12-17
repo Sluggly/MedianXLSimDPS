@@ -450,6 +450,18 @@ function processItems(rawItems) {
         if (slot === "Misc" || slot === "Unknown") { return acc; }
 
         const lines = parseTooltipToLines(i.tooltipHtml);
+
+        let reqLvl = 0;
+        const reqLvlRegex = /Required Level: (\d+)/i;
+        
+        // We look through the lines we just parsed
+        for (const line of lines) {
+            const match = line.match(reqLvlRegex);
+            if (match) {
+                reqLvl = parseInt(match[1]);
+                break; // Stop after finding it
+            }
+        }
         
         // Process Sockets
         let processedSockets = [];
@@ -507,19 +519,24 @@ function processItems(rawItems) {
             location: i.location || "Equipped",
             type: type,
             stats: itemStats,
-            socketed: processedSockets
+            socketed: processedSockets,
+            requiredLevel: reqLvl
         });
 
         if (processedSockets.length > 0) {
             processedSockets.forEach(sock => {
                 if (sock.type === "Jewel") {
+                    let jewelReq = 0;
+                    const jMatch = (sock.text || "").match(/Required Level: (\d+)/i);
+                    if(jMatch) jewelReq = parseInt(jMatch[1]);
                     acc.push({
                         name: sock.name,      // e.g. "Jewel" or "Rainbow Facet"
                         slot: "Jewel",        // Explicit slot for the library logic
                         location: i.location || "Equipped", // Preserve origin context if needed
                         type: "Jewel",
                         stats: sock.stats,    // The stats specific to this jewel
-                        socketed: []          // Jewels themselves don't have sockets
+                        socketed: [],          // Jewels themselves don't have sockets
+                        requiredLevel: jewelReq
                     });
                 }
             });

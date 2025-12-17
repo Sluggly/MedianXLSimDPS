@@ -1,0 +1,12 @@
+{
+  "name": "Ith Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonSpellDamage": 3 },
+    "Armor": { "PoisonSpellDamage": 3 },
+    "Shield": { "PoisonSpellDamage": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

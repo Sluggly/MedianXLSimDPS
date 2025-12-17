@@ -1,0 +1,12 @@
+{
+  "name": "Pul Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "EnergyPercent": 5 },
+    "Armor": { "EnergyPercent": 5 },
+    "Shield": { "EnergyPercent": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 55
+}

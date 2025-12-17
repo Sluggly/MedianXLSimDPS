@@ -1,0 +1,12 @@
+{
+  "name": "Hel Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionDamage": 5 },
+    "Armor": { "MinionDamage": 5 },
+    "Shield": { "MinionDamage": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 40
+}

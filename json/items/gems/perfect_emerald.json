@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Emerald",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "MaxDamage": 5 },
+    "Armor": { "LifeRegen": 10 },
+    "Shield": { "PoisonResist": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

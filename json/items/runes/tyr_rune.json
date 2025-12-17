@@ -1,0 +1,12 @@
+{
+  "name": "Tyr Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "FireSpellDamage": 5 },
+    "Armor": { "FireSpellDamage": 5 },
+    "Shield": { "FireSpellDamage": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 90
+}

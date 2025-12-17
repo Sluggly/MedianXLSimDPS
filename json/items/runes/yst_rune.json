@@ -1,0 +1,12 @@
+{
+  "name": "Yst Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MagicFind": 13 },
+    "Armor": { "MagicFind": 10 },
+    "Shield": { "MagicFind": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 110
+}

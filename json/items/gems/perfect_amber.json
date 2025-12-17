@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Amber",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "Reanimate": 2 },
+    "Armor": { "LightningResist": 20, "MaxLightningResist": 1 },
+    "Shield": { "SlowAttacker": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

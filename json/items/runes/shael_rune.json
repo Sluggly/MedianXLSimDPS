@@ -1,0 +1,12 @@
+{
+  "name": "Shael Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonSkillDuration": 15 },
+    "Armor": { "PoisonSkillDuration": 10 },
+    "Shield": { "PoisonSkillDuration": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 35
+}

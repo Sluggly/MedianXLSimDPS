@@ -1,0 +1,12 @@
+{
+  "name": "Zol Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "Mana": 100 },
+    "Armor": { "Mana": 75 },
+    "Shield": { "Mana": 75 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

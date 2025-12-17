@@ -1,0 +1,12 @@
+{
+  "name": "Fel Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "DexterityPercent": 7 },
+    "Armor": { "DexterityPercent": 7 },
+    "Shield": { "DexterityPercent": 7 }
+  },
+  "socketed": [],
+  "requiredLevel": 110
+}

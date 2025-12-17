@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Rainbow Stone",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "InnateElementalDamage": 3 },
+    "Armor": { "GoldFind": 8 },
+    "Shield": { "CLR": 6 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

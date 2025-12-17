@@ -1,0 +1,12 @@
+{
+  "name": "Bur Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "SlowTarget": 5 },
+    "Armor": { "SlowAttacker": 4 },
+    "Shield": { "SlowAttacker": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 115
+}

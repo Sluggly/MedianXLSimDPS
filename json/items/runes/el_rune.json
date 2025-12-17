@@ -1,0 +1,12 @@
+{
+  "name": "El Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AllAttributes": 3 },
+    "Armor": { "AllAttributes": 3 },
+    "Shield": { "AllAttributes": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 6
+}

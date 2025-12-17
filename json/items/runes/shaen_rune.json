@@ -1,0 +1,12 @@
+{
+  "name": "Shaen Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PoisonSkillDuration": 20 },
+    "Armor": { "PoisonSkillDuration": 13 },
+    "Shield": { "PoisonSkillDuration": 13 }
+  },
+  "socketed": [],
+  "requiredLevel": 105
+}

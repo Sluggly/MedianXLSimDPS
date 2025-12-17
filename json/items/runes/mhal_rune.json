@@ -1,0 +1,12 @@
+{
+  "name": "Mhal Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AllAttributesPercent": 4 },
+    "Armor": { "AllAttributesPercent": 4 },
+    "Shield": { "AllAttributesPercent": 4 }
+  },
+  "socketed": [],
+  "requiredLevel": 110
+}

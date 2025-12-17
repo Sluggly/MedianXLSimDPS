@@ -1,0 +1,12 @@
+{
+  "name": "Tal Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "PhysicalMagicalSpellDamage": 3 },
+    "Armor": { "PhysicalMagicalSpellDamage": 3 },
+    "Shield": { "PhysicalMagicalSpellDamage": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 20
+}

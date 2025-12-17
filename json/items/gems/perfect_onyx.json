@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Onyx",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "MinionDamage": 5 },
+    "Armor": { "ColdResist": 20, "MaxColdResist": 1 },
+    "Shield": { "SlowTarget": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

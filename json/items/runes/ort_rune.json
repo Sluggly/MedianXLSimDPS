@@ -1,0 +1,12 @@
+{
+  "name": "Ort Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "LightningResist": 30 },
+    "Armor": { "LightningResist": 25 },
+    "Shield": { "LightningResist": 25 }
+  },
+  "socketed": [],
+  "requiredLevel": 25
+}

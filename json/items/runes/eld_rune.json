@@ -1,0 +1,12 @@
+{
+  "name": "Eld Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MaxDamage": 5 },
+    "Armor": { "MaxDamage": 3 },
+    "Shield": { "MaxDamage": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 8
+}

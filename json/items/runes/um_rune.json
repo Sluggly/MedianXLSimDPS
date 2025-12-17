@@ -1,0 +1,12 @@
+{
+  "name": "Um Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "ElementalResist": 10 },
+    "Armor": { "ElementalResist": 10 },
+    "Shield": { "ElementalResist": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 58
+}

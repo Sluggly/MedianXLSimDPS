@@ -1,0 +1,12 @@
+{
+  "name": "Stone Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinPhysicalDamage": 8, "MaxPhysicalDamage": 12 },
+    "Armor": { "MinPhysicalDamage": 4, "MaxPhysicalDamage": 6 },
+    "Shield": { "PhysicalResist": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

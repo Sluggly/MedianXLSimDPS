@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Ruby",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "LifeAfterKill": 10 },
+    "Armor": { "VitalityPercent": 4 },
+    "Shield": { "FireResist": 30 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Vex Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "CastSpeed": 15 },
+    "Armor": { "CastSpeed": 15 },
+    "Shield": { "CastSpeed": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 68
+}

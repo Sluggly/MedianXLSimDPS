@@ -1,0 +1,12 @@
+{
+  "name": "Cham Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MaxManaPercent": 3 },
+    "Armor": { "MaxManaPercent": 2 },
+    "Shield": { "MaxManaPercent": 2 }
+  },
+  "socketed": [],
+  "requiredLevel": 83
+}

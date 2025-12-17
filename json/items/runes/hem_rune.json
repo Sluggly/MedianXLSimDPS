@@ -1,0 +1,12 @@
+{
+  "name": "Hem Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionDamage": 10 },
+    "Armor": { "MinionDamage": 10 },
+    "Shield": { "MinionDamage": 10 }
+  },
+  "socketed": [],
+  "requiredLevel": 105
+}

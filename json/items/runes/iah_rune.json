@@ -1,0 +1,12 @@
+{
+  "name": "Iah Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "EnhancedDamage": 25 },
+    "Armor": { "EnhancedDefense": 25 },
+    "Shield": { "EnhancedDefense": 25 }
+  },
+  "socketed": [],
+  "requiredLevel": 120
+}

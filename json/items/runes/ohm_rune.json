@@ -1,0 +1,12 @@
+{
+  "name": "Ohm Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "HitRecovery": 15 },
+    "Armor": { "HitRecovery": 15 },
+    "Shield": { "HitRecovery": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 70
+}

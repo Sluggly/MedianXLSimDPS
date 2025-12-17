@@ -1,0 +1,12 @@
+{
+  "name": "Ol Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AllAttributes": 13 },
+    "Armor": { "AllAttributes": 13 },
+    "Shield": { "AllAttributes": 13 }
+  },
+  "socketed": [],
+  "requiredLevel": 90
+}

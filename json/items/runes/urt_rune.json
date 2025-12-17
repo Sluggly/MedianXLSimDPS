@@ -1,0 +1,12 @@
+{
+  "name": "Urt Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "LightningResist": 35 },
+    "Armor": { "LightningResist": 35 },
+    "Shield": { "LightningResist": 45 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

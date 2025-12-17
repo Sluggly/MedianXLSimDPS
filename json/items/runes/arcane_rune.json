@@ -1,0 +1,12 @@
+{
+  "name": "Arcane Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "SpellFocus": 4 },
+    "Armor": { "SpellFocus": 2 },
+    "Shield": { "MagicalResist": 1 }
+  },
+  "socketed": [],
+  "requiredLevel": 100
+}

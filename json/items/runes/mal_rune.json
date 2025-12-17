@@ -1,0 +1,12 @@
+{
+  "name": "Mal Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "AllAttributesPercent": 3 },
+    "Armor": { "AllAttributesPercent": 3 },
+    "Shield": { "AllAttributesPercent": 3 }
+  },
+  "socketed": [],
+  "requiredLevel": 60
+}

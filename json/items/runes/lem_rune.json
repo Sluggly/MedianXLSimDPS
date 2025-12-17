@@ -1,0 +1,12 @@
+{
+  "name": "Lem Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "VitalityPercent": 4 },
+    "Armor": { "VitalityPercent": 4 },
+    "Shield": { "VitalityPercent": 4 }
+  },
+  "socketed": [],
+  "requiredLevel": 53
+}

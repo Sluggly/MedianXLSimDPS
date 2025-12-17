@@ -1,0 +1,12 @@
+{
+  "name": "Perfect Diamond",
+  "slot": "Socket",
+  "type": "Gem",
+  "stats": {
+    "Weapon": { "SpellDamage": 3 },
+    "Armor": { "StrengthPercent": 5 },
+    "Shield": { "ElementalResist": 5 }
+  },
+  "socketed": [],
+  "requiredLevel": 18
+}

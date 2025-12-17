@@ -1,0 +1,12 @@
+{
+  "name": "Iu Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionAR": 70 },
+    "Armor": { "MinionAR": 70 },
+    "Shield": { "MinionAR": 70 }
+  },
+  "socketed": [],
+  "requiredLevel": 105
+}

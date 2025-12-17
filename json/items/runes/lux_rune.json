@@ -1,0 +1,12 @@
+{
+  "name": "Lux Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "MinionResist": 7 },
+    "Armor": { "MinionResist": 7 },
+    "Shield": { "MinionResist": 7 }
+  },
+  "socketed": [],
+  "requiredLevel": 105
+}

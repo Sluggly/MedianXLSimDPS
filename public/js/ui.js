@@ -21,6 +21,33 @@ function setItemImage(imgElement, item) {
     };
 }
 
+const statMergeRules = [
+    { 
+        min: "MinDamage", max: "MaxDamage", 
+        format: "Adds %min-%max Damage" 
+    },
+    { 
+        min: "MinFireDamage", max: "MaxFireDamage", 
+        format: "Adds %min-%max Fire Damage" 
+    },
+    { 
+        min: "MinLightningDamage", max: "MaxLightningDamage", 
+        format: "Adds %min-%max Lightning Damage" 
+    },
+    { 
+        min: "MinColdDamage", max: "MaxColdDamage", 
+        format: "Adds %min-%max Cold Damage" 
+    },
+    { 
+        min: "MinMagicDamage", max: "MaxMagicDamage", 
+        format: "Adds %min-%max Magic Damage" 
+    },
+    {
+        min: "MinPhysicalDamage", max: "MaxPhysicalDamage",
+        format: "Adds %min-%max Damage"
+    }
+];
+
 // --- TOOLTIP HELPERS ---
 function showItemTooltip(e, item) {
     if (!item) return;
@@ -28,13 +55,42 @@ function showItemTooltip(e, item) {
     
     // Generate content
     let statsTxt = "";
-    if (item.stats) {
-        for (let [key, val] of Object.entries(item.stats)) {
-            
+
+    const renderStatsObj = (sObj) => {
+        let txt = "";
+
+        const processedKeys = new Set();
+
+        for (let [key, val] of Object.entries(sObj)) {
+            if (processedKeys.has(key)) continue;
+            let merged = false;
+            const rule = statMergeRules.find(r => r.min === key || r.max === key);
+            if (rule) {
+                // Determine if we have both parts
+                const otherKey = (key === rule.min) ? rule.max : rule.min;
+                
+                if (sObj[otherKey] !== undefined) {
+                    // We have a pair! Combine them.
+                    const minVal = (key === rule.min) ? val : sObj[otherKey];
+                    const maxVal = (key === rule.min) ? sObj[otherKey] : val;
+
+                    let displayLine = rule.format
+                        .replace('%min', minVal)
+                        .replace('%max', maxVal);
+                    
+                    txt += `<span class="magic-text">${displayLine}</span><br>`;
+                    
+                    // Mark both as processed
+                    processedKeys.add(key);
+                    processedKeys.add(otherKey);
+                    merged = true;
+                }
+            }
+            if (merged) continue;
             // 1. OSkills (Special Object Handling)
             if (key === "OSkills" && typeof val === 'object') {
                 for (let [skillName, skillLevel] of Object.entries(val)) {
-                    statsTxt += `<span class="magic-text">+${skillLevel} to ${skillName}</span><br>`;
+                    txt += `<span class="magic-text">+${skillLevel} to ${skillName}</span><br>`;
                 }
                 continue;
             }
@@ -43,22 +99,41 @@ function showItemTooltip(e, item) {
             if (statConfig[key]) {
                 // If it's a boolean flag (true), just print the text
                 if (typeof val === 'boolean' && val === true) {
-                    statsTxt += `<span class="magic-text">${statConfig[key]}</span><br>`;
+                    txt += `<span class="magic-text">${statConfig[key]}</span><br>`;
                 } 
                 // If it's a number, format it
                 else if (typeof val === 'number') {
                     // Check if value is float (e.g. 25.5), maybe fix to 0 decimals for display unless needed
                     let displayVal = Number.isInteger(val) ? val : val.toFixed(1);
                     let formatted = statConfig[key].replace('%d', displayVal);
-                    statsTxt += `<span class="magic-text">${formatted}</span><br>`;
+                    txt += `<span class="magic-text">${formatted}</span><br>`;
                 }
             } 
             // 3. Unmapped/Unknown Stats (Fallback)
             else {
                 // Add Spaces to CamelCase (e.g. "MinFireDamage" -> "Min Fire Damage")
                 let readableKey = key.replace(/([A-Z])/g, ' $1').trim();
-                statsTxt += `<span class="magic-text">${readableKey}: ${val}</span><br>`;
+                txt += `<span class="magic-text">${readableKey}: ${val}</span><br>`;
             }
+        }
+        return txt;
+    };
+    
+    if (item.stats) {
+        // DETECT GEM/RUNE STRUCTURE
+        if (item.stats.Weapon || item.stats.Armor || item.stats.Shield) {
+            if (item.stats.Weapon) {
+                statsTxt += `<div class="text-warning small border-bottom mb-1 mt-2">Weapons</div>${renderStatsObj(item.stats.Weapon)}`;
+            }
+            if (item.stats.Armor) {
+                statsTxt += `<div class="text-warning small border-bottom mb-1 mt-2">Armor</div>${renderStatsObj(item.stats.Armor)}`;
+            }
+            if (item.stats.Shield) {
+                statsTxt += `<div class="text-warning small border-bottom mb-1 mt-2">Shields</div>${renderStatsObj(item.stats.Shield)}`;
+            }
+        } else {
+            // Standard Item (Flat stats)
+            statsTxt += renderStatsObj(item.stats);
         }
     }
     
@@ -70,16 +145,23 @@ function showItemTooltip(e, item) {
             // Recursively show socket stats? Or just name to keep it clean.
             // Let's just show stats for sockets briefly if you want:
             if(sock.stats) {
-                for (let [k, v] of Object.entries(sock.stats)) {
-                     let disp = statConfig[k] ? statConfig[k].replace('%d', v) : `${k}: ${v}`;
-                     statsTxt += `<span style="color:#6969ff; font-size:0.85em;">&nbsp;&nbsp;${disp}</span><br>`;
-                }
+                let inner = renderStatsObj(sock.stats);
+                // Indent the result
+                inner = inner.replace(/class="magic-text"/g, 'style="color:#6969ff; font-size:0.85em;"');
+                inner = inner.replace(/<br>/g, '<br>&nbsp;&nbsp;'); 
+                statsTxt += `&nbsp;&nbsp;${inner}`;
             }
         });
         statsTxt += `</div>`;
     }
 
-    tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small>${statsTxt}`;
+    // Add Required Level to the header if it exists and is > 0
+    let reqLevelHtml = "";
+    if (item.requiredLevel > 0) {
+        reqLevelHtml = `<div style="color: white; font-size: 0.9em; margin-bottom: 5px;">Required Level: ${item.requiredLevel}</div>`;
+    }
+
+    tooltip.innerHTML = `<strong>${item.name}</strong><small class="text-muted">${item.type}</small>${reqLevelHtml}${statsTxt}`;
     tooltip.style.display = 'block';
     moveItemTooltip(e);
 }

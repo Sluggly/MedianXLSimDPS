@@ -1,0 +1,12 @@
+{
+  "name": "Zod Rune",
+  "slot": "Socket",
+  "type": "Rune",
+  "stats": {
+    "Weapon": { "LifeAfterKill": 15 },
+    "Armor": { "LifeAfterKill": 15 },
+    "Shield": { "LifeAfterKill": 15 }
+  },
+  "socketed": [],
+  "requiredLevel": 85
+}
