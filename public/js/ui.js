@@ -45,6 +45,55 @@ const statMergeRules = [
     {
         min: "MinPhysicalDamage", max: "MaxPhysicalDamage",
         format: "Adds %min-%max Damage"
+    },
+    { 
+        min: "OneHandMinDamage", max: "OneHandMaxDamage", 
+        format: "One-Hand Damage: %min to %max",
+        color: "#ffffff" 
+    },
+    { 
+        min: "TwoHandMinDamage", max: "TwoHandMaxDamage", 
+        format: "Two-Hand Damage: %min to %max",
+        color: "#ffffff"
+    },
+    { 
+        min: "SocketsFilled", max: "SocketsMax", 
+        format: "Socketed (%min/%max)" 
+    },
+    {
+        keys: ["Strength", "Dexterity", "Vitality", "Energy"],
+        format: "+%val to All Attributes",
+        color: "#6969ff"
+    },
+    {
+        keys: ["StrengthPercent", "DexterityPercent", "VitalityPercent", "EnergyPercent"],
+        format: "+%val% to All Attributes",
+        color: "#6969ff"
+    },
+    {
+        keys: ["FireResist", "ColdResist", "LightningResist", "PoisonResist"],
+        format: "Elemental Resists +%val%",
+        color: "#6969ff"
+    },
+    {
+        keys: ["MaxFireResist", "MaxColdResist", "MaxLightningResist", "MaxPoisonResist"],
+        format: "Maximum Elemental Resists +%val%",
+        color: "#6969ff"
+    },
+    {
+        keys: ["FireSpellDamage", "ColdSpellDamage", "LightningSpellDamage", "PoisonSpellDamage", "PhysicalMagicalSpellDamage"],
+        format: "+%val% to Spell Damage",
+        color: "#6969ff"
+    },
+    {
+        keys: ["FirePierce", "ColdPierce", "LightningPierce", "PoisonPierce"],
+        format: "-%val% to Enemy Elemental Resistances",
+        color: "#6969ff"
+    },
+    {
+        keys: ["AttackSpeed", "CastSpeed", "HitRecovery", "BlockSpeed"],
+        format: "+%val% Combat Speeds",
+        color: "#6969ff"
     }
 ];
 
@@ -64,26 +113,47 @@ function showItemTooltip(e, item) {
         for (let [key, val] of Object.entries(sObj)) {
             if (processedKeys.has(key)) continue;
             let merged = false;
-            const rule = statMergeRules.find(r => r.min === key || r.max === key);
+            const rule = statMergeRules.find(r => 
+                (r.min === key || r.max === key) || // Pair logic
+                (r.keys && r.keys.includes(key))    // Array logic
+            );
             if (rule) {
-                // Determine if we have both parts
-                const otherKey = (key === rule.min) ? rule.max : rule.min;
-                
-                if (sObj[otherKey] !== undefined) {
-                    // We have a pair! Combine them.
-                    const minVal = (key === rule.min) ? val : sObj[otherKey];
-                    const maxVal = (key === rule.min) ? sObj[otherKey] : val;
+                // 1. Handle Pairs (Min/Max)
+                if (rule.min && rule.max) {
+                    const otherKey = (key === rule.min) ? rule.max : rule.min;
+                    if (sObj[otherKey] !== undefined) {
+                        const minVal = (key === rule.min) ? val : sObj[otherKey];
+                        const maxVal = (key === rule.min) ? sObj[otherKey] : val;
+                        
+                        let displayLine = rule.format.replace('%min', minVal).replace('%max', maxVal);
+                        let style = rule.color ? `style="color: ${rule.color}; font-weight: 500;"` : 'class="magic-text"';
+                        txt += `<span ${style}>${displayLine}</span><br>`;
+                        
+                        processedKeys.add(key);
+                        processedKeys.add(otherKey);
+                        merged = true;
+                    }
+                }
+                // 2. Handle Groups (All Attributes, etc.)
+                else if (rule.keys) {
+                    // Check if ALL keys exist
+                    const allPresent = rule.keys.every(k => sObj[k] !== undefined);
+                    
+                    if (allPresent) {
+                        // Check if ALL values are EQUAL
+                        const firstVal = sObj[rule.keys[0]];
+                        const allEqual = rule.keys.every(k => sObj[k] === firstVal);
 
-                    let displayLine = rule.format
-                        .replace('%min', minVal)
-                        .replace('%max', maxVal);
-                    
-                    txt += `<span class="magic-text">${displayLine}</span><br>`;
-                    
-                    // Mark both as processed
-                    processedKeys.add(key);
-                    processedKeys.add(otherKey);
-                    merged = true;
+                        if (allEqual) {
+                            let displayLine = rule.format.replace('%val', firstVal);
+                            let style = rule.color ? `style="color: ${rule.color}; font-weight: 500;"` : 'class="magic-text"';
+                            txt += `<span ${style}>${displayLine}</span><br>`;
+
+                            // Mark ALL keys as processed
+                            rule.keys.forEach(k => processedKeys.add(k));
+                            merged = true;
+                        }
+                    }
                 }
             }
             if (merged) continue;
@@ -96,19 +166,39 @@ function showItemTooltip(e, item) {
             }
 
             // 2. Known Mapped Stats
-            if (statConfig[key]) {
-                // If it's a boolean flag (true), just print the text
-                if (typeof val === 'boolean' && val === true) {
-                    txt += `<span class="magic-text">${statConfig[key]}</span><br>`;
-                } 
-                // If it's a number, format it
-                else if (typeof val === 'number') {
-                    // Check if value is float (e.g. 25.5), maybe fix to 0 decimals for display unless needed
-                    let displayVal = Number.isInteger(val) ? val : val.toFixed(1);
-                    let formatted = statConfig[key].replace('%d', displayVal);
-                    txt += `<span class="magic-text">${formatted}</span><br>`;
+            const config = statConfig[key];
+            if (config) {
+                // Determine Format and Color
+                // Default color class is .magic-text (blueish), overriden by inline style if provided
+                let formatStr = "";
+                let colorStyle = ""; 
+
+                if (typeof config === 'string') {
+                    formatStr = config;
+                } else {
+                    formatStr = config.format;
+                    colorStyle = `style="color: ${config.color}; font-weight: 500;"`; 
                 }
-            } 
+
+                let displayLine = "";
+
+                // Format the string based on value type
+                if (typeof val === 'boolean' && val === true) {
+                    displayLine = formatStr;
+                } 
+                else if (typeof val === 'number') {
+                    let displayVal = Number.isInteger(val) ? val : val.toFixed(1);
+                    displayLine = formatStr.replace('%d', displayVal);
+                }
+
+                // Append line
+                // If colorStyle exists, use a span with that style. Otherwise use standard class.
+                if (colorStyle) {
+                    txt += `<span ${colorStyle}>${displayLine}</span><br>`;
+                } else {
+                    txt += `<span class="magic-text">${displayLine}</span><br>`;
+                }
+            }
             // 3. Unmapped/Unknown Stats (Fallback)
             else {
                 // Add Spaces to CamelCase (e.g. "MinFireDamage" -> "Min Fire Damage")

@@ -58,8 +58,8 @@ const statMappings = [
     { regex: /\+(\d+) to Dexterity/i, key: "Dexterity" },
     { regex: /\+(\d+) to Vitality/i, key: "Vitality" },
     { regex: /\+(\d+) to Energy/i, key: "Energy" },
-    { regex: /\+(\d+) to all Attributes/i, key: "AllAttributes" },
-    { regex: /\+(\d+)% to All Attributes/i, key: "AllAttributesPercent" },
+    { regex: /\+(\d+) to all Attributes/i, type: "multi", keys: ["Strength", "Dexterity", "Vitality", "Energy"] },
+    { regex: /\+(\d+)% to All Attributes/i, type: "multi", keys: ["StrengthPercent", "DexterityPercent", "VitalityPercent", "EnergyPercent"] },
     { regex: /\+(\d+)% to Strength/i, key: "StrengthPercent" },
     { regex: /\+(\d+)% to Dexterity/i, key: "DexterityPercent" },
     { regex: /\+(\d+)% to Vitality/i, key: "VitalityPercent" },
@@ -80,13 +80,20 @@ const statMappings = [
     { regex: /\+(\d+)% Mana stolen per Hit/i, key: "ManaLeech" },
     { regex: /\+(\d+) Life Regenerated per Second/i, key: "LifeRegen" },
     { regex: /Regenerate Mana \+(\d+)%/i, key: "ManaRegen" },
+    { regex: /Maximum Life and Mana \+?([+-]?\d+)%/i, type: "multi", keys: ["MaxLifePercent", "MaxManaPercent"] },
+    { regex: /([+-]?\d+)% Weapon Damage Taken Restores Mana/i, key: "DamageTakenGoesToMana" },
 
     // --- Damage ---
+    { regex: /One-Hand Damage: (\d+) to (\d+)/i, type: "range", minKey: "OneHandMinDamage", maxKey: "OneHandMaxDamage" },
+    { regex: /Two-Hand Damage: (\d+) to (\d+)/i, type: "range", minKey: "TwoHandMinDamage", maxKey: "TwoHandMaxDamage" },
     { regex: /\+(\d+) to Maximum Damage/i, key: "MaxDamage" },
     { regex: /\+(\d+) to Minimum Damage/i, key: "MinDamage" },
     { regex: /\+(\d+) Damage/i, key: "FlatDamage" },
     { regex: /\+(\d+)% Enhanced Damage/i, key: "EnhancedDamage" },
     { regex: /Weapon Physical Damage \+(\d+)%/i, key: "WeaponPhysicalDamage" },
+    { regex: /([+-]?\d+)% Bonus to Attack Rating/i, key: "AttackRatingPercent" },
+    { regex: /([+-]?\d+)% Chance of Crushing Blow/i, key: "CrushingBlow" },
+    { regex: /([+-]?\d+)% Damage to Undead/i, key: "DamageToUndead" },
 
     // --- Elemental Adds ---
     { regex: /Adds (\d+)-(\d+) Fire Damage/i, type: "range", minKey: "MinFireDamage", maxKey: "MaxFireDamage" },
@@ -98,7 +105,7 @@ const statMappings = [
     { regex: /\+(\d+)% Innate Elemental Damage/i, key: "InnateElementalDamage" },
     
     // --- Spell Damage ---
-    { regex: /\+(\d+)% to Spell Damage/i, key: "SpellDamage" },
+    {  regex: /\+(\d+)% to Spell Damage/i, type: "multi", keys: ["FireSpellDamage", "ColdSpellDamage", "LightningSpellDamage", "PoisonSpellDamage", "PhysicalMagicalSpellDamage"] },
     { regex: /\+(\d+)% to Fire Spell Damage/i, key: "FireSpellDamage" },
     { regex: /\+(\d+)% to Cold Spell Damage/i, key: "ColdSpellDamage" },
     { regex: /\+(\d+)% to Lightning Spell Damage/i, key: "LightningSpellDamage" },
@@ -111,21 +118,21 @@ const statMappings = [
     { regex: /-(\d+)% to Enemy Lightning Resistance/i, key: "LightningPierce" },
     { regex: /-(\d+)% to Enemy Cold Resistance/i, key: "ColdPierce" },
     { regex: /-(\d+)% to Enemy Poison Resistance/i, key: "PoisonPierce" },
-    { regex: /-(\d+)% to Enemy Elemental Resistances/i, key: "ElementalPierce" },
-
+    { regex: /-(\d+)% to Enemy Elemental Resistances/i, type: "multi", keys: ["FirePierce", "ColdPierce", "LightningPierce", "PoisonPierce"] },
+    
     // --- Max Resists ---
     { regex: /Maximum Fire Resist \+(\d+)%/i, key: "MaxFireResist" },
     { regex: /Maximum Cold Resist \+(\d+)%/i, key: "MaxColdResist" },
     { regex: /Maximum Lightning Resist \+(\d+)%/i, key: "MaxLightningResist" },
     { regex: /Maximum Poison Resist \+(\d+)%/i, key: "MaxPoisonResist" },
-    { regex: /Maximum Elemental Resists \+(\d+)%/i, key: "MaxElementalResist" },
+    { regex: /Maximum Elemental Resists \+(\d+)%/i, type: "multi", keys: ["MaxFireResist", "MaxColdResist", "MaxLightningResist", "MaxPoisonResist"] },
 
     // --- Resists ---
     { regex: /Fire Resist \+(\d+)%/i, key: "FireResist" },
     { regex: /Cold Resist \+(\d+)%/i, key: "ColdResist" },
     { regex: /Lightning Resist \+(\d+)%/i, key: "LightningResist" },
     { regex: /Poison Resist \+(\d+)%/i, key: "PoisonResist" },
-    { regex: /Elemental Resists \+(\d+)%/i, key: "ElementalResist" },
+    { regex: /Elemental Resists \+(\d+)%/i, type: "multi", keys: ["FireResist", "ColdResist", "LightningResist", "PoisonResist"] },
     { regex: /Physical Resist \+(\d+)%/i, key: "PhysicalResist" },
     { regex: /Magic Resist \+(\d+)%/i, key: "MagicalResist" },
 
@@ -140,7 +147,7 @@ const statMappings = [
     { regex: /Cold Absorb \+(\d+)%/i, key: "AbsorbCold" },
     { regex: /Lightning Absorb \+(\d+)%/i, key: "AbsorbLightning" },
 
-    // --- Skills & Misc ---
+    // --- Skills ---
     { regex: /\+(\d+) to All Skills/i, key: "AllSkill" },
     { regex: /\+(\d+) to Amazon Skill Levels/i, key: "AmazonSkill" },
     { regex: /\+(\d+) to Assassin Skill Levels/i, key: "AssassinSkill" },
@@ -150,35 +157,45 @@ const statMappings = [
     { regex: /\+(\d+) to Paladin Skill Levels/i, key: "PaladinSkill" },
     { regex: /\+(\d+) to Sorceress Skill Levels/i, key: "SorceressSkill" },
     { regex: /\+(\d+)% Cast Speed/i, key: "CastSpeed" },
-    { regex: /\+(\d+)% Attack Speed/i, key: "AttackSpeed" },
+    { regex: /([+-]?\d+)% Attack Speed/i, key: "AttackSpeed" },
     { regex: /\+(\d+)% Hit Recovery/i, key: "HitRecovery" },
     { regex: /\+(\d+)% Block Speed/i, key: "BlockSpeed" },
     { regex: /\+(\d+)% Movement Speed/i, key: "MovementSpeed" },
+    { regex: /([+-]?\d+)% Combat Speeds/i, type: "multi", keys: ["AttackSpeed", "CastSpeed", "HitRecovery", "BlockSpeed"] },
     { regex: /\+(\d+)% Base Block Chance/i, key: "BaseBlock" },
-    { regex: /\+(\d+)% Magic Find/i, key: "MagicFind" },
-    { regex: /\+(\d+)% Gold Find/i, key: "GoldFind" },
-    { regex: /\+(\d+)% Experience Gained/i, key: "ExpGained" },
-    { regex: /\+(\d+) to Light Radius/i, key: "LightRadius" },
+    { regex: /([+-]?\d+)% Magic Find/i, key: "MagicFind" },
+    { regex: /([+-]?\d+)% Gold Find/i, key: "GoldFind" },
+    { regex: /([+-]?\d+)% Experience Gained/i, key: "ExpGained" },
+    { regex: /([+-]?\d+)% to Experience Gained/i, key: "ExpGained" },
+    { regex: /([+-]?\d+) to Light Radius/i, key: "LightRadius" },
     { regex: /Poison Length Reduction \+(\d+)%/i, key: "PLR" },
     { regex: /Curse Length Reduction \+(\d+)%/i, key: "CLR" },
     { regex: /Target Takes Additional Damage of (\d+)/i, key: "FlatDamageTaken" },
     { regex: /Physical Damage Taken Reduced by (\d+)/i, key: "PDRFlat" },
     { regex: /Slows Attacker by \+(\d+)%/i, key: "SlowAttacker" },
     { regex: /Slow Target \+(\d+)%/i, key: "SlowTarget" },
-    { regex: /Requirements ([+-]\d+)%/i, key: "RequirementsPercent" },
 
     // --- Defense ---
     { regex: /\+(\d+)% Enhanced Defense/i, key: "EnhancedDefense" },
     { regex: /\+(\d+)% Bonus to Defense/i, key: "BonusDefense" },
-    { regex: /\+(\d+) Defense/i, key: "FlatDefense" },
+    { regex: /([+-]?\d+) Defense/i, key: "FlatDefense" },
 
     // --- Procs & Reanimate (Stores as string or boolean count) ---
     { regex: /(\d+)% Chance to cast level \d+ .* on .*/i, key: "Proc" }, // Just counts procs for now
     { regex: /(\d+)% Reanimate as: .*/i, key: "Reanimate" },
 
+    // --- Miscs ---
+    { regex: /Requirements ([+-]\d+)%/i, key: "RequirementsPercent" },
+    { regex: /([+-]?\d+) Required Level/i, key: "RequiredLevel" },
+
+    // --- Conditionals ---
+    { regex: /\+(\d+) Lightning Damage per (\d+)% Bonus to Defense/i, type: "range", minKey: "LightDmgPerDef_Amt", maxKey: "LightDmgPerDef_Per" },
+    { regex: /\+(\d+) Lightning Damage per (\d+)% Total Physical Weapon Damage Bonus/i, type: "range", minKey: "LightDmgPerPhys_Amt", maxKey: "LightDmgPerPhys_Per" },
+
     // --- Flags (Booleans) ---
     // We treat these as value = 1
     { regex: /Orb Effects Applied to this Item are Doubled/i, key: "OrbDoubler", type: "boolean" },
+    { regex: /Can spawn any oSkill from Rare Affixes/i, key: "CanSpawnOSkill", type: "boolean" },
     { regex: /Indestructible/i, key: "Indestructible", type: "boolean" },
     { regex: /Cannot Be Frozen/i, key: "CannotBeFrozen", type: "boolean" },
     { regex: /Cannot be Renewed/i, key: "CannotBeRenewed", type: "boolean" },
@@ -231,10 +248,14 @@ function parseStatsFromText(rawLines) {
         }
     };
 
+    let lineNumber = 0;
     rawLines.forEach(line => {
         if(!line || line.trim() === "") return;
 
+        lineNumber++;
+        if (lineNumber === 1) return;
         let matched = false;
+        line = line.replace(/\s*\[\d+\s+to\s+\d+\]\s*$/, '').trim();
 
         for (const map of statMappings) {
             const match = line.match(map.regex);
@@ -244,11 +265,15 @@ function parseStatsFromText(rawLines) {
                     addStat(map.minKey, parseInt(match[1]));
                     addStat(map.maxKey, parseInt(match[2]));
                 }
+                else if (map.type === "multi") {
+                    const val = parseInt(match[1]);
+                    map.keys.forEach(k => addStat(k, val));
+                }
                 else if (map.type === "sockets") {
                     stats[map.filledKey] = parseInt(match[1]);
                     stats[map.maxKey] = parseInt(match[2]);
                 }
-                else if (map.type === "Boolean") {
+                else if (map.type === "boolean") {
                     stats[map.key] = true;
                 } 
                 else if (map.key === "OSkill") {
@@ -275,18 +300,11 @@ function parseStatsFromText(rawLines) {
 
         // 3. Check if it's an Item Name/Type (using your lists)
         if (!matched) {
-            if (isItemNameOrType(line)) {
-                matched = true;
-            }
+            if (isItemNameOrType(line)) { matched = true; }
         }
 
         // 4. Log Unhandled
-        if (!matched) {
-            // Filter out short lines or single words that might be names/types missed by list
-            if(line.length > 2) {
-                console.warn(`[UNHANDLED STAT]: "${line}"`);
-            }
-        }
+        if (!matched) { console.warn(`[UNHANDLED STAT]: "${line}"`); }
     });
     return stats;
 }
@@ -449,7 +467,11 @@ function processItems(rawItems) {
         if (slot === "Inventory" || !slot) { slot = getSlotByType(type); }
         if (slot === "Misc" || slot === "Unknown") { return acc; }
 
-        const lines = parseTooltipToLines(i.tooltipHtml);
+        let lines = parseTooltipToLines(i.tooltipHtml);
+
+        // Separate socketed items from item stats
+        const socketLineIndex = lines.findIndex(line => /Socketed \(\d+\/\d+\)/i.test(line));
+        if (socketLineIndex !== -1) { lines = lines.slice(0, socketLineIndex + 1); }
 
         let reqLvl = 0;
         const reqLvlRegex = /Required Level: (\d+)/i;

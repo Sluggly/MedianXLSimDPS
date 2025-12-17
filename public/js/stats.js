@@ -63,13 +63,20 @@ const statConfig = {
     "ManaLeech": "%d% Mana stolen per Hit",
     "LifeRegen": "+%d Life Regenerated per Second",
     "ManaRegen": "Regenerate Mana +%d%",
+    "DamageTakenGoesToMana": "+%d% Weapon Damage Taken Restores Mana",
 
     // Damage
+    "OneHandMinDamage": "One-Hand Damage: %d to ",
+    "OneHandMaxDamage": "%d",
+    "TwoHandMinDamage": "Two-Hand Damage: %d to ",
+    "TwoHandMaxDamage": "%d",
     "MaxDamage": "+%d to Maximum Damage",
     "MinDamage": "+%d to Minimum Damage",
     "FlatDamage": "+%d Damage",
     "EnhancedDamage": "+%d% Enhanced Damage",
     "WeaponPhysicalDamage": "Weapon Physical Damage +%d%",
+    "CrushingBlow": "+%d% Chance of Crushing Blow",
+    "DamageToUndead": "+%d% Damage to Undead",
     
     // Spell Damage
     "SpellDamage": "+%d% to Spell Damage",
@@ -145,7 +152,8 @@ const statConfig = {
     "PDRFlat": "Physical Damage Taken Reduced by %d",
     "SlowAttacker": "Slows Attacker by +%d%",
     "SlowTarget": "Slow Target +%d%",
-    "RequirementsPercent": "Requirements %d%", // Value is usually negative in data e.g. -20
+    "RequirementsPercent": "Requirements %d%",
+    "RequiredLevel": "%d Required Level",
 
     // Defense
     "EnhancedDefense": "+%d% Enhanced Defense",
@@ -153,14 +161,15 @@ const statConfig = {
     "FlatDefense": "+%d Defense",
 
     // Booleans (The value won't be used, just the text)
-    "OrbDoubler": "Orb Effects Applied to this Item are Doubled",
+    "OrbDoubler": { format: "Orb Effects Applied to this Item are Doubled", color: "#d4af37" },
+    "CanSpawnOSkill": { format: "Can spawn any oSkill from Rare Affixes", color: "#d4af37" },
     "Indestructible": "Indestructible",
     "CannotBeFrozen": "Cannot Be Frozen",
     "CannotBeRenewed": "Cannot be Renewed",
     "CannotBeCrafted": "Cannot be Crafted",
-    "ShrineBlessed": "Shrine Blessed",
-    "AlreadyUpgraded": "Already Upgraded",
-    "Corrupted": "Corrupted",
+    "ShrineBlessed": { format: "Shrine Blessed", color: "#d4af37" },
+    "AlreadyUpgraded": { format: "Already Upgraded", color: "#d4af37" },
+    "Corrupted": { format: "Corrupted", color: "#ff0000" },
     "Ethereal": "Ethereal",
     "HalfFreezeDuration": "Half Freeze Duration",
 
