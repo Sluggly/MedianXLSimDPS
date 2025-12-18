@@ -4,7 +4,10 @@ async function scrapeCharacterData(url) {
     console.log("Scraping URL:", url);
     let browser = null;
     try {
-        browser = await puppeteer.launch(); // { headless: false } for debugging
+        browser = await puppeteer.launch({
+            headless: "new", 
+            args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+        });
         const page = await browser.newPage();
 
         // Set User Agent to avoid being blocked
