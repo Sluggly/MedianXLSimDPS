@@ -291,3 +291,29 @@ th.sortable.desc::after {
     padding: 0 4px;
     font-weight: bold;
 }
+
+/* Update .skill-grid-bg or container */
+#skill-grid-container {
+    position: relative; /* Essential for absolute positioning of SVG */
+}
+
+/* New SVG Class */
+.skill-arrows-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Let clicks pass through to nodes */
+    z-index: 0; /* Behind nodes (assuming nodes are z-index 1 or higher) */
+}
+
+.skill-arrow-line {
+    stroke: #666; /* Grey for unavailable/standard */
+    stroke-width: 2;
+    fill: none;
+}
+
+.skill-arrow-line.active {
+    stroke: #d4af37; /* Gold if dependency met or skill learned */
+}
