@@ -1,0 +1,635 @@
+{
+  "className": "Sorceress",
+  "tabs": [
+    {
+      "name": "Arcane",
+      "skills": [
+        {
+          "name": "Immersion",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - An energy wave dealing damage based on lost mana."
+        },
+        {
+          "name": "Arcane Torrent",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Immersion"], 
+          "description": "Spell - Devastate enemies in front of you with arcane power."
+        },
+        {
+          "name": "Raven Familiar",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Arcane Torrent"], 
+          "description": "Special Summon - Grants an aura which increases caster prowess."
+        },
+        {
+          "name": "Mana Sweep",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Raven Familiar"], 
+          "description": "Spell - Steals mana and damages nearby enemies based on lost mana."
+        },
+        {
+          "name": "Superposition",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Raven Familiar"], 
+          "description": "Warp - Short ranged teleport."
+        },
+        {
+          "name": "Antimass",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Raven Familiar"], 
+          "description": "Spell - Converts your mana to health."
+        },
+        {
+          "name": "Arcane Fury",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Antimass"], 
+          "description": "Buff - Unleash powerful reserves of arcane energy."
+        }
+      ]
+    },
+    {
+      "name": "Fire",
+      "skills": [
+        {
+          "name": "Flamefront",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Casts a wave of exploding firebolts in front of you."
+        },
+        {
+          "name": "Incineration",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Flamefront"],
+          "description": "Upgrade - Your mana empowers Flamefront."
+        },
+        {
+          "name": "Pyroblast",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Flamefront"],
+          "description": "Spell - A massive boulder of fire that explodes on impact."
+        },
+        {
+          "name": "Pyre",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 60,
+          "reqSkills": ["Pyroblast"],
+          "description": "Upgrade - You gain physical resistance while casting Pyroblast."
+        },
+        {
+          "name": "Flamestrike",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Pyroblast"],
+          "description": "Spell - Calls down a massive pillar of flames from the sky."
+        },
+        {
+          "name": "Havoc",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 60,
+          "reqSkills": ["Flamestrike"],
+          "description": "Spell - A devastating fiery incantation."
+        }
+      ]
+    },
+    {
+      "name": "Lightning",
+      "skills": [
+        {
+          "name": "Forked Lightning",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Casts multiple bolts of lightning to scorch your enemies."
+        },
+        {
+          "name": "Thunderstone",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Forked Lightning"],
+          "description": "Spell - Throw a charged stone that emits charged bolts on impact."
+        },
+        {
+          "name": "Eye of the Storm",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Thunderstone"],
+          "description": "Upgrade - You become shielded while casting thunderstone."
+        },
+        {
+          "name": "Tempest",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Thunderstone"],
+          "description": "Spell - Casts powerful lightning bolts at all nearby enemies."
+        },
+        {
+          "name": "Mind Spark",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Tempest"],
+          "description": "Upgrade - Your energy reserves enhance Tempest."
+        },
+        {
+          "name": "Entanglement",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Tempest"],
+          "description": "Upgrade - Superposition leaves you entangled."
+        }
+      ]
+    },
+    {
+      "name": "Cold",
+      "skills": [
+        {
+          "name": "Frigid Nova",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Melee Spell - Emit a wave of creeping frozen doom."
+        },
+        {
+          "name": "Crystalline Barrier",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Frigid Nova"],
+          "description": "Buff - A protective shield freezing melee attackers."
+        },
+        {
+          "name": "Glacial Torrent",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Crystalline Barrier"],
+          "description": "Attack - Unleash a freezing cascade through your weapon."
+        },
+        {
+          "name": "Wintertide",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Glacial Torrent"],
+          "description": "Warp Strike - Teleports you to a target enemy."
+        },
+        {
+          "name": "Rime",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Wintertide"],
+          "description": "Upgrade - Your energy reserves improve Wintertide."
+        },
+        {
+          "name": "Hoar Frost",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Wintertide"],
+          "description": "Upgrade - Adds cold damage to Wintertide."
+        },
+        {
+          "name": "Frostborn",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Wintertide"],
+          "description": "Passive - Empowers your cold tree spells."
+        }
+      ]
+    },
+    {
+      "name": "Poison",
+      "skills": [
+        {
+          "name": "Lorenado",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Whirlwind of cursed books and forbidden knowledge."
+        },
+        {
+          "name": "Decay",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Miasma"],
+          "description": "Upgrade - Greatly increases haunt duration."
+        },
+        {
+          "name": "Miasma",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Lorenado"],
+          "description": "Spell - Field of living black magic that poisons and haunts enemies."
+        },
+        {
+          "name": "Elucidation",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Lorenado"],
+          "description": "Upgrade - Number of Lorenadoes increase with poison duration."
+        },
+        {
+          "name": "Arachnomancy",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Miasma"],
+          "description": "Spell - A mass of venomous spiders envelops the target."
+        },
+        {
+          "name": "Blight",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Arachnomancy"],
+          "description": "Passive - Energy enhances entropy."
+        }
+      ]
+    },
+    {
+      "name": "Melee",
+      "skills": [
+        {
+          "name": "Mooncall",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Buff - Improves your melee combat prowess."
+        },
+        {
+          "name": "Bladestorm",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 3,
+          "reqSkills": ["Mooncall"],
+          "description": "Attack - Unleash magical homing blades."
+        },
+        {
+          "name": "Determination",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Bladestorm"],
+          "description": "Passive - Offense is the best defense."
+        },
+        {
+          "name": "Primordial Might",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Bladestorm"],
+          "description": "Upgrade - Mooncall increases elemental power instead of physical."
+        },
+        {
+          "name": "Fatal Focus",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Determination"],
+          "description": "Passive - Increases your deadly strike at the cost of your maximum block chance."
+        },
+        {
+          "name": "Cold Blooded",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Primordial Might"],
+          "description": "Upgrade - Using Bladestorm with a crystal sword triggers a glacial burst."
+        },
+        {
+          "name": "Fusillade",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Bladestorm"],
+          "description": "Projectile - A mystic trap that spits waves of bladed steel."
+        },
+        {
+          "name": "Arcane Sustenance",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Fusillade"],
+          "description": "Upgrade - Mana Shield is improved while Fusillade is active."
+        },
+        {
+          "name": "Premonition",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": ["Fusillade"],
+          "description": "Upgrade - Maximum block chance is increased durig Fusillade."
+        }
+      ]
+    },
+    {
+      "name": "Mastery",
+      "skills": [
+        {
+          "name": "Meditation",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum mana and mana regeneration."
+        },
+        {
+          "name": "Purity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Protects you against poison damage and curses."
+        },
+        {
+          "name": "Melee Devotion",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - A melee exclusive layer of damage protection."
+        },
+        {
+          "name": "Freedom",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases defensive speeds and reduces chilled duration."
+        },
+        {
+          "name": "Tenacity",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases physical resistance."
+        },
+        {
+          "name": "Endurance",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum life."
+        },
+        {
+          "name": "Continuity",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the duration of your buff/debuff skills."
+        },
+        {
+          "name": "Specialization",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the skill cap of your activate [Non-Ultimate] Abilities."
+        },
+        {
+          "name": "Chemistry",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases potion effectiveness compared to other sustain."
+        }
+      ]
+    },
+    {
+      "name": "Coven",
+      "skills": [
+        {
+          "name": "Living Flame",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": [],
+          "description": "Passive - Grants life regeneration and increases max life."
+        },
+        {
+          "name": "Firedance",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Living Flame"],
+          "description": "Buff - A circle of sacred fire that empowers spells and attacks."
+        },
+        {
+          "name": "Warp Armor",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": [],
+          "description": "Passive - Magically increases your total defense rating."
+        },
+        {
+          "name": "Nova Charge",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Warp Armor"],
+          "description": "Buff - Periodically discharge static novas when near enemies."
+        },
+        {
+          "name": "Snow Queen",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": [],
+          "description": "Passive - Block chance based on energy and damage to class spells."
+        },
+        {
+          "name": "Ice Elementals",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Snow Queen"],
+          "description": "Summon - Ice elementals with a freezing nova attack."
+        },
+        {
+          "name": "Vengeful Power",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": [],
+          "description": "Passive - Increases spell damage when struck and crushes attackers."
+        },
+        {
+          "name": "Hive",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Vengeful Power"],
+          "description": "Buff - Periodically unleash deadly insect swarms when near enemies."
+        }
+      ]
+    },
+    {
+      "name": "Reward",
+      "skills": [
+        {
+          "name": "Symbol of Esu",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Increases your elemental absorption and spell focus."
+        },
+        {
+          "name": "Force Blast",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": [],
+          "description": "Debuff - Sonic blast that weakens enemies."
+        },
+        {
+          "name": "Chronofield",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Curse - Warp spacetime to slow enemies and distort matter."
+        },
+        {
+          "name": "Witch Blood",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Sorceress spells cast from a full life orb do more damage."
+        },
+        {
+          "name": "Baneblade",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Buff - Gain the powers of a warrior crowned by the goddess."
+        },
+        {
+          "name": "Paragon of Fate",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Library of Fate progression."
+        },
+        {
+          "name": "Paragon of Sanctity",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Duncraig progression."
+        }
+      ]
+    }
+  ]
+}

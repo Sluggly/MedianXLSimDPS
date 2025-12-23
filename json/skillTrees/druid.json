@@ -1,0 +1,630 @@
+{
+  "className": "Druid",
+  "tabs": [
+    {
+      "name": "Nature",
+      "skills": [
+        {
+          "name": "Harvest",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Harvest the ground, poisoning enemies and restoring life."
+        },
+        {
+          "name": "Infected Roots",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Harvest"], 
+          "description": "Spell - Grow poisonous roots that infect enemies."
+        },
+        {
+          "name": "Barkskin",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Harvest"], 
+          "description": "Passive - The resiliency of nature imbues your flesh."
+        },
+        {
+          "name": "Devouring Cloud",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Barkskin"], 
+          "description": "Spell - Advancing contagion that creates deadly acid clouds on impact."
+        },
+        {
+          "name": "Harvesters",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Barkskin"], 
+          "description": "Summon - Ferocious plant creatures with a poison attack."
+        },
+        {
+          "name": "Bloom",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Harvesters"], 
+          "description": "Upgrade - Harvesters gain an aura that increases efficiency for the party."
+        },
+        {
+          "name": "Growth",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 35,
+          "reqSkills": ["Harvesters"], 
+          "description": "Passive - Increased resistances make the Harvesters ripe for battle."
+        }
+      ]
+    },
+    {
+      "name": "Werebear",
+      "skills": [
+        {
+          "name": "Werebear Morph",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Morph - Transform into a deadly werebear with exceptional life and damage."
+        },
+        {
+          "name": "Rend",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 4,
+          "reqSkills": ["Werebear Morph"],
+          "description": "Attack - Impale your enemies on a burst of spines."
+        },
+        {
+          "name": "Bestial Potency",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Werebear Morph"],
+          "description": "Upgrade - The magic pervading the Werebear form slows down your prey."
+        },
+        {
+          "name": "Ravage",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Rend"],
+          "description": "Attack - Recklessly tear through an area causing death and destruction."
+        },
+        {
+          "name": "Wildfire",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Rend"],
+          "description": "Melee Spell - Your unrelenting might burns as wildfire through demonic ranks."
+        },
+        {
+          "name": "Primal Dominance",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Bestial Potency"],
+          "description": "Upgrade - Your bestial senses boost battle proficiency."
+        },
+        {
+          "name": "Idol of Scosglen",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Ravage"],
+          "description": "Buff - Transmutes the surrounding air into a layer of impervious stone."
+        },
+        {
+          "name": "Ancestral Protection",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Idol of Scosglen"],
+          "description": "Upgrade - A blessing from Fiabla-Gear become unbreakable like the ridges of Scosglen under its cold storms."
+        },
+        {
+          "name": "Hunger",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Primal Dominance"],
+          "description": "Passive - Recover lost life by eating your enemies."
+        },
+        {
+          "name": "Ancestral Force",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Idol of Scosglen"],
+          "description": "Upgrade - A blessing from Bul-Kathos emit heavy shockwaves like the winds of Scosglen against its invaders."
+        }
+      ]
+    },
+    {
+      "name": "Werewolf",
+      "skills": [
+        {
+          "name": "Werewolf Form",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": [],
+          "description": "Morph - Transform into a nocturnal hunter with savage melee abilities."
+        },
+        {
+          "name": "Mana Pulse",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 3,
+          "reqSkills": ["Werewolf Form"],
+          "description": "Attack - Gelid melee strike that restores mana and stamina."
+        },
+        {
+          "name": "Ceaseless Fury",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 6,
+          "reqSkills": ["Harbinger"],
+          "description": "Upgrade - A reduced cooldown enables a limitless ferociousness."
+        },
+        {
+          "name": "Harbinger",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": [],
+          "description": "Warp Strike - Collide with prey in a surge of ravenous hunger."
+        },
+        {
+          "name": "Feed the Pack",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Harbinger"],
+          "description": "Passive - Reanimate feral wolf spirits and heal your wounds."
+        },
+        {
+          "name": "Twisted Claw",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Feed the Pack"],
+          "description": "Attack - Melee hit which unleashes a spiral of damaging twisters."
+        },
+        {
+          "name": "Feral Escalation",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Mana Pulse"],
+          "description": "Passive - Adds deadly strike chance during wolf form, but causes your mana to drain even faster."
+        },
+        {
+          "name": "Howl of the Spirits",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Feed the Pack"],
+          "description": "Buff - The feral call echoes in the fury of the hunt."
+        }
+      ]
+    },
+    {
+      "name": "Wereowl",
+      "skills": [
+        {
+          "name": "Earth Talons",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 3,
+          "reqSkills": ["Wereowl Form"],
+          "description": "Projectile - Create a wall of surging spikes below your preys."
+        },
+        {
+          "name": "Wereowl Form",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Morph - Transform into a mythical creature with deadly capabilities."
+        },
+        {
+          "name": "Charged Talons",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 9,
+          "reqSkills": ["Earth Talons"],
+          "description": "Upgrade - The sharp spikes puncture the enemy and shocks its body."
+        },
+        {
+          "name": "Ferocity",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 6,
+          "reqSkills": ["Wereowl Form"],
+          "description": "Upgrade - Your predatory instincts enhance your lethality."
+        },
+        {
+          "name": "Raid",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 12,
+          "reqSkills": ["Earth Talons"],
+          "description": "Projecitle - Sever nearby enemies with a burst of angry birds."
+        },
+        {
+          "name": "Egg Trap",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 24,
+          "reqSkills": ["Raid"],
+          "description": "Projectile - Lay a fiery egg which hatches a flock of predatory birds."
+        },
+        {
+          "name": "Steel Wings",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Ferocity","Raid"],
+          "description": "Upgrade - Increases your chance to block while in Wereowl Form."
+        },
+        {
+          "name": "Progeny's Blessing",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Egg Trap"],
+          "description": "Upgrade - Egg Traps empower you upon hatching."
+        }
+      ]
+    },
+    {
+      "name": "Hunter",
+      "skills": [
+        {
+          "name": "Steady Shot",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Projectile - Focuses the hunter for more complex shot."
+        },
+        {
+          "name": "Cascade",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 3,
+          "reqSkills": ["Steady Shot"],
+          "description": "Projectile - Rains a volley of arrows on a large area."
+        },
+        {
+          "name": "Erupting Strike",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Steady Shot","Cascade","Heartseeker"],
+          "description": "Upgrade - Increases the fire damage of your hunter skills."
+        },
+        {
+          "name": "Heartseeker",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Steady Shot"],
+          "description": "Projectile - Magical homing arrows seek out your foes."
+        },
+        {
+          "name": "Bear Companion",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Heartseeker"],
+          "description": "Summon - Hunters are bonded to an animal from a young age."
+        },
+        {
+          "name": "Primal Bond",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Bear Companion"],
+          "description": "Passive - Increases weapon physical damage based on summon resists."
+        },
+        {
+          "name": "Heart of the Pack",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Bear Companion"],
+          "description": "Upgrade - The link with your companion manifests as a powerful party buff."
+        },
+        {
+          "name": "Pathfinder",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 35,
+          "reqSkills": ["Heart of the Pack"],
+          "description": "Passive - Increases your damage and mobility."
+        },
+        {
+          "name": "Tracking",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Pathfinder"],
+          "description": "Passive - The expertise of an hunter traces your path to greater heights."
+        }
+      ]
+    },
+    {
+      "name": "Seer",
+      "skills": [
+        {
+          "name": "Ember Spirit",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Set the path for the blind charge of a fiery spirit."
+        },
+        {
+          "name": "Hunting Banshee",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 8,
+          "reqSkills": [],
+          "description": "Spell - An icy wraith tracks down nearby enemies."
+        },
+        {
+          "name": "Pagan Rites",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 12,
+          "reqSkills": ["Ember Spirit","Hunting Banshee"],
+          "description": "Spell - Engulfs corpses in flames, healing you with each sacrifice."
+        },
+        {
+          "name": "Rain of Fire",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Ember Spirit"],
+          "description": "Spell - Target enemy as a focus for a slowly expanding rain of embers."
+        },
+        {
+          "name": "Spiritual Alignment",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Pagan Rites"],
+          "description": "Passive - Increases your fire and cold spell damage."
+        },
+        {
+          "name": "Armageddon",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Rain of Fire","Spiritual Alignment"],
+          "description": "Buff - Rain meteors from the sky to obliterate your foes."
+        },
+        {
+          "name": "Frigid Domain",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Spiritual Alignment"],
+          "description": "Buff - Conjure a field of frozen air that slows nearby enemies."
+        }
+      ]
+    },
+    {
+      "name": "Mastery",
+      "skills": [
+        {
+          "name": "Meditation",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum mana and mana regeneration."
+        },
+        {
+          "name": "Purity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Protects you against poison damage and curses."
+        },
+        {
+          "name": "Melee Devotion",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - A melee exclusive layer of damage protection."
+        },
+        {
+          "name": "Freedom",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases defensive speeds and reduces chilled duration."
+        },
+        {
+          "name": "Tenacity",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases physical resistance."
+        },
+        {
+          "name": "Endurance",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum life."
+        },
+        {
+          "name": "Continuity",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the duration of your buff/debuff skills."
+        },
+        {
+          "name": "Specialization",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the skill cap of your activate [Non-Ultimate] Abilities."
+        },
+        {
+          "name": "Chemistry",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases potion effectiveness compared to other sustain."
+        }
+      ]
+    },
+    {
+      "name": "Reward",
+      "skills": [
+        {
+          "name": "Mythal",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Debuff - Field of wild magic that pierces resistances."
+        },
+        {
+          "name": "Symbiosis",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": [],
+          "description": "Buff - Harmony with nature allows druids to develop the traits of Scosglen's wilderness."
+        },
+        {
+          "name": "Vine Companion",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Special Summon - Invoke a poisonous ally that petrifies enemies and empowers you."
+        },
+        {
+          "name": "Survival Instinct",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Survival in Harsh conditions has taught you well."
+        },
+        {
+          "name": "Faerie Fire",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Buff - Protects you and leaves a trail of dazzling lights that damage enemies."
+        },
+        {
+          "name": "Paragon of Fate",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Library of Fate progression."
+        },
+        {
+          "name": "Paragon of Sanctity",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Duncraig progression."
+        }
+      ]
+    }
+  ]
+}

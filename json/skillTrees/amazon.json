@@ -201,7 +201,7 @@
           "maxLevel": 25,
           "reqLevel": 5,
           "reqSkills": [],
-          "description": "Passive - Increases block and grants bonuses for a short time after blocking ."
+          "description": "Passive - Increases block and grants bonuses for a short time after blocking."
         },
         {
           "name": "Bulwark",

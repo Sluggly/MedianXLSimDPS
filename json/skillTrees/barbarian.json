@@ -154,40 +154,31 @@
           "description": "Passive - Amplifies your physical prowess and nullifies your elemental power."
         },
         {
-          "name": "Wyrmshot",
-          "row": 4,
-          "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 30,
-          "reqSkills": ["Dragonlore"],
-          "description": "Projectile - Fire a dragon spirit that bombards nearby enemies with spines."
-        },
-        {
-          "name": "Elemental Command",
-          "row": 4,
-          "col": 3,
-          "maxLevel": 25,
-          "reqLevel": 25,
-          "reqSkills": ["Barrage"],
-          "description": "Passive - Increases the elemental power of your arrows."
-        },
-        {
-          "name": "Phalanx",
+          "name": "Tectonics",
           "row": 5,
           "col": 1,
           "maxLevel": 25,
-          "reqLevel": 30,
-          "reqSkills": ["Fire at Will"],
-          "description": "Projectile - Create a legion of deadly archers to attack enemies."
+          "reqLevel": 110,
+          "reqSkills": ["Heart of Stone"],
+          "description": "Upgrade - Your Earthquakes trigger Shower of Rocks if powerful enough."
         },
         {
-          "name": "Keen Sight",
+          "name": "Shower of Rocks",
           "row": 5,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 40,
-          "reqSkills": ["Wyrmshot"],
-          "description": "Upgrade - Increases the seek range of Wyrmshot and gives critical strike chance with Bow and Crossbows."
+          "reqLevel": 25,
+          "reqSkills": ["Thunder Slam"],
+          "description": "Attack - A cascade of rocks, damaging and weakening enemies."
+        },
+        {
+          "name": "Aftermath",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Shower of Rocks"],
+          "description": "Upgrade - Shower of Rocks is improved by the might of Arreat."
         }
       ]
     },
@@ -195,103 +186,67 @@
       "name": "Windcarver",
       "skills": [
         {
-          "name": "Scorpion Sting",
+          "name": "Whirlwind",
           "row": 1,
-          "col": 1,
+          "col": 2,
           "maxLevel": 25,
           "reqLevel": 25,
-          "reqSkills": ["Impale"],
-          "description": "Passive - Increases your physical and poison damage."
+          "reqSkills": [],
+          "description": "Attack - Become one with the wind in a dance of death."
         },
         {
-          "name": "Impale",
-          "row": 1,
-          "col": 2,
+          "name": "Precision",
+          "row": 2,
+          "col": 1,
           "maxLevel": 25,
           "reqLevel": 10,
-          "reqSkills": ["Eviscerate"],
-          "description": "Attack - A powerful strike exposing your enemy's weakness."
+          "reqSkills": ["Whirlwind"],
+          "description": "Upgrade - Makes your Whirlwind attacks more accurate."
         },
         {
-          "name": "Deadly Dance",
-          "row": 1,
+          "name": "Savagery",
+          "row": 3,
           "col": 3,
           "maxLevel": 25,
           "reqLevel": 20,
-          "reqSkills": ["Impale"],
-          "description": "Passive - Adds your crushing blow as deadly strike."
+          "reqSkills": ["Whirlwind"],
+          "description": "Upgrade - Adds deadly strike to your attacks during Whirlwind."
         },
         {
-          "name": "Noxious Mastery",
-          "row": 3,
-          "col": 1,
-          "maxLevel": 25,
-          "reqLevel": 100,
-          "reqSkills": [],
-          "description": "Passive - Improves Curare and your defences."
-        },
-        {
-          "name": "Eviscerate",
-          "row": 3,
-          "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 1,
-          "reqSkills": [],
-          "description": "Projectile - Throw hollow point javelins splitting into shrapnel on impact."
-        },
-        {
-          "name": "Gemling",
-          "row": 3,
-          "col": 3,
-          "maxLevel": 25,
-          "reqLevel": 100,
-          "reqSkills": [],
-          "description": "Passive - Improves damage based on socketed gems."
-        },
-        {
-          "name": "Shieldmaiden",
+          "name": "Stoneskin",
           "row": 4,
-          "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 5,
-          "reqSkills": [],
-          "description": "Passive - Increases block and grants bonuses for a short time after blocking ."
-        },
-        {
-          "name": "Bulwark",
-          "row": 5,
           "col": 1,
           "maxLevel": 25,
-          "reqLevel": 50,
-          "reqSkills": ["Elemental Aegis"],
-          "description": "Passive - Increases your physical resistance."
+          "reqLevel": 30,
+          "reqSkills": ["Whirlwind"],
+          "description": "Upgrade - Increases your defense during Whirlwind."
         },
         {
-          "name": "Indomitable",
-          "row": 5,
-          "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 110,
-          "reqSkills": ["Bulwark"],
-          "description": "Passive - Improves your blocking prowess."
-        },
-        {
-          "name": "Second Wind",
+          "name": "Lifestealer",
           "row": 5,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 20,
-          "reqSkills": ["Shieldmaiden"],
-          "description": "Upgrade - Shieldmaiden regenerates life after you block."
+          "reqLevel": 40,
+          "reqSkills": ["Whirlwind"],
+          "description": "Upgrade - Whirlwind attacks restore life."
         },
         {
-          "name": "Elemental Aegis",
+          "name": "Executioner",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 60,
+          "reqSkills": ["Gale Force"],
+          "description": "Upgrade - Improves Whirlwind if wielding a two handed weapon."
+        },
+        {
+          "name": "Gale Force",
           "row": 6,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 35,
-          "reqSkills": ["Second Wind"],
-          "description": "Upgrade - Shieldmaiden grants elemental absorb after you block."
+          "reqLevel": 50,
+          "reqSkills": ["Whirlwind"],
+          "description": "Upgrade - Your Whirlwind attacks splash to nearby enemies."
         }
       ]
     },
@@ -299,67 +254,76 @@
       "name": "Elementalist",
       "skills": [
         {
-          "name": "Great Hunt",
+          "name": "Conflux",
           "row": 1,
-          "col": 1,
+          "col": 2,
           "maxLevel": 25,
           "reqLevel": 1,
           "reqSkills": [],
-          "description": "Attack - Unleash Ban-Seth's spirits of the hunt."
+          "description": "Buff - Sacrifice physical prowess for elemental power."
         },
         {
-          "name": "Hyena Strike",
+          "name": "Iron Spiral",
           "row": 2,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 5,
-          "reqSkills": ["Great Hunt"],
-          "description": "Attack - Infectious strike that spreads damage to nearby enemies."
+          "reqLevel": 3,
+          "reqSkills": ["Conflux"],
+          "description": "Attack - A vortex of blades shreds the enemy."
         },
         {
-          "name": "Hunter's Prowess",
+          "name": "Galvanism",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 93,
+          "reqSkills": ["Iron Spiral"],
+          "description": "Upgrade - Empowers Iron Spiral and Thunderstorm."
+        },
+        {
+          "name": "Elemental Overload",
           "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Iron Spiral"],
+          "description": "Passive - Grants elemental absorption after using a signature skill."
+        },
+        {
+          "name": "Thunderstorm",
+          "row": 4,
           "col": 1,
           "maxLevel": 25,
           "reqLevel": 15,
-          "reqSkills": ["Takedown"],
-          "description": "Upgrade - Takedown improves combat abilities per attack."
+          "reqSkills": ["Elemental Overload"],
+          "description": "Projectile - Electrocutes a large area around you."
         },
         {
-          "name": "Takedown",
-          "row": 3,
+          "name": "Deep Freeze",
+          "row": 4,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 10,
-          "reqSkills": ["Hyena Strike"],
-          "description": "Attack - Enter a state of fury and improve your combat abilities."
+          "reqLevel": 25,
+          "reqSkills": ["Elemental Overload"],
+          "description": "Attack - A concentrated burst of deadly ice."
         },
         {
-          "name": "Lioness",
+          "name": "Purifying Flame",
           "row": 4,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 20,
-          "reqSkills": ["Takedown"],
-          "description": "Passive - Increases damage and defense."
-        },
-        {
-          "name": "Pounce",
-          "row": 5,
-          "col": 3,
-          "maxLevel": 25,
           "reqLevel": 30,
-          "reqSkills": ["Lioness"],
-          "description": "Warp Strike - Blink on top of the target, damaging nearby monsters."
+          "reqSkills": ["Elemental Overload"],
+          "description": "Buff - A restorative cleansing."
         },
         {
-          "name": "Fend",
-          "row": 6,
+          "name": "Primordial Strike",
+          "row": 5,
           "col": 2,
           "maxLevel": 25,
           "reqLevel": 40,
-          "reqSkills": ["Pounce"],
-          "description": "Buff - Bulks up and fends off enemies at all sides."
+          "reqSkills": ["Thunderstorm", "Deep Freeze", "Purifying Flame"],
+          "description": "Attack - Discharge the power of the elements."
         }
       ]
     },
@@ -367,94 +331,103 @@
       "name": "Warmonger",
       "skills": [
         {
-          "name": "Thundermaiden",
+          "name": "Stampede",
           "row": 1,
           "col": 2,
           "maxLevel": 25,
           "reqLevel": 1,
           "reqSkills": [],
-          "description": "Passive - You are enshrouded in storm, increasing your combat powers."
+          "description": "Projectile - Throw multiple axes in a deadly volley."
         },
         {
-          "name": "Hammer of Zerae",
+          "name": "Snake Bite",
           "row": 2,
           "col": 1,
           "maxLevel": 25,
-          "reqLevel": 2,
-          "reqSkills": ["Thundermaiden"],
-          "description": "Projectile - An electrically charged gammer whirls around you, dealing damage in its path."
+          "reqLevel": 12,
+          "reqSkills": ["Stampede"],
+          "description": "Projectile - Throwing axe attack that stuns and poisons."
         },
         {
-          "name": "Stormcall",
+          "name": "Overkill",
           "row": 2,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 2,
-          "reqSkills": ["Thundermaiden"],
-          "description": "Spell - Lightning strike the earth electrocuting nearby enemies."
+          "reqLevel": 12,
+          "reqSkills": ["Stampede"],
+          "description": "Projectile - Throw a massive shower of axes over a narrow area."
         },
         {
-          "name": "Power Shift",
-          "row": 3,
-          "col": 1,
-          "maxLevel": 25,
-          "reqLevel": 10,
-          "reqSkills": ["Hammer of Zerae"],
-          "description": "Projectile - Launch a short range hammer that sacrifices its piercing capabilities for greatly increased impact damage."
-        },
-        {
-          "name": "Discharge",
+          "name": "Bloodthirst",
           "row": 3,
           "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 25,
-          "reqSkills": ["Thundermaiden"],
-          "description": "Debuff - Periodically strikes enemies with a burst of weakening energy."
-        },
-        {
-          "name": "Askari Lightning",
-          "row": 3,
-          "col": 3,
-          "maxLevel": 25,
-          "reqLevel": 5,
-          "reqSkills": ["Stormcall"],
-          "description": "Spell - Conjure a devastating lightning strike."
-        },
-        {
-          "name": "Lightning Shield",
-          "row": 4,
-          "col": 2,
-          "maxLevel": 25,
-          "reqLevel": 30,
-          "reqSkills": ["Discharge"],
-          "description": "Buff - Cast a protective static field that shocks attackers."
-        },
-        {
-          "name": "Reckoning of Zerae",
-          "row": 5,
-          "col": 1,
           "maxLevel": 25,
           "reqLevel": 40,
-          "reqSkills": ["Power Shift"],
-          "description": "Passive - Zerae rewards your devotion by imbuing your hammers to strike with even more force."
+          "reqSkills": ["Snake Bite", "Overkill"],
+          "description": "Passive - Additional bonuses from life steal depending on your stance."
         },
         {
-          "name": "Conductivity",
+          "name": "Mighty Vigor",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Bloodthirst"],
+          "description": "Passive - Your strength increases your bloodthirst."
+        },
+        {
+          "name": "Unyielding",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 45,
+          "reqSkills": ["Bloodthirst"],
+          "description": "Passive - Gain phyisical resistance after being hit."
+        },
+        {
+          "name": "Aptitude",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 120,
+          "reqSkills": ["Bloodthirst"],
+          "description": "Passive - Your combat stance becomes more effective with experience."
+        },
+        {
+          "name": "Pillage",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Bloodthirst"],
+          "description": "Passive - Find extra loot when you slay monsters."
+        },
+        {
+          "name": "Warder",
           "row": 5,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 50,
-          "reqSkills": ["Askari Lightning"],
-          "description": "Upgrade - Stormcall has a chance to cast Askari Lightning on hit."
+          "reqLevel": 90,
+          "reqSkills": ["Bloodthirst"],
+          "description": "Passive - Protects you from damage for a short time after blocking."
         },
         {
-          "name": "Resistance",
+          "name": "Fortress",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": [],
+          "description": "Projectile - Summons a ring of deadly axe thrower towers around you."
+        },
+        {
+          "name": "Citadel",
           "row": 6,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 75,
-          "reqSkills": ["Lightning Shield"],
-          "description": "Passive - Improves your defenses and blocking based on your path."
+          "reqLevel": 30,
+          "reqSkills": ["Fortress"],
+          "description": "Upgrade - Increases your maximum block chance."
         }
       ]
     },
@@ -462,121 +435,76 @@
       "name": "Shaman",
       "skills": [
         {
-          "name": "Blood Magic",
+          "name": "Guardian Spirit",
           "row": 1,
           "col": 2,
           "maxLevel": 25,
           "reqLevel": 1,
           "reqSkills": [],
-          "description": "Passive - Sacrifice your life force to obtain ruinous power."
+          "description": "Summon - A spirit who attacks enemies with axe skills."
         },
         {
-          "name": "Magic Missiles",
-          "row": 2,
-          "col": 1,
-          "maxLevel": 25,
-          "reqLevel": 2,
-          "reqSkills": ["Blood Magic"],
-          "description": "Spell - Fires a wave of multiple homing magic bolts."
-        },
-        {
-          "name": "Eldritch Storm",
+          "name": "Defender Spirit",
           "row": 2,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 15,
-          "reqSkills": ["Blood Magic"],
-          "description": "Spell - Unleash a twister of forbidden power."
+          "reqLevel": 6,
+          "reqSkills": ["Guardian Spirit"],
+          "description": "Summon - A spirit who attacks in melee and takes damage for you."
         },
         {
-          "name": "Lava Pit",
-          "row": 2,
-          "col": 3,
-          "maxLevel": 25,
-          "reqLevel": 30,
-          "reqSkills": ["Blood Magic"],
-          "description": "Spell - A volcanic lake erupts under your enemies."
-        },
-        {
-          "name": "Blast Radius",
-          "row": 3,
-          "col": 1,
-          "maxLevel": 25,
-          "reqLevel": 50,
-          "reqSkills": ["Magic Missiles"],
-          "description": "Upgrade - Increases the explosion area of your Magic Missiles."
-        },
-        {
-          "name": "Entropy",
+          "name": "Protector Spirit",
           "row": 3,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 60,
-          "reqSkills": ["Eldritch Storm"],
-          "description": "Upgrade - Increases Eldritch Storm area and range."
+          "reqLevel": 12,
+          "reqSkills": ["Defender Spirit"],
+          "description": "Summon - A spirit who attacks in melee and buffs the party"
         },
         {
-          "name": "Hungering Flames",
-          "row": 3,
-          "col": 3,
-          "maxLevel": 25,
-          "reqLevel": 70,
-          "reqSkills": ["Lava Pit"],
-          "description": "Upgrade - Increases Lava Pit damage and adds healing."
-        },
-        {
-          "name": "Concentrated Effect",
+          "name": "Shamanic Trance",
           "row": 4,
           "col": 1,
           "maxLevel": 25,
-          "reqLevel": 80,
-          "reqSkills": ["Blast Radius"],
-          "description": "Buff - Decreases explorions radius but increases damage."
+          "reqLevel": 20,
+          "reqSkills": ["Protector Spirit"],
+          "description": "Passive - Improves the combat prowess of your ancient spirits."
         },
         {
-          "name": "Crimson Rite",
-          "row": 5,
-          "col": 1,
+          "name": "Spirit Reave",
+          "row": 4,
+          "col": 3,
           "maxLevel": 25,
-          "reqLevel": 10,
-          "reqSkills": [],
-          "description": "Upgrade - Increases the damage of Magic Missiles and Eldritch Storm."
+          "reqLevel": 20,
+          "reqSkills": ["Protector Spirit"],
+          "description": "Attack - Magic damage over time melee attack."
         },
         {
-          "name": "Spiritual Invocation",
+          "name": "Spirit Walk",
           "row": 5,
           "col": 2,
           "maxLevel": 25,
-          "reqLevel": 40,
-          "reqSkills": ["Crimson Rite"],
-          "description": "Passive - Mana regeneration also increases your physical resist."
+          "reqLevel": 25,
+          "reqSkills": ["Shamanic Trance","Spirit Reave"],
+          "description": "Warp - Teleports you and your minions on target enemy, healing you."
         },
         {
-          "name": "Forbidden Knowledge",
+          "name": "Ancestral Endurance",
           "row": 5,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 120,
-          "reqSkills": ["Spiritual Invocation"],
-          "description": "Upgrade - Your blood spells gain a bonus to total damage at high skill levels."
+          "reqLevel": 30,
+          "reqSkills": ["Spirit Reave"],
+          "description": "Upgrade - Increases your damage mitigation after using Spirit Reave."
         },
         {
-          "name": "Fire Elementals",
-          "row": 6,
-          "col": 1,
-          "maxLevel": 25,
-          "reqLevel": 20,
-          "reqSkills": [],
-          "description": "Summon - Fire elementals with a fiery healing spell."
-        },
-        {
-          "name": "Unstable Essence",
+          "name": "Spirit Bond",
           "row": 6,
           "col": 3,
           "maxLevel": 25,
-          "reqLevel": 40,
-          "reqSkills": ["Fire Elementals"],
-          "description": "Upgrade - Summon two elementals per cast."
+          "reqLevel": 70,
+          "reqSkills": ["Ancestral Endurance"],
+          "description": "Upgrade - Spirit Reave's duration increases with your summon count."
         }
       ]
     },
@@ -670,49 +598,49 @@
       "name": "Reward",
       "skills": [
         {
-          "name": "Spellbind",
+          "name": "Immortal",
           "row": 1,
           "col": 1,
           "maxLevel": 25,
           "reqLevel": 90,
           "reqSkills": [],
-          "description": "Curse - Enemies in front of you are petrified."
+          "description": "Passive - Avoid attacks in battle and recover more quickly."
         },
         {
-          "name": "War Spirit",
+          "name": "Thundergod",
           "row": 1,
           "col": 3,
           "maxLevel": 25,
           "reqLevel": 115,
           "reqSkills": [],
-          "description": "Buff - Shoots spike novas when near enemies and adds bonuses based on your devotion."
+          "description": "Buff - Your attacks stun the target and you emit stun novas."
         },
         {
-          "name": "Curare",
+          "name": "Nephalem Spirit",
           "row": 3,
           "col": 1,
           "maxLevel": 25,
           "reqLevel": 90,
           "reqSkills": [],
-          "description": "Passive - Adds deadly poison to your weapon and increases your poison tolerance."
+          "description": "Passive - Enhance your weapons with ancestral elemental power."
         },
         {
-          "name": "Paragon",
+          "name": "Runemaster",
           "row": 3,
           "col": 2,
           "maxLevel": 25,
           "reqLevel": 90,
           "reqSkills": [],
-          "description": "Passive - Grants a life bonus for each gem equipped."
+          "description": "Passive - Grants a total defense bonus for each rune equipped."
         },
         {
-          "name": "Spirit of Vengeance",
+          "name": "Gladiator's Dominance",
           "row": 3,
           "col": 3,
           "maxLevel": 25,
           "reqLevel": 90,
           "reqSkills": [],
-          "description": "Special Summon - Raises a spirit from a corpse that summons random undead and has an aura which increases spell damage and life."
+          "description": "Passive - Improves both offensive and defensive prowess."
         },
         {
           "name": "Paragon of Fate",
