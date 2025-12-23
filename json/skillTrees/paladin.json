@@ -1,0 +1,603 @@
+{
+  "className": "Paladin",
+  "tabs": [
+    {
+      "name": "Aspects",
+      "skills": [
+        {
+          "name": "Elemental Wisdom",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Buff - Your spells and attacks ignore a fraction of enemy resistance."
+        },
+        {
+          "name": "Veneration of Justice",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Elemental Wisdom"], 
+          "description": "Buff - Increases vitality, energy and weapon damage."
+        },
+        {
+          "name": "Spark of Hope",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Veneration of Justice"], 
+          "description": "Buff - Temporarily raises all character speeds."
+        },
+        {
+          "name": "Ward of Fate",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Spark of Hope"], 
+          "description": "Buff - Protect yourself with a glowing shield."
+        },
+        {
+          "name": "Valiance",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Ward of Fate"], 
+          "description": "Upgrade - Increase your movement speed."
+        },
+        {
+          "name": "Servants of Valor",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 35,
+          "reqSkills": ["Ward of Fate"], 
+          "description": "Summon - A zealous coven of followers shows no mercy to the enemy."
+        },
+        {
+          "name": "Conclave",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Servants of Valor"], 
+          "description": "Upgrade - Empowers your servants of valor."
+        },
+        {
+          "name": "Fervor",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Servants of Valor"], 
+          "description": "Upgrade - Empowers your servants of valor."
+        }
+      ]
+    },
+    {
+      "name": "Templar",
+      "skills": [
+        {
+          "name": "Retaliate",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Attack - Strike back with a vengeance."
+        },
+        {
+          "name": "Divine Judgement",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Retaliate"],
+          "description": "Attack - Invoke a cascade of heavenly power to purify evil."
+        },
+        {
+          "name": "Sanctity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Divine Judgement"],
+          "description": "Passive - Abandon the physical to increase elemental prowess."
+        },
+        {
+          "name": "Consecration",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Divine Judgement"],
+          "description": "Passive - Turn from holy flames and embrace the realm of the physical."
+        },
+        {
+          "name": "Lionheart",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Divine Judgement"],
+          "description": "Buff - Increases offensive and defensive power."
+        },
+        {
+          "name": "Holy Fire",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Divine Judgement"],
+          "description": "Passive - Endows the weapons of the honorable with blessed light."
+        },
+        {
+          "name": "Colosseum",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 55,
+          "reqSkills": ["Lionheart"],
+          "description": "Warp Strike - Crash into an enemy target weakening foes within the impact zone."
+        }
+      ]
+    },
+    {
+      "name": "Incarnation",
+      "skills": [
+        {
+          "name": "Dragon Jaws",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Shreds the target area with monstrous fangs."
+        },
+        {
+          "name": "Solar Flare",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Dragon Jaws"],
+          "description": "Spell - Burn and blind enemies in a large area around you."
+        },
+        {
+          "name": "Dragonbone Armor",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Dragon Jaws"],
+          "description": "Buff - Surrounds you with a protective barrier."
+        },
+        {
+          "name": "Scion",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Solar Flare"],
+          "description": "Passive - The power of the light strengthens you in combat."
+        },
+        {
+          "name": "Apex Predator",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Dragon Jaws"],
+          "description": "Upgrade - Command holy servants and sap the life from your enemies."
+        },
+        {
+          "name": "Annihilation",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Dragonbone Armor"],
+          "description": "Spell - Summon fiery serpents to incinerate your foes."
+        },
+        {
+          "name": "Dragon's Breath",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Annihilation"],
+          "description": "Debuff - Reduces enemy fire resistance and fire damage."
+        },
+        {
+          "name": "Combustion",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 75,
+          "reqSkills": ["Annihilation"],
+          "description": "Upgrade - Increases the offensive potency of Annihilation."
+        }
+      ]
+    },
+    {
+      "name": "Nephalem",
+      "skills": [
+        {
+          "name": "Vessel of Retribution",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Periodically blasts nearby threats with divine magic."
+        },
+        {
+          "name": "Vessel of Judgement",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Periodically assaults enemies with righteous blasts."
+        },
+        {
+          "name": "Solstice and Equinox",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Vessel of Retribution"],
+          "description": "Upgrade - Increase damage and targets."
+        },
+        {
+          "name": "Life and Death",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Vessel of Judgement"],
+          "description": "Upgrade - Increase damage and targets."
+        },
+        {
+          "name": "Absolution",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Solstice and Equinox", "Life and Death"],
+          "description": "Spell - Concentrate the power of your vessels to purge evil."
+        },
+        {
+          "name": "Reverence",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Absolution"],
+          "description": "Buff - Applies relevant effects from Ward of Fate and Veneration of Justice."
+        }
+      ]
+    },
+    {
+      "name": "Ritualist",
+      "skills": [
+        {
+          "name": "Grim Presence",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Buff - Enemies near you are weaker."
+        },
+        {
+          "name": "Lemures",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 3,
+          "reqSkills": ["Grim Presence"],
+          "description": "Melee Spell - Unleashes multiple homing ice wraiths."
+        },
+        {
+          "name": "Rite of the Restless",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Lemures"],
+          "description": "Upgrade - Increases Lemures damage but reduces its area of effect."
+        },
+        {
+          "name": "Blood Thorns",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Lemures"],
+          "description": "Melee Spell - Blasts enemies with burning thorns."
+        },
+        {
+          "name": "Rite of Thorns",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Blood Thorns"],
+          "description": "Upgrade - Increases Blood Thorns damage but reduces its area of effect."
+        },
+        {
+          "name": "Possession",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Grim Presence"],
+          "description": "Passive - Improves your combat fortitude."
+        },
+        {
+          "name": "Sanguine Covenant",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 35,
+          "reqSkills": ["Possession"],
+          "description": "Buff - Blood ritual empowering your spells and restoring life."
+        },
+        {
+          "name": "Frostbite",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Upgrade - Grim Presence adds cold damage to Divine Apparition."
+        },
+        {
+          "name": "Transcendence",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": [],
+          "description": "Upgrade - Grim Presence adds fire pierce to your servants of valor."
+        }
+      ]
+    },
+    {
+      "name": "Warlock",
+      "skills": [
+        {
+          "name": "Mind Flay",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Chaotic beam of lightning that shocks your primary target."
+        },
+        {
+          "name": "Confluence",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Mind Flay"],
+          "description": "Upgrade - Mind Flay is stronger when you are healthy."
+        },
+        {
+          "name": "Stormlord",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Mind Flay"],
+          "description": "Passive - Bonus to strength, dexterity, vitality and energy."
+        },
+        {
+          "name": "Slayer",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Mind Flay"],
+          "description": "Spell - Summons a stationary phantom that electrocutes nearby enemies."
+        },
+        {
+          "name": "Symphony of Destruction",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Slayer"],
+          "description": "Upgrade - Your Mind Flay is enhanced near your Slayer."
+        },
+        {
+          "name": "Tainted Blood",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Stormlord"],
+          "description": "Buff - Infuse your flesh with a dark prayer."
+        },
+        {
+          "name": "Acumen",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Tainted Blood"],
+          "description": "Passive - Mastery over the dark arts improve your abilities."
+        }
+      ]
+    },
+    {
+      "name": "Mastery",
+      "skills": [
+        {
+          "name": "Meditation",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum mana and mana regeneration."
+        },
+        {
+          "name": "Purity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Protects you against poison damage and curses."
+        },
+        {
+          "name": "Melee Devotion",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - A melee exclusive layer of damage protection."
+        },
+        {
+          "name": "Freedom",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases defensive speeds and reduces chilled duration."
+        },
+        {
+          "name": "Tenacity",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases physical resistance."
+        },
+        {
+          "name": "Endurance",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum life."
+        },
+        {
+          "name": "Continuity",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the duration of your buff/debuff skills."
+        },
+        {
+          "name": "Specialization",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the skill cap of your activate [Non-Ultimate] Abilities."
+        },
+        {
+          "name": "Chemistry",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases potion effectiveness compared to other sustain."
+        }
+      ]
+    },
+    {
+      "name": "Reward",
+      "skills": [
+        {
+          "name": "Divine Apparition",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Warp - Teleport to target location, freezing nearby monsters."
+        },
+        {
+          "name": "Blessed Life",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": [],
+          "description": "Passive - Reduces all incoming physical damage."
+        },
+        {
+          "name": "Dragon's Blessing",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - The dragon gods increase your combat power."
+        },
+        {
+          "name": "Resurrect",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Spell - Revive target corpses as powerful holy revenants."
+        },
+        {
+          "name": "Superbeast",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Buff - Morph into a shadow beast, increasing damage."
+        },
+        {
+          "name": "Habeas Corpus",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Spell - Spawn corpses of enemies you've resurrected last."
+        },
+        {
+          "name": "Paragon of Fate",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Library of Fate progression."
+        },
+        {
+          "name": "Paragon of Sanctity",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Duncraig progression."
+        }
+      ]
+    }
+  ]
+}

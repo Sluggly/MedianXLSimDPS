@@ -331,6 +331,7 @@ function switchTab(tabName) {
     // Trigger specific renders based on tab
     if (tabName === 'character') renderCharacterTab(); 
     if (tabName === 'topgear') renderTopGearSelection();
+    if (tabName === 'skills') renderSkillsTab();
 }
 
 // Generates the socket visual container for any item

@@ -44,12 +44,23 @@ socket.on('initData', (data) => {
         });
     }
 
-    // 4. NEW: Load Enemies
+    // 4. Load Enemies
     enemyList = []; // Clear hardcoded defaults if any
     if (data.enemies) {
         data.enemies.forEach(enemyData => {
             loadEnemyFromJSON(enemyData); // This pushes to enemyList via createEnemy
         });
+    }
+
+    if (data.skillTrees) {
+        globalSkillTreeData = {}; // Clear existing
+        data.skillTrees.forEach(tree => {
+            if (tree.className) {
+                // Map it: "Paladin" -> Object
+                globalSkillTreeData[tree.className] = tree;
+            }
+        });
+        console.log("Skill Trees loaded:", Object.keys(globalSkillTreeData));
     }
 
     // 5. Refresh UIs

@@ -1,0 +1,639 @@
+{
+  "className": "Necromancer",
+  "tabs": [
+    {
+      "name": "Deathspeaker",
+      "skills": [
+        {
+          "name": "Embalming",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Ritual of the initiates fortifies you and your minions."
+        },
+        {
+          "name": "Sacrifices",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Embalming"], 
+          "description": "Spell - Summons sacrificial corpses to be of use."
+        },
+        {
+          "name": "Death Ward",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Sacrifices"], 
+          "description": "Passive - Dark masteries increase your defense."
+        },
+        {
+          "name": "Famine",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Sacrifices"], 
+          "description": "Passive - Increases damage and returns life when you hit."
+        },
+        {
+          "name": "Bane",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": [], 
+          "description": "Curse - Enemies near target minion are weaker to physical damage."
+        },
+        {
+          "name": "Death Pact",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 37,
+          "reqSkills": ["Death Ward"], 
+          "description": "Passive - Your Devotion determines your combat strengths."
+        }
+      ]
+    },
+    {
+      "name": "Summon",
+      "skills": [
+        {
+          "name": "Blood Skeleton",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Summon - Rise skeleton warriors from the mangled corpses of the dead."
+        },
+        {
+          "name": "Grim Vision",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Blood Skeleton"],
+          "description": "Upgrade - Skeletons provide an offensive aura to allies."
+        },
+        {
+          "name": "Violent Immolation",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Night Hawks"],
+          "description": "Upgrade - Deprived of any hesitation the hawks deal higher damage."
+        },
+        {
+          "name": "Night Hawks",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 6,
+          "reqSkills": ["Blood Skeleton"],
+          "description": "Summon - Immolating hawks that seek their preys to deal focused damage."
+        },
+        {
+          "name": "Abyss Knight",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 12,
+          "reqSkills": ["Night Hawks"],
+          "description": "Summon - Death knights with a ranged void blast."
+        },
+        {
+          "name": "Chaos Nova",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Abyss Knight"],
+          "description": "Upgrade - Knights proc a deadly nova on kill and when killed."
+        },
+        {
+          "name": "Metal Solace",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 60,
+          "reqSkills": ["Iron Golem"],
+          "description": "Upgrade - The Metal flesh mends itself and the golem regenerate its wounds."
+        },
+        {
+          "name": "Iron Golem",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Abyss Knight"],
+          "description": "Special Summon - Consume an item to forge a powerful living servant."
+        },
+        {
+          "name": "Resurgence",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Iron Golem"],
+          "description": "Passive - Your dark army grows stronger."
+        }
+      ]
+    },
+    {
+      "name": "Melee",
+      "skills": [
+        {
+          "name": "Parasite",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Attack - Releases a magic scourge that tears between multiple targets."
+        },
+        {
+          "name": "Carnage",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Parasite"],
+          "description": "Attack - Channel a fiery shockwave through your weapon."
+        },
+        {
+          "name": "Reaper",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Parasite"],
+          "description": "Upgrade - Deepens the parasite bloodthirst granting more damage and range."
+        },
+        {
+          "name": "Onslaught",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Carnage"],
+          "description": "Upgrade - Reduced cooldown for more killing power."
+        },
+        {
+          "name": "Angel of Death",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Carnage"],
+          "description": "Warp Strike - Leap in the air and plunge to deliver a devastating blow."
+        },
+        {
+          "name": "Blight Descent",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 35,
+          "reqSkills": ["Angel of Death"],
+          "description": "Upgrade - Gain poison damage to all your attacks after jumping."
+        },
+        {
+          "name": "Deathlord",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Angel of Death"],
+          "description": "Buff - Embrace the dark title in exchange for an upsurge of power."
+        },
+        {
+          "name": "Demonic Commune",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Deathlord"],
+          "description": "Upgrade - Increased movement speed gifted by a profane bond."
+        },
+        {
+          "name": "Ominous Vigor",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Deathlord"],
+          "description": "Passive - Heightens your chances to block, your strength and dexterity."
+        }
+      ]
+    },
+    {
+      "name": "Crossbow",
+      "skills": [
+        {
+          "name": "Widowmaker",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Projectile - Unleash a barrage of homing bolts."
+        },
+        {
+          "name": "Catapult Shot",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Projectile - Blanket the target area with a spread of volatile potions."
+        },
+        {
+          "name": "Deathly Effigy",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Widowmaker"],
+          "description": "Trap - Conjure a terrifying effigy that fires ring of bolts and shreds nearby corpses."
+        },
+        {
+          "name": "Flameburst Shot",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Catapult Shot"],
+          "description": "Projectile - Blats out a short ranged spread of fire in front of you."
+        },
+        {
+          "name": "Brutal Effigy",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Deathly Effigy"],
+          "description": "Upgrade - Your effigy gains an aura that boosts your combat prowess while nearby."
+        },
+        {
+          "name": "Alchemical Preparation",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Flameburst Shot"],
+          "description": "Passive - Your alchemy skills allow you yo prepare more numerous and powerful mixtures."
+        },
+        {
+          "name": "Voodoo Practice",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Deathly Effigy"],
+          "description": "Passive - Your devoted practice to the dark arts grants you power."
+        },
+        {
+          "name": "Debilitating Concoction",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Alchemical Preparation"],
+          "description": "Projectile - Lob a mixture of vile liquids that greatly hinders your foes."
+        },
+        {
+          "name": "Life From Death",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Voodoo Practice","Debilitating Concoction"],
+          "description": "Passive - Insight on the secrets of life and death heighten your endurance."
+        }
+      ]
+    },
+    {
+      "name": "Malice",
+      "skills": [
+        {
+          "name": "Death Ripple",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Projectile - Conjure a deathly ghost lance that explodes on impact."
+        },
+        {
+          "name": "Terror",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Dream Eater"],
+          "description": "Upgrade - Inflicts a deepening terror upon your target."
+        },
+        {
+          "name": "Dream Eater",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Death Ripple"],
+          "description": "Spell - Target foe is consumed by horror."
+        },
+        {
+          "name": "Occult Path",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Dream Eater"],
+          "description": "Passive - Across the darkness a new path is revealed."
+        },
+        {
+          "name": "Nightwalker",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Dream Eater"],
+          "description": "Passive - Gain mastery over the black arts."
+        },
+        {
+          "name": "Relentless",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": ["Torment"],
+          "description": "Upgrade - Mastery of the profane arts allow you to summon more spirits."
+        },
+        {
+          "name": "Pestilence",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Nightwalker"],
+          "description": "Spell - Conjure a vile storm of toxic wrath."
+        },
+        {
+          "name": "Gift of Blooc",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": ["Torment"],
+          "description": "Passive - Sacrifice blood to become that which you control."
+        },
+        {
+          "name": "Torment",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Melee Spell - Bombard your target with toxic souls of the damned."
+        }
+      ]
+    },
+    {
+      "name": "Totem",
+      "skills": [
+        {
+          "name": "Fireheart Totem",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": ["Apprenticeship"],
+          "description": "Totem - Casts explosive fireballs at nearby enemies."
+        },
+        {
+          "name": "Stormeye Totem",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Apprenticeship"],
+          "description": "Totem - Casts a crackling discharge of lightning."
+        },
+        {
+          "name": "Frostclaw Totem",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Apprenticeship"],
+          "description": "Totem - Casts an intense burst of cold at nearby enemies."
+        },
+        {
+          "name": "Apprenticeship",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - The hidden path of totemancy is revealed to you."
+        },
+        {
+          "name": "Dark Gathering",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Apprenticeship"],
+          "description": "Upgrade - Your authority in the dark arts grows jointly with you army."
+        },
+        {
+          "name": "Dirge",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Dark Gathering"],
+          "description": "Upgrade - Totems unleash their spell when killed."
+        },
+        {
+          "name": "Soulbond",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Dirge"],
+          "description": "Passive - When all elemental totems are present a mystic bond empowers them."
+        },
+        {
+          "name": "Soulchain",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Dirge"],
+          "description": "Passive - Sacrifice two elements for greater proficiency in a third."
+        }
+      ]
+    },
+    {
+      "name": "Mastery",
+      "skills": [
+        {
+          "name": "Meditation",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum mana and mana regeneration."
+        },
+        {
+          "name": "Purity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Protects you against poison damage and curses."
+        },
+        {
+          "name": "Melee Devotion",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - A melee exclusive layer of damage protection."
+        },
+        {
+          "name": "Freedom",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases defensive speeds and reduces chilled duration."
+        },
+        {
+          "name": "Tenacity",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases physical resistance."
+        },
+        {
+          "name": "Endurance",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum life."
+        },
+        {
+          "name": "Continuity",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the duration of your buff/debuff skills."
+        },
+        {
+          "name": "Specialization",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the skill cap of your activate [Non-Ultimate] Abilities."
+        },
+        {
+          "name": "Chemistry",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases potion effectiveness compared to other sustain."
+        }
+      ]
+    },
+    {
+      "name": "Reward",
+      "skills": [
+        {
+          "name": "Talon's Hold",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Slows down targets and reanimates them as skeleton warriors."
+        },
+        {
+          "name": "Land of the Dead",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": [],
+          "description": "Buff - Your mastery of the macabre arts rewards you."
+        },
+        {
+          "name": "Rathma's Chosen",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Special Summon - Evoke Rathma's avatar upon sanctuary, empowering your combat prowess."
+        },
+        {
+          "name": "Veil King",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Summon - Bind to the mortal plane the might of the supreme skeletal warlod, the Veil King."
+        },
+        {
+          "name": "Jinn",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Special Summon - Burning demon clad in an aura of infernal power."
+        },
+        {
+          "name": "Paragon of Fate",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Library of Fate progression."
+        },
+        {
+          "name": "Paragon of Sanctity",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Duncraig progression."
+        }
+      ]
+    }
+  ]
+}

@@ -44,7 +44,8 @@ io.on('connection', (socket) => {
         characters: getAllJsonFiles('./json/characters'), 
         items: getAllJsonFiles('./json/items'),
         skills: getAllJsonFiles('./json/skills'),
-        enemies: getAllJsonFiles('./json/enemies')
+        enemies: getAllJsonFiles('./json/enemies'),
+        skillTrees: getAllJsonFiles('./json/skillTrees')
     });
 
     // 2. Handle Scrape Request

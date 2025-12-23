@@ -238,3 +238,56 @@ th.sortable.desc::after {
 .text-gold { color: #d4af37 !important; }
 .text-purple { color: #e040fb !important; }
 .text-blue { color: #448aff !important; }
+
+/* Container for the specific tree page */
+.skill-grid {
+    display: grid;
+    /* 3 Columns is standard D2, maybe 4 for Median? Let's go with 4 to be safe */
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(6, 100px); /* 6 Rows, 100px height each */
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Individual Skill Node */
+.skill-node {
+    width: 64px;
+    height: 64px;
+    background-color: #222;
+    border: 2px solid #555;
+    position: relative;
+    margin: auto; /* Center in grid cell */
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.skill-node:hover {
+    border-color: #fff;
+}
+
+.skill-node.allocated {
+    border-color: #d4af37; /* Gold border for active skills */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.skill-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Level indicator (bottom right) */
+.skill-level {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #555;
+    font-size: 12px;
+    padding: 0 4px;
+    font-weight: bold;
+}

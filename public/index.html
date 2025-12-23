@@ -35,6 +35,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" onclick="switchTab('about')">About Me</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="switchTab('skills')"">Skill Tree</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -446,6 +449,37 @@
         </div>
     </div>
 
+    <!-- TAB: SKILL TREES -->
+    <div id="tab-skills" class="tab-content" style="display:none;">
+        <div class="row h-100">
+            <div class="col-md-8 d-flex flex-column">
+                <div class="card h-100 bg-darker"> <div class="card-header p-0">
+                        <ul class="nav nav-pills" id="skill-pages-nav">
+                            </ul>
+                    </div>
+                    
+                    <div class="card-body p-0 position-relative" id="skill-tree-container" 
+                        style="background: #111; overflow: auto; min-height: 600px;">
+                        <div id="skill-grid" class="skill-grid"></div>
+                    </div>
+                    
+                    <div class="card-footer p-2 text-center text-muted small">
+                        Left-Click: Add Point | Right-Click: Remove Point | Shift-Click: Max
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">Skill Details</div>
+                    <div class="card-body" id="skill-details-panel">
+                        <div class="text-center text-muted mt-5">Hover over a skill to see details.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TAB: ABOUT -->
     <div id="tab-about" class="tab-content" style="display:none;">
         <div class="card bg-dark text-white border-secondary">
@@ -474,6 +508,7 @@
 <script src="js/tabs/simulator.js"></script>
 <script src="js/tabs/topgear.js"></script>
 <script src="js/tabs/upgrade.js"></script>
+<script src="js/tabs/skillTrees.js"></script>
 
 <script src="js/network.js"></script>
 <script src="js/main.js"></script>

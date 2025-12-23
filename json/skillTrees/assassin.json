@@ -1,0 +1,594 @@
+{
+  "className": "Assassin",
+  "tabs": [
+    {
+      "name": "Ninja",
+      "skills": [
+        {
+          "name": "Blink",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Warp - Teleport to a target, stunning enemies around you."
+        },
+        {
+          "name": "Domain",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Blink"], 
+          "description": "Upgrade - Expands the range of your displacing skills."
+        },
+        {
+          "name": "Shadow Refuge",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Blink"], 
+          "description": "Buff - Briefly shield yourself in a mantle of shadows."
+        },
+        {
+          "name": "Shadowrush",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Shadow Refuge"], 
+          "description": "Upgrade - Move quicker while clad in shadows."
+        },
+        {
+          "name": "Perfect Being",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Shadow Refuge"], 
+          "description": "Passive - Merge with the shadows to become intangible."
+        },
+        {
+          "name": "Queen of Blades",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": [], 
+          "description": "Buff - Spinning blades periodically strike at enemies within melee range."
+        }
+      ]
+    },
+    {
+      "name": "Throwing",
+      "skills": [
+        {
+          "name": "Storm Crows",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Projectile - Throw a volley of randomly homing knives."
+        },
+        {
+          "name": "Way of the Spider",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": [],
+          "description": "Passive - Enables you to inflict powerful poisonous attacks."
+        },
+        {
+          "name": "Scorpion Blade",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 6,
+          "reqSkills": ["Way of the Spider"],
+          "description": "Projectile - Knives coated in deadly poison."
+        },
+        {
+          "name": "APF-20 'Maelstrom' Mk1",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Storm Crows"],
+          "description": "Projectile - Piercing knife that emits flechettes while moving."
+        },
+        {
+          "name": "Wychwind",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["APF-20 'Maelstrom' Mk1"],
+          "description": "Projectile - Knife infused with a void spell that tears a rift field on hit throwing this knife weakens you, leaving you susceptible to damage."
+        },
+        {
+          "name": "Lethal Incision",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Scorpion Blade"],
+          "description": "Buff - Concentrate the power of your poisonous blades."
+        },
+        {
+          "name": "Broadside",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": [],
+          "description": "Projectile - Plants a mechanical device that fires a barrage of knives."
+        },
+        {
+          "name": "Void Gazer",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 100,
+          "reqSkills": ["Wychwind"],
+          "description": "Upgrade - Perceive the void bestowing you with power other than weakness."
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "skills": [
+        {
+          "name": "Noctule",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": [],
+          "description": "Attack - Conjures bats which burst away on impact."
+        },
+        {
+          "name": "Way of the Gryphon",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": [],
+          "description": "Passive - Enables you to inflict powerful shocking attacks."
+        },
+        {
+          "name": "Shadow Dancer",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Noctule"],
+          "description": "Passive - Enhances your combat prowess while using a claw."
+        },
+        {
+          "name": "Batstrike",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Noctule"],
+          "description": "Attack - Charge to unleash various finishers."
+        },
+        {
+          "name": "Summon Familiars",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Batstrike"],
+          "description": "Upgrade - Surprise your enemies with deadly bat summons."
+        },
+        {
+          "name": "Anathema",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": [],
+          "description": "Buff - Neutralizes enemy elemental damage and enhances your own."
+        },
+        {
+          "name": "Winged Calamity",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Summon Familiars"],
+          "description": "Upgrade - Familiars become exceptional in combat ."
+        },
+        {
+          "name": "Vampiric Strike",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Batstrike"],
+          "description": "Upgrade - Unleash a devastating melee blow while inspired by the night."
+        }
+      ]
+    },
+    {
+      "name": "Naginata",
+      "skills": [
+        {
+          "name": "Crucify",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Attack - Impales the enemy with homing spikes."
+        },
+        {
+          "name": "Way of the Phoenix",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": [],
+          "description": "Passive - Enables you to inflict powerful fiery attacks."
+        },
+        {
+          "name": "Laserblade",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": [],
+          "description": "Passive - Augments your offense and defense while wielding a naginata."
+        },
+        {
+          "name": "Barrier Strike",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Crucify"],
+          "description": "Attack - Create a circle of blades that repel enemies."
+        },
+        {
+          "name": "Backstab",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 25,
+          "reqSkills": ["Laserblade", "Barrier Strike"],
+          "description": "Attack - Attacks the enemy's weak spot with enhanced damage."
+        },
+        {
+          "name": "Hades Gate",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 33,
+          "reqSkills": ["Barrier Strike"],
+          "description": "Warp Strike - Teleport into a corpse, heavily damaging nearby enemies."
+        },
+        {
+          "name": "Execution",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Backstab"],
+          "description": "Upgrade - Adds magic damage to Broadside after backstabbing."
+        },
+        {
+          "name": "Momentum",
+          "row": 6,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 66,
+          "reqSkills": ["Hades Gate"],
+          "description": "Upgrade - Increases proficiency by reducing the cooldown."
+        }
+      ]
+    },
+    {
+      "name": "Traps",
+      "skills": [
+        {
+          "name": "Subterfuge",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Unlocks the path to the obscure arts of the traps artificer."
+        },
+        {
+          "name": "Shockwave Trap",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": ["Subterfuge"],
+          "description": "Trap - Detonates into a chatic nova near enemies."
+        },
+        {
+          "name": "Catalyst Trap",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 10,
+          "reqSkills": ["Subterfuge"],
+          "description": "Trap - Activates near enemeis slowing them, empowers your other traps."
+        },
+        {
+          "name": "Incineration Trap",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Subterfuge"],
+          "description": "Trap - Place a device which burns all nearby enemies."
+        },
+        {
+          "name": "Negative Charge",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Shockwave Trap"],
+          "description": "Upgrade - Boosts the piercing potential of the lightning discharges."
+        },
+        {
+          "name": "Enhanced Contraption",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 60,
+          "reqSkills": ["Catalyst Trap"],
+          "description": "Upgrade - Further weakens enemies inside the trap."
+        },
+        {
+          "name": "Artifice Mastery",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 70,
+          "reqSkills": ["Incineration Trap", "Negative Charge", "Enhanced Contraption"],
+          "description": "Passive - Proficiency in the craft imparts advanced field survival techniques."
+        },
+        {
+          "name": "Forger's Hegemony",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 80,
+          "reqSkills": ["Artifice Mastery"],
+          "description": "Passive - Regenerate life after being struck by weapon damage."
+        }
+      ]
+    },
+    {
+      "name": "Psionic",
+      "skills": [
+        {
+          "name": "Shuriken Flurry",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Spell - Expels a set of shurikens psychically driving them at nearby foes."
+        },
+        {
+          "name": "Pinnacle",
+          "row": 2,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 30,
+          "reqSkills": ["Mind Ripple"],
+          "description": "Buff - The assassin forgoes combat strength for mental prowess."
+        },
+        {
+          "name": "Psionic Scream",
+          "row": 2,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 5,
+          "reqSkills": ["Shuriken Flurry"],
+          "description": "Spell - Mind Shockwave that forces nearby enemies to flee."
+        },
+        {
+          "name": "Cognition",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 50,
+          "reqSkills": [],
+          "description": "Passive - Enhances your psionic capabilities."
+        },
+        {
+          "name": "Mind Ripple",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 20,
+          "reqSkills": ["Energize"],
+          "description": "Spell - Aggreate of psionic forces able to bend both space and mind."
+        },
+        {
+          "name": "Psionic Storm",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 40,
+          "reqSkills": ["Psionic Scream"],
+          "description": "Spell - Creates a tempest of mental energy at the target point."
+        },
+        {
+          "name": "Energize",
+          "row": 5,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 15,
+          "reqSkills": ["Psionic Storm"],
+          "description": "Upgrade - Heal yourself with every cast above 10% mana."
+        }
+      ]
+    },
+    {
+      "name": "Mastery",
+      "skills": [
+        {
+          "name": "Meditation",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum mana and mana regeneration."
+        },
+        {
+          "name": "Purity",
+          "row": 1,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Protects you against poison damage and curses."
+        },
+        {
+          "name": "Melee Devotion",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - A melee exclusive layer of damage protection."
+        },
+        {
+          "name": "Freedom",
+          "row": 2,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases defensive speeds and reduces chilled duration."
+        },
+        {
+          "name": "Tenacity",
+          "row": 4,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases physical resistance."
+        },
+        {
+          "name": "Endurance",
+          "row": 4,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases your maximum life."
+        },
+        {
+          "name": "Continuity",
+          "row": 4,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the duration of your buff/debuff skills."
+        },
+        {
+          "name": "Specialization",
+          "row": 5,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases the skill cap of your activate [Non-Ultimate] Abilities."
+        },
+        {
+          "name": "Chemistry",
+          "row": 5,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 1,
+          "reqSkills": [],
+          "description": "Passive - Increases potion effectiveness compared to other sustain."
+        }
+      ]
+    },
+    {
+      "name": "Reward",
+      "skills": [
+        {
+          "name": "Prismatic Cloak",
+          "row": 1,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Reduces incoming elemental and magical damage."
+        },
+        {
+          "name": "Vampiric Icon",
+          "row": 1,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 115,
+          "reqSkills": [],
+          "description": "Spell - Trace a deadly female glyph with arcane flames."
+        },
+        {
+          "name": "Doom",
+          "row": 3,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Curse - Weaken the body and mind of your foes."
+        },
+        {
+          "name": "Way of the Raven",
+          "row": 3,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Passive - Enables you to inflict powerful cold attacks."
+        },
+        {
+          "name": "Beacon",
+          "row": 3,
+          "col": 3,
+          "maxLevel": 25,
+          "reqLevel": 90,
+          "reqSkills": [],
+          "description": "Buff - Periodically detonates a devastating trap nearby."
+        },
+        {
+          "name": "Paragon of Fate",
+          "row": 6,
+          "col": 1,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Library of Fate progression."
+        },
+        {
+          "name": "Paragon of Sanctity",
+          "row": 6,
+          "col": 2,
+          "maxLevel": 25,
+          "reqLevel": 130,
+          "reqSkills": [],
+          "description": "Passive - High level bonuses tied to Heroic Duncraig progression."
+        }
+      ]
+    }
+  ]
+}
